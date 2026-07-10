@@ -1,146 +1,158 @@
-# LIGHT1V3
+# LIGHT ONE V2
 
-LightOne V1 기술 자산과 LightOne V2 Django 서비스를 통합하기 위한 실전형 Django 기반 저장소입니다.
+> 비의료 PT 상담 리포트 SaaS MVP  
+> 작성 기준일: 2026-07-09
 
-이 저장소의 목표는 기존 LIGHTONE 기술 파일을 무리하게 본체에 섞지 않고, 핵심 상담 리포트 시스템은 안정적으로 유지하면서 촬영 품질 검사(QC), QS/JATC 분석, 트레이너 검토 흐름을 단계적으로 연결하는 것입니다.
+본 자료는 비의료 운동상담 참고용이며, 의료 진단·치료·처방 목적이 아닙니다. 모든 판단은 담당 트레이너가 검토합니다.
 
-## Project Vision
+LIGHT ONE V2는 PT샵·헬스장·필라테스 센터가 회원의 운동 수행 기록, 통증 반응 참고값, RPE, 촬영 QC, 트레이너 메모를 구조화해 상담 리포트 초안을 만드는 Django 기반 MVP입니다.
 
-LIGHT1V3는 다음 방향을 기준으로 개발됩니다.
+이 프로젝트는 의료 서비스가 아닙니다. AI 또는 점수 계산 로직은 트레이너의 판단을 대체하지 않으며, 회원에게 전달되는 모든 리포트는 담당 트레이너가 검토해야 합니다.
 
-- Django 기반 LightOne V2 서비스를 제품 본체로 유지
-- V1 기술 저장소의 카메라 보정, 조명 정규화, 촬영 품질 검사 기능을 선택적으로 통합
-- `lightone_qc` 어댑터 레이어를 통해 QC 기능을 Feature Flag 방식으로 연결
-- QC 실패나 외부 모듈 오류가 핵심 상담 리포트 생성 흐름을 중단하지 않도록 격리
-- 회원, 트레이너, 센터 단위 권한 구조를 고려한 확장형 설계
-- 실제 센터 파일럿 검증을 전제로 한 MVP 완성
+## 1. 프로젝트 개요
 
-## Core Architecture
+LIGHT ONE V2의 목적은 트레이너가 흩어진 운동상담 기록을 정리하고, 재등록 상담이나 컨디셔닝 안내에 활용할 수 있는 설명 가능한 리포트 초안을 만드는 것입니다.
 
-LIGHT1V3
-├─ Django Core Service
-│  ├─ accounts
-│  ├─ lightone
-│  ├─ reports
-│  └─ dashboard
-│
-├─ lightone_qc
-│  ├─ contracts.py
-│  ├─ service.py
-│  └─ backends.py
-│
-├─ docs
-│  ├─ GAP_MATRIX.md
-│  ├─ adr-001-source-of-truth.md
-│  └─ lightone-qc-adapter.md
-│
-└─ tests
-   ├─ permission tests
-   ├─ report flow tests
-   └─ qc adapter tests
+핵심 사용자는 센터 대표와 트레이너입니다. 회원은 트레이너가 검토한 상담 자료를 통해 자신의 운동 반응과 수행 흐름을 이해합니다.
 
-   Integration Strategy
-LIGHT1V3는 두 저장소의 역할을 분리해서 통합합니다.
-Source	Role
-LIGHTONE	V1 기술 파일, 촬영 QC, 카메라 보정, 조명 정규화 참고 저장소
-LightOne_V2	Django 서비스 본체 후보, 화면 및 리포트 흐름 기반
-LIGHT1V3	정리된 통합 개발 저장소
+## 2. 비의료 서비스 경계
 
-핵심 원칙은 다음과 같습니다.
-Django 서비스 본체는 안정성을 최우선으로 유지합니다.
-V1 기술 기능은 직접 종속시키지 않고 lightone_qc 어댑터를 통해 호출합니다.
-QC 기능은 기본값으로 비활성화하고, 환경변수 또는 설정값으로 켭니다.
-QC 호출 실패, 타임아웃, 외부 라이브러리 누락은 리포트 본체를 중단시키지 않습니다.
-운영 전 센터별 데이터 격리, 접근 권한, 동의 및 보관 정책을 검증합니다.
-lightone_qc Adapter
-lightone_qc는 V1 기술 파일과 Django 본체 사이의 완충 레이어입니다.
-Django Report Flow
-      │
-      ▼
-Feature Flag Check
-      │
-      ▼
-lightone_qc.run_capture_check()
-      │
-      ▼
-V1 QC Backend / Mock Backend / Disabled Backend
-      │
-      ▼
-PASS / CHECK / FAIL / SKIPPED / UNAVAILABLE
-상 동작 방식:
-QC_ENABLED=False이면 QC는 실행되지 않고 SKIPPED 상태를 반환합니다.
-QC 백엔드가 없거나 오류가 발생하면 UNAVAILABLE 상태를 반환합니다.
-핵심 상담 리포트 생성은 QC 결과와 분리되어 계속 진행됩니다.
-QC 결과는 상담 품질 보조 지표로만 사용됩니다.
-Feature Flags
-예시 환경변수:
-QC_ENABLED=False
-QC_BACKEND=disabled
-QC_TIMEOUT_SECONDS=3
-QC_RULESET_VERSION=v1
-운영 단계에서는 다음처럼 활성화할 수 있습니다.
-QC_ENABLED=True
-QC_BACKEND=lightone_v1
-QC_TIMEOUT_SECONDS=3
-QC_RULESET_VERSION=v1
-Development Priorities
-현재 우선순위는 다음과 같습니다.
-Django 본체 구조 안정화
-회원, 트레이너, 센터 단위 권한 구조 정리
-상담 리포트 생성 흐름 고정
-lightone_qc 어댑터 테스트 강화
-V1 QC 모듈과 실제 연결
-실제 촬영 파일 기반 파일럿 검증
-운영 배포 설정 및 보안 점검
-Expected MVP Flow
-Member
-  → Capture Session
-  → Optional QC Check
-  → QS / JATC Analysis
-  → Trainer Review
-  → Report Approval
-  → Member Report View
-Tech Stack
-Python
-Django
-SQLite for local development
-PostgreSQL for production target
-Pytest / Django TestCase
-Optional OpenCV-based QC module
-GitHub Actions for CI
-Local Setup
+LIGHT ONE V2는 다음을 제공하지 않습니다.
+
+- 의료 진단
+- 치료 또는 재활 치료
+- 의학적 처방
+- 질환 위험도 판단
+- 통증 원인 확정
+- AI 단독 판단
+
+LIGHT ONE V2가 제공하는 것은 비의료 운동상담 참고 자료입니다. 자세한 기준은 `docs/governance/non-medical-boundary.md`를 확인하세요.
+
+## 3. 현재 구현 범위
+
+현재 ZIP에는 다음 구현이 포함되어 있습니다.
+
+- Django MVP 앱: `lightone_v2_django/`
+- 회원 세션 입력 폼
+- 트레이너 대시보드
+- 상담 리포트 상세 화면
+- QS/JATC 참고 엔진: `lightone_v2_django/lightone/engines.py`
+- 합성 데이터 생성 명령
+- 비의료 안전 문구 테스트
+- 개인정보·배포 전 체크리스트
+- 파일럿 검증 문서
+
+현재 상태는 상용 배포 직전이 아니라, 파일럿 센터 1곳에서 검증 가능한 MVP 데모 버전입니다.
+
+## 4. 빠른 실행 방법
+
+```bash
+cd lightone_v2_django
 python -m venv .venv
-source .venv/bin/activate
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 python manage.py migrate
+python manage.py seed_synthetic_data --reset
 python manage.py runserver
-Windows PowerShell:
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-python manage.py migrate
-python manage.py runserver
-Test
+```
+
+브라우저에서 다음 주소를 엽니다.
+
+```text
+http://127.0.0.1:8000/
+```
+
+로그인이 필요한 경우 관리자 계정 또는 테스트 계정을 별도로 생성해야 합니다.
+
+```bash
+python manage.py createsuperuser
+```
+
+## 5. 테스트 방법
+
+```bash
+cd lightone_v2_django
+python manage.py check
 python manage.py test
-Deployment Notes
-운영 배포 전 반드시 확인해야 할 항목입니다.
-DEBUG=False
-SECRET_KEY 환경변수 관리
-ALLOWED_HOSTS 설정
-HTTPS 적용
-파일 업로드 보안 검토
-개인정보 수집, 보관, 파기 정책 정리
-센터별 데이터 접근 제한 검증
-관리자 및 트레이너 권한 테스트
-실제 촬영 데이터 기반 QC 임계값 검증
-Current Status
-LIGHT1V3는 LightOne 통합 개발을 위한 기준 저장소입니다.
-현재 방향은 “기술 파일 전체를 무리하게 병합”하는 방식이 아니라, Django 서비스 본체를 먼저 안정화하고 필요한 기술 기능을 어댑터 방식으로 연결하는 구조입니다.
-이 방식은 다음 장점이 있습니다.
-핵심 리포트 시스템 안정성 유지
-V1 기술 모듈 교체 가능
-QC 기능 점진적 활성화 가능
-테스트와 배포 리스크 감소
-향후 상용화 구조로 확장 가능
-License
-Private project for LightOne development.
+pytest
+```
+
+현재 작업 환경에서는 Django 패키지가 설치되어 있지 않아 `python manage.py check`와 `python manage.py test`를 실제 통과로 확정하지 못했습니다. 명령 실행 결과와 미확인 항목은 `PROJECT_AUDIT.md`에 기록했습니다.
+
+## 6. 대시보드 구조
+
+대시보드는 다음 정보를 보여줍니다.
+
+- 전체 세션 수
+- QS 평균 참고값
+- JATC 평균 참고값
+- AUTO / REVIEW / BLOCK 분포
+- 통증 반응 참고, 자세 품질, RPE, 촬영 QC 보조 지표
+- 최근 상담 리포트 목록
+- 파일럿 실행 우선순위
+
+`BLOCK`은 의료 주의 필요 상태이 아닙니다. 트레이너 검토 전 진행 보류 상태를 의미합니다.
+
+## 7. QS/JATC 엔진 개요
+
+QS/JATC 엔진은 `lightone_v2_django/lightone/engines.py`에 있습니다.
+
+핵심 함수는 다음과 같습니다.
+
+- `calculate_qs_score`
+- `route_jatc`
+- `calculate_qs`
+- `calculate_jatc`
+- `route_session`
+- `build_report_summary`
+
+QS/JATC 기준은 MVP 데모용 내부 초안입니다. 파일럿 데이터와 전문가 검토 후 조정해야 합니다.
+
+## 8. 합성 데이터 원칙
+
+샘플 데이터는 실제 회원·고객·회원/고객·트레이너의 개인정보 또는 건강정보를 포함하지 않는 합성 데이터여야 합니다.
+
+합성 데이터 생성 명령은 다음과 같습니다.
+
+```bash
+python manage.py seed_synthetic_data --reset
+```
+
+자세한 기준은 `sample_data/README.md`를 확인하세요.
+
+## 9. 파일럿 검증 계획
+
+추천 파일럿 순서는 다음과 같습니다.
+
+1. 트레이너 1~2명에게 샘플 리포트 설명 가능성 검토를 받습니다.
+2. 실제 센터 1곳에서 세션 기록 입력 시간을 측정합니다.
+3. 회원 상담에서 리포트 이해도와 재방문 의사를 확인합니다.
+4. 가격 지불의사와 월 구독 가능성을 검증합니다.
+
+자세한 문서는 `docs/product/pilot-checklist.md`와 `docs/validation/wtp-test-plan.md`를 확인하세요.
+
+## 10. 배포 전 체크리스트
+
+배포 전 최소 확인 항목은 다음과 같습니다.
+
+- `DEBUG=False`
+- 운영 `SECRET_KEY` 환경변수 주입
+- `ALLOWED_HOSTS` 운영 도메인 제한
+- HTTPS 적용
+- 세션·CSRF 보안 쿠키 설정
+- 실제 개인정보 수집 전 동의서 확인
+- 고객 데이터 삭제 요청 프로세스 수립
+- 파일럿 데이터와 운영 데이터 분리
+- 의료·법률 전문가 문구 검토
+
+자세한 문서는 `docs/governance/deployment-security-checklist.md`와 `docs/governance/privacy-checklist.md`를 확인하세요.
+
+## 11. [확인필요] 항목
+
+[확인필요] 의료·법률 전문가가 비의료 표현과 BLOCK 라우팅 문구를 최종 검토해야 합니다.
+
+[확인필요] 개인정보 처리방침, 동의서, 데이터 삭제 절차는 실제 파일럿 전 공식 검토가 필요합니다.
+
+[확인필요] QS/JATC 가중치와 임계값은 파일럿 데이터 확보 후 조정해야 합니다.
+
+[확인필요] 가격, 과금 단위, 고객 지불의사는 트레이너 인터뷰와 파일럿 계약으로 검증해야 합니다.
