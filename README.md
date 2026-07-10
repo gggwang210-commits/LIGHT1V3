@@ -1,6 +1,6 @@
 # LIGHT ONE V3
 
-> PT 센터와 트레이너를 위한 비의료 운동상담 리포트 SaaS MVP  
+> PT 센터와 트레이너를 위한 비의료 운동상담 SaaS MVP  
 > Repository: `gggwang210-commits/LIGHT1V3`  
 > 기준 브랜치: `Main-ONE`  
 > 문서 기준일: 2026-07-10
