@@ -1,0 +1,296 @@
+{% extends 'base.html' %}
+
+{% block title %}LIGHT ONE Trainer Console{% endblock %}
+
+{% block content %}
+<style>
+  .trainer-console {
+    display: grid;
+    gap: 22px;
+    color: #102033;
+  }
+
+  .trainer-header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 22px;
+    align-items: end;
+    padding: 28px;
+    border: 1px solid rgba(138, 157, 182, 0.24);
+    border-radius: 18px;
+    background: #ffffff;
+    box-shadow: 0 18px 42px rgba(16, 32, 51, 0.08);
+  }
+
+  .trainer-header h1 {
+    margin: 8px 0 10px;
+    font-size: 34px;
+    line-height: 1.16;
+    letter-spacing: 0;
+  }
+
+  .trainer-header p {
+    max-width: 780px;
+    margin: 0;
+    color: #66758a;
+    line-height: 1.7;
+  }
+
+  .trainer-kicker {
+    color: #1f6fff;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+  }
+
+  .trainer-stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(150px, 1fr));
+    gap: 14px;
+  }
+
+  .trainer-stat,
+  .trainer-panel {
+    border: 1px solid rgba(138, 157, 182, 0.24);
+    border-radius: 14px;
+    background: #ffffff;
+    box-shadow: 0 14px 34px rgba(16, 32, 51, 0.07);
+  }
+
+  .trainer-stat {
+    min-height: 118px;
+    padding: 20px;
+  }
+
+  .trainer-stat span,
+  .trainer-panel small {
+    color: #6f7f93;
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  .trainer-stat strong {
+    display: block;
+    margin-top: 10px;
+    font-size: 34px;
+    letter-spacing: 0;
+  }
+
+  .trainer-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(340px, 0.65fr);
+    gap: 18px;
+  }
+
+  .trainer-panel {
+    overflow: hidden;
+  }
+
+  .trainer-panel-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 20px 22px;
+    border-bottom: 1px solid rgba(138, 157, 182, 0.18);
+  }
+
+  .trainer-panel h2 {
+    margin: 0;
+    font-size: 20px;
+    letter-spacing: 0;
+  }
+
+  .trainer-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .trainer-table th,
+  .trainer-table td {
+    padding: 15px 18px;
+    border-bottom: 1px solid rgba(138, 157, 182, 0.15);
+    text-align: left;
+    font-size: 14px;
+    vertical-align: top;
+  }
+
+  .trainer-table th {
+    color: #6f7f93;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    background: #f7f9fc;
+  }
+
+  .route-chip {
+    display: inline-flex;
+    min-width: 72px;
+    justify-content: center;
+    padding: 7px 10px;
+    border-radius: 999px;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 900;
+  }
+
+  .badge-green { background: #13a67c; }
+  .badge-yellow { background: #d98a00; }
+  .badge-red { background: #db3350; }
+  .badge-gray { background: #7a8796; }
+
+  .action-list {
+    display: grid;
+    gap: 12px;
+    padding: 18px;
+  }
+
+  .action-card {
+    border: 1px solid rgba(138, 157, 182, 0.22);
+    border-radius: 12px;
+    padding: 16px;
+    background: #fbfcff;
+  }
+
+  .action-card strong {
+    display: block;
+    margin-bottom: 7px;
+  }
+
+  .action-card p,
+  .safety-box {
+    margin: 0;
+    color: #66758a;
+    line-height: 1.6;
+    font-size: 13px;
+  }
+
+  .safety-box {
+    padding: 18px 22px;
+    border-top: 1px solid rgba(138, 157, 182, 0.18);
+    background: #f8fbff;
+  }
+
+  @media (max-width: 1080px) {
+    .trainer-header,
+    .trainer-layout,
+    .trainer-stats {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<div class="trainer-console">
+  <section class="trainer-header">
+    <div>
+      <span class="trainer-kicker">TRAINER CONSOLE</span>
+      <h1>오늘 확인해야 할 회원 변화와 검토 큐</h1>
+      <p>
+        트레이너가 세션 전후에 바로 확인할 수 있도록 QS/JATC, 통증 반응 기록,
+        촬영 QC, 리포트 초안 상태를 한 화면에 모았습니다.
+      </p>
+    </div>
+    <div class="route-chip badge-yellow">HITL</div>
+  </section>
+
+  <section class="trainer-stats" aria-label="trainer dashboard summary">
+    <article class="trainer-stat"><span>오늘 세션</span><strong>{{ today_sessions|length }}</strong></article>
+    <article class="trainer-stat"><span>평균 QS</span><strong>{{ avg_qs }}</strong></article>
+    <article class="trainer-stat"><span>REVIEW/BLOCK</span><strong>{{ review_queue|length }}</strong></article>
+    <article class="trainer-stat"><span>확인 대기</span><strong>{{ pending_confirmations }}</strong></article>
+  </section>
+
+  <section class="trainer-layout">
+    <article class="trainer-panel">
+      <div class="trainer-panel-head">
+        <div>
+          <h2>검토 우선순위 큐</h2>
+          <small>통증 반응, RPE, 촬영 품질, 메모를 트레이너가 확인합니다.</small>
+        </div>
+        <small>AUTO {{ counts.AUTO }} · REVIEW {{ counts.REVIEW }} · BLOCK {{ counts.BLOCK }}</small>
+      </div>
+
+      <table class="trainer-table">
+        <thead>
+          <tr>
+            <th>회원</th>
+            <th>확인 항목</th>
+            <th>QS/JATC</th>
+            <th>상태</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for session in review_queue %}
+          <tr>
+            <td><strong>{{ session.member_name }}</strong><br><small>{{ session.goal }}</small></td>
+            <td>불편감 {{ session.pain_response }} · RPE {{ session.rpe }} · QC {{ session.qc_status }}</td>
+            <td>QS {{ session.qs_score }}<br>JATC {{ session.jatc_score }}</td>
+            <td><span class="route-chip {{ session.routing_badge_class }}">{{ session.routing_label }}</span></td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="4">현재 REVIEW/BLOCK 검토 큐가 없습니다.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </article>
+
+    <aside class="trainer-panel">
+      <div class="trainer-panel-head">
+        <div>
+          <h2>다음 행동</h2>
+          <small>전달 전 트레이너 확인 기준</small>
+        </div>
+      </div>
+      <div class="action-list">
+        <div class="action-card">
+          <strong>BLOCK</strong>
+          <p>세션을 보류하고 불편감 반응과 촬영 품질을 확인합니다. 필요 시 전문기관 상담을 안내합니다.</p>
+        </div>
+        <div class="action-card">
+          <strong>REVIEW</strong>
+          <p>운동 난이도, 범위, 휴식 시간을 조정할지 확인하고 회원 안내 문구를 점검합니다.</p>
+        </div>
+        <div class="action-card">
+          <strong>AUTO</strong>
+          <p>리포트 초안을 그대로 전달하지 않고, 트레이너가 마지막 문구를 확인합니다.</p>
+        </div>
+      </div>
+      <p class="safety-box">{{ safety_notice }}</p>
+    </aside>
+  </section>
+
+  <section class="trainer-panel">
+    <div class="trainer-panel-head">
+      <div>
+        <h2>오늘 세션 준비</h2>
+        <small>회원별 최근 목표와 참고 점수</small>
+      </div>
+    </div>
+    <table class="trainer-table">
+      <thead>
+        <tr>
+          <th>회원</th>
+          <th>목표</th>
+          <th>불편감 부위</th>
+          <th>리포트 상태</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for session in today_sessions %}
+        <tr>
+          <td><strong>{{ session.member_name }}</strong></td>
+          <td>{{ session.goal }}</td>
+          <td>{{ session.discomfort_area|default:'기록 없음' }}</td>
+          <td><span class="route-chip {{ session.routing_badge_class }}">{{ session.routing_label }}</span></td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="4">표시할 세션이 없습니다. 샘플 데이터를 먼저 적재하세요.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+</div>
+{% endblock %}

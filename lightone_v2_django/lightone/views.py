@@ -1,11 +1,15 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from .models import MemberSession
 from .algorithms import SAFETY_NOTICE
-from .services import dashboard_context
+from .services import dashboard_context, trainer_dashboard_context
 
 
 def dashboard(request):
     return render(request, 'lightone/dashboard.html', dashboard_context(request.GET.get('member_id')))
+
+
+def trainer_dashboard(request):
+    return render(request, 'lightone/trainer_dashboard.html', trainer_dashboard_context())
 
 
 def report_detail(request, pk):

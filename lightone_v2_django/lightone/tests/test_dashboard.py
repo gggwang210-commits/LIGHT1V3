@@ -3,7 +3,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from lightone.models import MemberSession
-from lightone.services import routing_badge_class, routing_label
+from lightone.services import routing_badge_class, routing_label, trainer_dashboard_context
 
 
 class DashboardRoutingBadgeTests(TestCase):
@@ -52,5 +52,35 @@ class DashboardRoutingBadgeTests(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'badge-green')
+        self.assertContains(response, 'badge-yellow')
+        self.assertContains(response, 'badge-red')
+
+    def test_trainer_dashboard_prioritizes_review_and_block_sessions(self):
+        self.create_session('AUTO', 1)
+        self.create_session('REVIEW', 4)
+        self.create_session('BLOCK', 8)
+
+        context = trainer_dashboard_context()
+
+        self.assertEqual(len(context['review_queue']), 2)
+        self.assertEqual(context['counts']['AUTO'], 1)
+        self.assertEqual(context['counts']['REVIEW'], 1)
+        self.assertEqual(context['counts']['BLOCK'], 1)
+
+    def test_trainer_dashboard_renders_non_medical_review_queue(self):
+        user = get_user_model().objects.create_user(
+            username='trainer-dashboard-user',
+            password='test-pass',
+            name='Trainer Dashboard User',
+        )
+        self.client.force_login(user)
+        self.create_session('REVIEW', 5)
+        self.create_session('BLOCK', 8)
+
+        response = self.client.get(reverse('lightone:trainer_dashboard'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, '검토 우선순위 큐')
+        self.assertContains(response, '비의료 웰니스 참고 정보')
         self.assertContains(response, 'badge-yellow')
         self.assertContains(response, 'badge-red')
