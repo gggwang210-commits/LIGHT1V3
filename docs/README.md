@@ -8,6 +8,7 @@
 
 | 문서 | 역할 |
 |------|------|
+| [`docs/business_direction.md`](business_direction.md) | LIGHT ONE의 첫 번째 사업 목표와 제품 방향 기준 문서 |
 | [`docs/LIGHT_ONE_final_business_plan_v1_2026-07-07.md`](LIGHT_ONE_final_business_plan_v1_2026-07-07.md) | 최종 사업계획서 기준본 |
 | [`docs/product_positioning.md`](product_positioning.md) | 제품 포지셔닝 기준 문서 |
 | [`docs/mvp_scope.md`](mvp_scope.md) | MVP 범위와 제외 범위 기준 문서 |

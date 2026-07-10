@@ -8,6 +8,7 @@ def test_required_repository_documents_exist():
     required_paths = [
         REPO_ROOT / "README.md",
         REPO_ROOT / "docs",
+        REPO_ROOT / "docs" / "business_direction.md",
         REPO_ROOT / "docs" / "LIGHT_ONE_final_business_plan_v1_2026-07-07.md",
         REPO_ROOT / "docs" / "safety_and_privacy_policy.md",
     ]
