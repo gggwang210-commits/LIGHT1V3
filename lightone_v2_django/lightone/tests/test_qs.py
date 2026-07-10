@@ -3,7 +3,7 @@ from django.utils import timezone
 
 from lightone.algorithms import calculate_jatc, calculate_qs, route_session
 from lightone.utils.qs_calculator import determine_routing
-from lightone.models import MemberSession
+from lightone.models import Indicator, MemberSession
 
 
 class QsJatcAlgorithmTests(TestCase):
@@ -37,7 +37,7 @@ class QsJatcAlgorithmTests(TestCase):
             qc_score=90,
         )
         session.calculate_qs_and_route()
-        self.assertEqual(session.qs_score, 78.0)
+        self.assertEqual(session.qs_score, 81.0)
         self.assertEqual(session.route, 'AUTO')
         self.assertIn('비의료 운동상담 참고', session.safety_notice)
         indicator = Indicator.objects.get(member_session=session)

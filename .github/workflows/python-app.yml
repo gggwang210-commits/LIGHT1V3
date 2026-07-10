@@ -5,9 +5,9 @@ name: Python application
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "Main-ONE" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "Main-ONE" ]
 
 permissions:
   contents: read
@@ -37,11 +37,12 @@ jobs:
         # Treat style findings as warnings for MVP velocity.
         flake8 lightone_v2_django --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
-    - name: QS smoke test
+    - name: QS and routing smoke test
       run: |
         cd lightone_v2_django
         python - <<'PY'
         from lightone.algorithms import SAFETY_NOTICE, calculate_jatc, calculate_qs, route_session
+        from lightone.utils.qs_calculator import determine_routing
 
         qs = calculate_qs(form_accuracy=80, discomfort_response=2, rpe=7, qc_score=90)
         assert qs == 85.0, qs
@@ -49,5 +50,19 @@ jobs:
         assert route_session(qs, jatc, 2, 'PASS') == 'AUTO'
         assert route_session(65, 65, 4, 'PASS') == 'REVIEW'
         assert route_session(80, 80, 8, 'PASS') == 'BLOCK'
+        assert determine_routing(95, 1, safety_flags=['manual_stop']) == 'BLOCK'
+        assert determine_routing(95, 8) == 'BLOCK'
+        assert determine_routing(80, 3) == 'AUTO'
+        assert determine_routing(95, 4) == 'REVIEW'
         assert '비의료 운동상담 참고' in SAFETY_NOTICE
         PY
+
+    - name: Validate Django project
+      run: |
+        cd lightone_v2_django
+        python manage.py check
+        python manage.py makemigrations --check --dry-run
+        python manage.py test
+
+    - name: Validate repository documents
+      run: python -m pytest tests -q
