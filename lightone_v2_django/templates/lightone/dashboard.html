@@ -901,7 +901,7 @@
   <label class="member-select-label" for="member-select">회원 선택</label>
   <select id="member-select" class="member-select" name="member_id">
     {% for s in sessions %}
-    <option value="{{ s.member_id }}">Member ID: {{ s.member_id }}</option>
+    <option value="{{ s.member_name }}">{{ s.member_name }}</option>
     {% endfor %}
   </select>
 
@@ -915,6 +915,13 @@
       <p class="lo-section-desc">
         이 영역은 AI 판단을 절대화하지 않고, 트레이너가 어떤 요소를 먼저 확인해야 하는지 설명하기 위한 보조 지표입니다.
       </p>
+      <div class="report-kpis">
+        <b>QS {{ s.qs_score }}</b>
+        <b>JATC {{ s.jatc_score }}</b>
+        <b>QC {{ s.qc_status }}</b>
+      </div>
+    </a>
+    {% endfor %}
     </div>
 
     <div class="lo-two-col">
@@ -1034,7 +1041,10 @@
     data: {
       labels: featureImportance.map((item) => item.name),
       datasets: [{
+        /*
         label: '기여도',
+        */
+        label: 'Contribution',
         data: featureImportance.map((item) => Math.round(item.value * 100)),
         backgroundColor: '#1f6fff',
         borderRadius: 10

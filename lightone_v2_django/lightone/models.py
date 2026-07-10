@@ -1,4 +1,3 @@
-import uuid
 from django.db import models
 
 from accounts.models import MemberProfile, TrainerProfile
@@ -12,28 +11,6 @@ from .algorithms import (
 )
 from .utils.qs_calculator import determine_routing
 
-
-class Member(models.Model):
-    """회원 운동 참고 프로필(비의료 참고)로 직접 식별정보를 저장하지 않는다."""
-
-    GENDER_MALE = 'M'
-    GENDER_FEMALE = 'F'
-    GENDER_OTHER = 'Other'
-    GENDER_CHOICES = [
-        (GENDER_MALE, 'Male'),
-        (GENDER_FEMALE, 'Female'),
-        (GENDER_OTHER, 'Other'),
-    ]
-
-    member_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    gender = models.CharField(
-        max_length=10,
-        choices=GENDER_CHOICES,
-        help_text='비의료 참고 목적의 성별 분류이며 직접 식별정보를 포함하지 않습니다.',
-    )
-    age_group = models.CharField(max_length=20, help_text='비의료 참고 목적의 연령대입니다.')
-    goals = models.TextField(blank=True, help_text='비의료 참고 목적의 운동 목표입니다.')
-    consent = models.BooleanField(default=False, help_text='비의료 참고 데이터 활용 동의 여부입니다.')
 
 class MemberSession(models.Model):
     ROUTE_CHOICES = [
@@ -51,7 +28,7 @@ class MemberSession(models.Model):
     trainer = models.ForeignKey(TrainerProfile, on_delete=models.SET_NULL, null=True, blank=True, related_name='conducted_sessions')
 
     member_name = models.CharField(max_length=80)
-    trainer_name = models.CharField(max_length=80, default='김라이트')
+    trainer_name = models.CharField(max_length=80, default='LIGHTONE Trainer')
     goal = models.CharField(max_length=120)
     discomfort_area = models.CharField(max_length=120, blank=True)
     qs_score = models.FloatField(default=0)
@@ -108,8 +85,7 @@ class MemberSession(models.Model):
         self.safety_notice = SAFETY_NOTICE
 
     def save(self, *args, **kwargs):
-        # Preserve trainer-entered aggregate scores until raw session input is
-        # available; otherwise refresh the derived QS/JATC route.
+        # Keep manually entered aggregate QS values until raw input is present.
         if self.form_accuracy or self.rpe or not self.qs_score:
             self.calculate_qs_and_route()
         super().save(*args, **kwargs)
@@ -179,17 +155,36 @@ class Session(models.Model):
         return f'{self.session_id} - {self.member.display_label}'
 
     def update_indicator_scores(self):
-        indicator, _created = Indicator.objects.get_or_create(session=self)
-        jatc_result = calculate_jatc(self)
-        indicator.qs_score = jatc_result['qs_score']
-        indicator.jatc_score = jatc_result['score']
-        indicator.pain_score = jatc_result['pain_component']
-        indicator.review_signal = route_session(indicator.qs_score, indicator.jatc_score, self.pain_response, self.qc_status)
-        indicator.review_note = jatc_result['notice']
-        indicator.save()
-        self.route = indicator.review_signal
+        rep_score = (self.completed_reps / self.planned_reps * 100) if self.planned_reps else 0
+        rest_score = 100
+        if self.planned_rest_seconds and self.actual_rest_seconds:
+            rest_delta = abs(self.actual_rest_seconds - self.planned_rest_seconds)
+            rest_score = max(0, 100 - (rest_delta / self.planned_rest_seconds * 100))
+        qs_score = calculate_qs(form=rep_score, rep=rep_score, rest=rest_score, pain_level=self.pain_response)
+        jatc_score = calculate_jatc(qs_score, rep_score, self.pain_response, self.rpe)
+        route = route_session(qs_score, jatc_score, self.pain_response, self.qc_status)
+        legacy_key = f'legacy-session:{self.session_id}'
+        member_session = MemberSession.objects.filter(memo__contains=legacy_key).first()
+        if member_session is None:
+            member_session = MemberSession(memo=legacy_key)
+        member_session.member_name = self.member.display_label
+        member_session.trainer_name = ''
+        member_session.goal = self.member.goal or self.exercise_name
+        member_session.discomfort_area = self.member.discomfort_area
+        member_session.qs_score = qs_score
+        member_session.jatc_score = jatc_score
+        member_session.form_accuracy = rep_score
+        member_session.pain_response = self.pain_response
+        member_session.rpe = self.rpe
+        member_session.rep_score = rep_score
+        member_session.rest_score = rest_score
+        member_session.route = route
+        member_session.qc_status = self.qc_status
+        member_session.memo = f'{legacy_key}\n{self.trainer_memo}'.strip()
+        member_session.save()
+        self.route = route
         self.save(update_fields=['route', 'updated_at'])
-        return indicator
+        return member_session.indicator
 
 
 class Indicator(models.Model):
@@ -216,8 +211,8 @@ class Indicator(models.Model):
 class StrategyItem(models.Model):
     title = models.CharField(max_length=120)
     category = models.CharField(max_length=80)
-    priority = models.CharField(max_length=30, default='높음')
-    status = models.CharField(max_length=40, default='진행 필요')
+    priority = models.CharField(max_length=30, default='high')
+    status = models.CharField(max_length=40, default='needs_action')
     output = models.TextField(blank=True)
     risk = models.TextField(blank=True)
 
