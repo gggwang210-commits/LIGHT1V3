@@ -1,17 +1,21 @@
-from django.test import TestCase
 from django.contrib.auth import get_user_model
+from django.test import TestCase
 from django.urls import reverse
 
-from .models import MemberSession
-from .services import routing_badge_class, routing_label
+from lightone.models import MemberSession
+from lightone.services import routing_badge_class, routing_label
 
 
 class DashboardRoutingBadgeTests(TestCase):
-    def create_session(self, route):
+    def create_session(self, route, pain_response):
         return MemberSession.objects.create(
             member_name=f'{route}-member',
             goal='routing badge check',
-            route=route,
+            form_accuracy=90,
+            rep_score=90,
+            rest_score=90,
+            rpe=7,
+            pain_response=pain_response,
             qc_status='PASS',
         )
 
@@ -41,8 +45,8 @@ class DashboardRoutingBadgeTests(TestCase):
             name='Dashboard User',
         )
         self.client.force_login(user)
-        for route in ['AUTO', 'GREEN', 'Green', 'REVIEW', 'YELLOW', 'Yellow', 'BLOCK', 'RED', 'Red', 'UNKNOWN']:
-            self.create_session(route)
+        for route, pain_response in [('AUTO', 1), ('REVIEW', 4), ('BLOCK', 8)]:
+            self.create_session(route, pain_response)
 
         response = self.client.get(reverse('lightone:dashboard'))
 
@@ -50,4 +54,3 @@ class DashboardRoutingBadgeTests(TestCase):
         self.assertContains(response, 'badge-green')
         self.assertContains(response, 'badge-yellow')
         self.assertContains(response, 'badge-red')
-        self.assertContains(response, 'badge-gray')

@@ -30,6 +30,7 @@
 | [`docs/technical_roadmap.md`](technical_roadmap.md) | 기술 개발 로드맵 기준 문서 | canonical |
 | [`docs/customer_validation_plan.md`](customer_validation_plan.md) | 고객 검증 계획 기준 문서 | canonical |
 | [`docs/pitch_summary.md`](pitch_summary.md) | 발표·피치 요약 기준 문서 | canonical |
+| [`docs/judge_risk_review.md`](judge_risk_review.md) | 심사 리스크와 G0~G4 실행 게이트 기준 문서 | canonical |
 
 > 일부 canonical 문서는 아직 작성 예정일 수 있습니다. 작성 시 위 경로와 파일명을 유지합니다.
 
@@ -58,7 +59,7 @@
 1. 사업 방향과 규제 경계를 이해하려면 [루트 README](../README.md)와 [docs README](README.md)를 먼저 읽습니다. 최신 사업/제품 포지셔닝은 루트 `docs/`의 canonical documents를 기준으로 합니다.
 2. 의료 표현을 만들기 전에 [비의료 경계 문서](governance/non-medical-boundary.md)를 확인합니다.
 3. 회원 데이터, 이미지, 상담 기록을 다루기 전에 [개인정보 체크리스트](governance/privacy-checklist.md)를 적용합니다.
-4. 센터 파일럿을 시작하기 전에 [파일럿 검증 계획](validation/pilot-validation-plan.md)의 동의, 지표, 중단 기준을 확정합니다.
+4. 센터 파일럿을 시작하기 전에 [심사 리스크 검토](judge_risk_review.md)와 [파일럿 검증 계획](validation/pilot-validation-plan.md)의 동의, 지표, 중단 기준을 확정합니다.
 5. Windows에서 MVP를 실행할 때는 [Windows 실행 가이드](execution-guide/windows-run-guide.md)를 사용하고, 세부 앱 설명은 [Django README](../lightone_v2_django/README.md)를 참조합니다.
 
 ## 6. 문서 관리 원칙

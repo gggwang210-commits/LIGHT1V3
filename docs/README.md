@@ -16,6 +16,9 @@
 | [`docs/technical_roadmap.md`](technical_roadmap.md) | 기술 개발 로드맵 기준 문서 |
 | [`docs/customer_validation_plan.md`](customer_validation_plan.md) | 고객 검증 계획 기준 문서 |
 | [`docs/pitch_summary.md`](pitch_summary.md) | 발표·피치 요약 기준 문서 |
+| [`docs/judge_risk_review.md`](judge_risk_review.md) | 공공기관·투자자·대기업 심사 관점의 리스크와 단계별 통과 기준 |
+
+합성 라우팅 평가 자산은 [`huggingface/synthetic-routing-eval/`](../huggingface/synthetic-routing-eval/)에 보관한다. 이 경로는 Hugging Face 업로드용 후보일 뿐이며, G0 통과와 명시적 승인 전에는 업로드하지 않는다.
 
 > 일부 canonical 문서는 작성 예정이거나 별도 브랜치에서 준비 중일 수 있습니다. 문서가 아직 없으면 새로 작성할 때 위 경로와 파일명을 유지합니다.
 

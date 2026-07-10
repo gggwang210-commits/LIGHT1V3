@@ -1,0 +1,7 @@
+{"example_id":"synthetic-auto-low-pain","qs_score":82,"pain_level":2,"safety_flags":[],"expected_route":"AUTO","data_origin":"synthetic"}
+{"example_id":"synthetic-auto-none-pain","qs_score":92,"pain_level":"none","safety_flags":[],"expected_route":"AUTO","data_origin":"synthetic"}
+{"example_id":"synthetic-review-low-qs","qs_score":79,"pain_level":1,"safety_flags":[],"expected_route":"REVIEW","data_origin":"synthetic"}
+{"example_id":"synthetic-review-mild-pain","qs_score":95,"pain_level":4,"safety_flags":[],"expected_route":"REVIEW","data_origin":"synthetic"}
+{"example_id":"synthetic-block-high-pain","qs_score":98,"pain_level":7,"safety_flags":[],"expected_route":"BLOCK","data_origin":"synthetic"}
+{"example_id":"synthetic-block-safety-flag","qs_score":95,"pain_level":1,"safety_flags":["manual_stop"],"expected_route":"BLOCK","data_origin":"synthetic"}
+{"example_id":"synthetic-block-qc-flag","qs_score":88,"pain_level":0,"safety_flags":{"qc_status_fail":true},"expected_route":"BLOCK","data_origin":"synthetic"}

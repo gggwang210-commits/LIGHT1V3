@@ -16,7 +16,6 @@ INSTALLED_APPS = [
     'accounts',
     'dashboard',
     'lightone',
-    'dashboard',
 ]
 
 MIDDLEWARE = [
