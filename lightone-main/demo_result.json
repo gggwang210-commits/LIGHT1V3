@@ -1,0 +1,197 @@
+{
+  "system": "LIGHT ONE measurement reliability demo",
+  "positioning": "체형 참고 정보 서비스이며 의료 진단기기가 아닙니다.",
+  "synthetic_assets": {
+    "checkerboard_preview": "demo_assets/synthetic_checkerboard_preview.png",
+    "note": "합성 데이터로 실행되며 모든 출력 수치는 실제 계산값입니다."
+  },
+  "P1_camera_calibration": {
+    "front": {
+      "camera_id": "front",
+      "mean_px": 6.442599737965793e-06,
+      "std_px": 2.542503413999368e-06,
+      "max_px": 1.1302806342428084e-05,
+      "image_count": 10,
+      "status": "PASS",
+      "rms_px": 3.282142172053405e-05,
+      "image_size": [
+        1920,
+        1080
+      ]
+    },
+    "rear": {
+      "camera_id": "rear",
+      "mean_px": 6.060342718683387e-06,
+      "std_px": 3.0473796834213798e-06,
+      "max_px": 1.1302806342428084e-05,
+      "image_count": 10,
+      "status": "PASS",
+      "rms_px": 3.3395944931360895e-05,
+      "image_size": [
+        1920,
+        1080
+      ]
+    },
+    "left": {
+      "camera_id": "left",
+      "mean_px": 3.729926174855791e-06,
+      "std_px": 2.542503486776915e-06,
+      "max_px": 9.042245437740348e-06,
+      "image_count": 10,
+      "status": "PASS",
+      "rms_px": 3.1850457066716684e-05,
+      "image_size": [
+        1920,
+        1080
+      ]
+    },
+    "right": {
+      "camera_id": "right",
+      "mean_px": 5.594889319127105e-06,
+      "std_px": 2.6681568034366796e-06,
+      "max_px": 1.0172526344831567e-05,
+      "image_count": 10,
+      "status": "PASS",
+      "rms_px": 3.2476537533743766e-05,
+      "image_size": [
+        1920,
+        1080
+      ]
+    }
+  },
+  "P2_lighting_normalization": {
+    "input_image": "demo_assets/lighting_before.png",
+    "normalized_image": "demo_assets/lighting_after.png",
+    "normalization": {
+      "target_mean_luminance": 128.0,
+      "before_mean_luminance": 150.14792317708333,
+      "after_mean_luminance": 127.50785807291666,
+      "before_bgr_means": [
+        196.57807291666666,
+        141.15208984375,
+        114.98470703125
+      ],
+      "after_bgr_means": [
+        118.65282552083333,
+        118.50785807291666,
+        118.968984375
+      ],
+      "clahe_clip_limit": 2.0,
+      "clahe_grid_size": [
+        8,
+        8
+      ],
+      "note": "Lighting/gray-card inputs only; faces and identity data are not processed."
+    },
+    "before": {
+      "uniformity_percent": 95.59086750765441,
+      "shadow_ratio_percent": 0.0,
+      "grid": [
+        8,
+        8
+      ],
+      "cell_mean_min": 146.74790954589844,
+      "cell_mean_max": 153.51666259765625,
+      "cell_mean_avg": 150.14792251586914,
+      "frame_mean_luminance": 150.14791870117188,
+      "shadow_luma_threshold_used": 82.58135528564453,
+      "status": "PASS",
+      "recommendation": "Lighting uniformity acceptable."
+    },
+    "after": {
+      "uniformity_percent": 95.40102923214646,
+      "shadow_ratio_percent": 0.0,
+      "grid": [
+        8,
+        8
+      ],
+      "cell_mean_min": 124.59375,
+      "cell_mean_max": 130.60000610351562,
+      "cell_mean_avg": 127.50785863399506,
+      "frame_mean_luminance": 127.50786590576172,
+      "shadow_luma_threshold_used": 70.12932624816895,
+      "status": "PASS",
+      "recommendation": "Lighting uniformity acceptable."
+    }
+  },
+  "P3_center_qc": {
+    "input_image": "demo_assets/center_qc_standard.png",
+    "qc": {
+      "pass": true,
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "피험자 구도",
+          "pass": true,
+          "reason": "정상",
+          "bbox": [
+            195,
+            125,
+            111,
+            486
+          ],
+          "center_offset_ratio": 0.001,
+          "height_ratio": 0.675
+        },
+        {
+          "name": "배경 단색 통제",
+          "pass": true,
+          "reason": "정상",
+          "median_bgr": [
+            190.0,
+            190.0,
+            190.0
+          ],
+          "border_color_std": 0.0,
+          "border_color_mean_distance": 0.0,
+          "threshold_border_mean_distance": 12.0
+        },
+        {
+          "name": "바닥 기준 마커",
+          "pass": true,
+          "reason": "정상",
+          "marker": {
+            "center_px": [
+              250.0,
+              666.0
+            ],
+            "size_px": [
+              22.0,
+              140.0
+            ],
+            "angle_deg": -90.0,
+            "area_px": 3080.0,
+            "pixel_length": 140.0
+          }
+        }
+      ],
+      "message": "촬영 QC 통과",
+      "identity_policy": "신원 정보 비저장. QC는 구도/배경/마커만 판단."
+    },
+    "scale_reference_demo": {
+      "marker": {
+        "center_px": [
+          250.0,
+          666.0
+        ],
+        "size_px": [
+          22.0,
+          140.0
+        ],
+        "angle_deg": -90.0,
+        "area_px": 3080.0,
+        "pixel_length": 140.0
+      },
+      "marker_real_length_cm": 70.0,
+      "cm_per_px": 0.5,
+      "px_per_cm": 2.0
+    },
+    "booth_spec_unverified_marker": "[확인필요]",
+    "booth_spec": {
+      "camera_height_cm": "[확인필요]",
+      "subject_to_camera_distance_cm": "[확인필요]",
+      "front_angle_deg": "[확인필요]",
+      "known_marker_length_cm": "[확인필요]"
+    }
+  }
+}
