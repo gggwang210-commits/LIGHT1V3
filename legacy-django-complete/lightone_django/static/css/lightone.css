@@ -1,0 +1,457 @@
+/* ============================================================
+   LIGHT ONE — AI 기반 체형분석 PT 솔루션
+   Design: 민트/청록 계열, 프리미엄 사이드바 레이아웃
+   참조: COPD Care Service 팀 프로젝트 UI 스타일
+   ============================================================ */
+
+:root {
+  --lo-primary: #2a9d8f;
+  --lo-primary-dark: #1e7b6e;
+  --lo-primary-light: #e8f5f3;
+  --lo-accent: #264653;
+  --lo-warning: #e9c46a;
+  --lo-danger: #e76f51;
+  --lo-success: #52b788;
+  --lo-sidebar-bg: #1a3a35;
+  --lo-sidebar-width: 260px;
+  --lo-topbar-h: 64px;
+  --lo-text: #1a2e2b;
+  --lo-text-muted: #6b7c7a;
+  --lo-border: #d4e8e5;
+  --lo-card-bg: #ffffff;
+  --lo-bg: #f4faf9;
+  --lo-font: 'Noto Sans KR', 'Inter', sans-serif;
+  --lo-radius: 12px;
+  --lo-shadow: 0 2px 12px rgba(42, 157, 143, 0.10);
+  --lo-shadow-md: 0 4px 24px rgba(42, 157, 143, 0.14);
+}
+
+* { box-sizing: border-box; }
+
+body.lo-body {
+  font-family: var(--lo-font);
+  background: var(--lo-bg);
+  color: var(--lo-text);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+/* ── 사이드바 ── */
+.lo-sidebar {
+  position: fixed;
+  top: 0; left: 0;
+  width: var(--lo-sidebar-width);
+  height: 100vh;
+  background: var(--lo-sidebar-bg);
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  transition: transform 0.3s ease;
+  overflow-y: auto;
+}
+
+.lo-sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 20px 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.lo-logo-mark {
+  width: 44px; height: 44px;
+  background: var(--lo-primary);
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 900; font-size: 16px; color: #fff;
+  letter-spacing: -0.5px;
+  flex-shrink: 0;
+}
+
+.lo-brand-name {
+  font-size: 17px; font-weight: 700;
+  color: #fff; letter-spacing: 1px;
+}
+
+.lo-brand-sub {
+  font-size: 11px; color: rgba(255,255,255,0.45);
+  letter-spacing: 0.5px; margin-top: 1px;
+}
+
+.lo-nav { padding: 0 12px; }
+
+.lo-nav-item {
+  display: flex; align-items: center; gap: 12px;
+  padding: 11px 14px;
+  border-radius: 8px;
+  color: rgba(255,255,255,0.65);
+  text-decoration: none;
+  font-size: 14px; font-weight: 500;
+  margin-bottom: 2px;
+  transition: background 0.18s, color 0.18s;
+}
+
+.lo-nav-item i { font-size: 17px; width: 20px; text-align: center; }
+
+.lo-nav-item:hover,
+.lo-nav-item.active {
+  background: rgba(42, 157, 143, 0.22);
+  color: #fff;
+}
+
+.lo-nav-item.active {
+  background: var(--lo-primary);
+  color: #fff;
+}
+
+.lo-sidebar-footer {
+  margin-top: auto;
+  padding: 16px 16px 20px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex; align-items: center; gap: 10px;
+}
+
+.lo-avatar {
+  width: 36px; height: 36px;
+  background: var(--lo-primary);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: 14px; color: #fff;
+  flex-shrink: 0;
+}
+
+.lo-trainer-name { font-size: 13px; font-weight: 600; color: #fff; }
+.lo-trainer-role { font-size: 11px; color: rgba(255,255,255,0.45); }
+
+.lo-logout-btn {
+  margin-left: auto;
+  color: rgba(255,255,255,0.45);
+  font-size: 18px;
+  text-decoration: none;
+  transition: color 0.18s;
+}
+.lo-logout-btn:hover { color: var(--lo-danger); }
+
+/* ── 메인 ── */
+.lo-main {
+  margin-left: var(--lo-sidebar-width);
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+}
+
+.lo-topbar {
+  height: var(--lo-topbar-h);
+  background: #fff;
+  border-bottom: 1px solid var(--lo-border);
+  display: flex; align-items: center; gap: 16px;
+  padding: 0 28px;
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.lo-sidebar-toggle {
+  background: none; border: none;
+  font-size: 22px; color: var(--lo-text-muted);
+  cursor: pointer; padding: 4px;
+  display: none;
+}
+
+.lo-topbar-title {
+  font-size: 16px; font-weight: 700; color: var(--lo-text);
+  flex: 1;
+}
+
+.lo-topbar-right {
+  display: flex; align-items: center; gap: 12px;
+}
+
+.lo-badge-saas {
+  background: var(--lo-primary-light);
+  color: var(--lo-primary-dark);
+  font-size: 11px; font-weight: 700;
+  padding: 4px 10px; border-radius: 20px;
+  letter-spacing: 0.3px;
+}
+
+.lo-topbar-date {
+  font-size: 12px; color: var(--lo-text-muted);
+}
+
+.lo-content {
+  flex: 1;
+  padding: 28px;
+}
+
+.lo-footer {
+  padding: 16px 28px;
+  font-size: 11px; color: var(--lo-text-muted);
+  border-top: 1px solid var(--lo-border);
+  background: #fff;
+}
+
+/* ── 카드 ── */
+.lo-card {
+  background: var(--lo-card-bg);
+  border-radius: var(--lo-radius);
+  box-shadow: var(--lo-shadow);
+  border: 1px solid var(--lo-border);
+  overflow: hidden;
+}
+
+.lo-card-header {
+  padding: 18px 22px 14px;
+  border-bottom: 1px solid var(--lo-border);
+  display: flex; align-items: center; gap: 10px;
+}
+
+.lo-card-header h5 {
+  margin: 0; font-size: 15px; font-weight: 700; color: var(--lo-text);
+}
+
+.lo-card-body { padding: 20px 22px; }
+
+/* ── 통계 카드 ── */
+.lo-stat-card {
+  background: var(--lo-card-bg);
+  border-radius: var(--lo-radius);
+  padding: 22px 24px;
+  box-shadow: var(--lo-shadow);
+  border: 1px solid var(--lo-border);
+  display: flex; align-items: center; gap: 18px;
+}
+
+.lo-stat-icon {
+  width: 52px; height: 52px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; flex-shrink: 0;
+}
+
+.lo-stat-icon.primary { background: var(--lo-primary-light); color: var(--lo-primary); }
+.lo-stat-icon.success { background: #e8f5ee; color: var(--lo-success); }
+.lo-stat-icon.warning { background: #fdf6e3; color: #c9a227; }
+.lo-stat-icon.danger  { background: #fdf0ec; color: var(--lo-danger); }
+
+.lo-stat-value {
+  font-size: 28px; font-weight: 900; color: var(--lo-text);
+  line-height: 1;
+}
+
+.lo-stat-label {
+  font-size: 12px; color: var(--lo-text-muted);
+  margin-top: 4px;
+}
+
+/* ── 라우팅 배지 ── */
+.lo-route {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 10px; border-radius: 20px;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.3px;
+}
+
+.lo-route.AUTO   { background: #e8f5ee; color: #2d6a4f; }
+.lo-route.REVIEW { background: #fdf6e3; color: #9a6700; }
+.lo-route.BLOCK  { background: #fdf0ec; color: #c0392b; }
+
+/* ── QS 점수 바 ── */
+.lo-qs-bar {
+  height: 8px; border-radius: 4px;
+  background: var(--lo-border);
+  overflow: hidden;
+}
+
+.lo-qs-fill {
+  height: 100%; border-radius: 4px;
+  background: linear-gradient(90deg, var(--lo-primary), var(--lo-success));
+  transition: width 0.6s ease;
+}
+
+.lo-qs-fill.low  { background: linear-gradient(90deg, var(--lo-danger), #e9c46a); }
+.lo-qs-fill.mid  { background: linear-gradient(90deg, #e9c46a, var(--lo-primary)); }
+
+/* ── 테이블 ── */
+.lo-table {
+  width: 100%; border-collapse: collapse;
+  font-size: 13.5px;
+}
+
+.lo-table th {
+  background: var(--lo-primary-light);
+  color: var(--lo-primary-dark);
+  font-weight: 700; font-size: 12px;
+  padding: 10px 14px; text-align: left;
+  letter-spacing: 0.3px;
+}
+
+.lo-table td {
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--lo-border);
+  color: var(--lo-text);
+  vertical-align: middle;
+}
+
+.lo-table tr:hover td { background: var(--lo-primary-light); }
+
+/* ── 버튼 ── */
+.lo-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 9px 18px;
+  border-radius: 8px;
+  font-size: 13.5px; font-weight: 600;
+  border: none; cursor: pointer;
+  text-decoration: none;
+  transition: all 0.18s;
+}
+
+.lo-btn-primary {
+  background: var(--lo-primary); color: #fff;
+}
+.lo-btn-primary:hover { background: var(--lo-primary-dark); color: #fff; }
+
+.lo-btn-outline {
+  background: transparent;
+  border: 1.5px solid var(--lo-primary);
+  color: var(--lo-primary);
+}
+.lo-btn-outline:hover { background: var(--lo-primary-light); }
+
+.lo-btn-sm { padding: 5px 12px; font-size: 12px; }
+
+/* ── 폼 ── */
+.lo-form-label {
+  font-size: 13px; font-weight: 600;
+  color: var(--lo-text); margin-bottom: 5px;
+  display: block;
+}
+
+.lo-form-control {
+  width: 100%; padding: 9px 13px;
+  border: 1.5px solid var(--lo-border);
+  border-radius: 8px;
+  font-size: 13.5px; font-family: var(--lo-font);
+  color: var(--lo-text);
+  background: #fff;
+  transition: border-color 0.18s, box-shadow 0.18s;
+  outline: none;
+}
+
+.lo-form-control:focus {
+  border-color: var(--lo-primary);
+  box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.12);
+}
+
+.lo-form-hint {
+  font-size: 11px; color: var(--lo-text-muted); margin-top: 4px;
+}
+
+/* ── 섹션 헤더 ── */
+.lo-section-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.lo-section-title {
+  font-size: 18px; font-weight: 800;
+  color: var(--lo-text); margin: 0;
+}
+
+.lo-section-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px;
+  background: var(--lo-primary);
+  color: #fff; border-radius: 50%;
+  font-size: 12px; font-weight: 700;
+  margin-right: 10px;
+}
+
+/* ── 로그인 화면 ── */
+.lo-auth-wrapper {
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--lo-sidebar-bg) 0%, var(--lo-accent) 100%);
+  display: flex; align-items: center; justify-content: center;
+}
+
+.lo-auth-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 44px 40px;
+  width: 100%; max-width: 420px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+}
+
+.lo-auth-logo {
+  text-align: center; margin-bottom: 32px;
+}
+
+.lo-auth-logo-mark {
+  width: 60px; height: 60px;
+  background: var(--lo-primary);
+  border-radius: 16px;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 22px; font-weight: 900; color: #fff;
+  margin-bottom: 12px;
+}
+
+.lo-auth-brand { font-size: 22px; font-weight: 900; color: var(--lo-text); }
+.lo-auth-sub { font-size: 13px; color: var(--lo-text-muted); margin-top: 4px; }
+
+/* ── 알림 ── */
+.lo-alert {
+  border-radius: 10px;
+  font-size: 13.5px;
+  border: none;
+}
+
+/* ── 리포트 ── */
+.lo-report-header {
+  background: linear-gradient(135deg, var(--lo-sidebar-bg), var(--lo-primary-dark));
+  color: #fff;
+  border-radius: var(--lo-radius);
+  padding: 28px 32px;
+  margin-bottom: 24px;
+}
+
+.lo-report-member { font-size: 22px; font-weight: 900; }
+.lo-report-period { font-size: 13px; opacity: 0.7; margin-top: 4px; }
+
+.lo-signal-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,0.15);
+  padding: 6px 14px; border-radius: 20px;
+  font-size: 13px; font-weight: 600;
+  margin-top: 12px;
+}
+
+/* ── 반응형 ── */
+@media (max-width: 768px) {
+  .lo-sidebar {
+    transform: translateX(-100%);
+  }
+  .lo-sidebar.open {
+    transform: translateX(0);
+  }
+  .lo-main {
+    margin-left: 0;
+  }
+  .lo-sidebar-toggle {
+    display: block;
+  }
+  .lo-content {
+    padding: 16px;
+  }
+}
+
+/* ── 애니메이션 ── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.lo-fade-in {
+  animation: fadeInUp 0.35s ease both;
+}
+
+.lo-fade-in:nth-child(2) { animation-delay: 0.06s; }
+.lo-fade-in:nth-child(3) { animation-delay: 0.12s; }
+.lo-fade-in:nth-child(4) { animation-delay: 0.18s; }
