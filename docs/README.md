@@ -1,6 +1,8 @@
-# LIGHTONE V2 Docs
+# LIGHTONE V3 Docs
 
-이 디렉터리는 LIGHTONE V2의 사업, 제품, 운영, 검증 문서를 보관하는 문서 허브입니다.
+이 디렉터리는 LIGHTONE V3의 사업, 제품, 운영, 검증 문서를 보관하는 문서 허브입니다.
+
+현재 실행 기준 코드는 `../lightone_v2_django/`입니다. 루트에 함께 보존된 `legacy/`, `legacy-docs/`, `lightone-main/`, `lightone_django/`, `legacy-django-complete/`는 이전 버전과 참고 자료이며, 새 기능 개발의 기본 대상이 아닙니다.
 
 ## Canonical documents
 
@@ -27,6 +29,12 @@
 | [`lightone_v2_django/docs/`](../lightone_v2_django/docs/) | Django MVP 구현·운영 과정에서 작성된 참고 문서 |
 | [`2/repo_lightoneV2/`](../2/repo_lightoneV2/) | V2 관련 자산 정리본 또는 이전 작업물 보관 영역 |
 | [`아이디어-구상/`](../아이디어-구상/) | 초기 아이디어, 문제 정의, 사업 방향성 메모 보관 영역 |
+| [`legacy/`](../legacy/) | V1/V2 이전 산출물 보존 영역 |
+| [`legacy-docs/`](../legacy-docs/) | 이전 문서 보존 영역 |
+| [`lightone-main/`](../lightone-main/) | 과거 메인 저장소 스냅샷 |
+| [`lightone_django/`](../lightone_django/) | 이전 Django 구현 |
+| [`legacy-django-complete/`](../legacy-django-complete/) | 이전 완성형 Django 구현 |
+| [`docs/archive/`](archive/) | 활성 구조에서 제외한 보존 자료 |
 
 ## 문서 운영 원칙
 

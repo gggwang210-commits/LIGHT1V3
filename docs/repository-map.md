@@ -1,6 +1,8 @@
-# LIGHTONE V2 저장소 맵
+# LIGHTONE V3 저장소 맵
 
 이 문서는 저장소 루트에서 어떤 문서를 먼저 읽고, 어떤 폴더가 어떤 역할을 하는지 빠르게 파악하기 위한 안내서입니다. 전체 사업 방향은 [루트 README](../README.md), Django MVP 실행과 기능은 [Django README](../lightone_v2_django/README.md), Windows 실행 절차는 [기존 RUN_WINDOWS](../lightone_v2_django/RUN_WINDOWS.md)와 [Windows 실행 가이드](execution-guide/windows-run-guide.md)를 함께 확인합니다.
+
+현재 실행 기준은 `lightone_v2_django/`입니다. 루트의 이전 버전 폴더는 히스토리 보존용이며 새 개발의 기본 대상이 아닙니다.
 
 ## 1. 최상위 문서
 
@@ -40,6 +42,12 @@
 | [`lightone_v2_django/docs/`](../lightone_v2_django/docs/) | reference / legacy | Django MVP 구현·운영 참고 자료로 사용 |
 | [`2/repo_lightoneV2/`](../2/repo_lightoneV2/) | reference / legacy | 이전 V2 자산과 작업물 확인용으로 보존 |
 | [`아이디어-구상/`](../아이디어-구상/) | reference / legacy | 초기 아이디어와 문제 정의 히스토리 확인용으로 보존 |
+| [`legacy/`](../legacy/) | reference / legacy | V1/V2 이전 산출물 보존 |
+| [`legacy-docs/`](../legacy-docs/) | reference / legacy | 이전 문서 보존 |
+| [`lightone-main/`](../lightone-main/) | reference / legacy | 과거 메인 저장소 스냅샷 보존 |
+| [`lightone_django/`](../lightone_django/) | reference / legacy | 이전 Django 구현 보존 |
+| [`legacy-django-complete/`](../legacy-django-complete/) | reference / legacy | 이전 완성형 Django 구현 보존 |
+| [`docs/archive/`](archive/) | archive | 활성 구조에서 제외한 파일 보존 |
 
 ## 4. Django MVP 영역
 
@@ -50,6 +58,8 @@
 | `lightone_v2_django/manage.py` | Django 관리 명령 진입점 |
 | `lightone_v2_django/requirements.txt` | Python 패키지 의존성 |
 | `lightone_v2_django/lightone/` | LIGHTONE 앱의 모델, 뷰, 템플릿, 관리 명령 영역 |
+| `lightone_v2_django/lightone/utils/qs_calculator.py` | QS 라우팅 유틸. safety flag, pain scale, AUTO/REVIEW/BLOCK 기준 |
+| `lightone_v2_django/lightone/algorithms.py` | QS/JATC 계산과 기존 `route_session` 호환 함수 |
 
 ## 5. 문서 사용 순서
 

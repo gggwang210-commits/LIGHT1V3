@@ -1,12 +1,15 @@
 import uuid
 from django.db import models
 
-from django.db import models
-
-from django.db import models
-
 from accounts.models import MemberProfile, TrainerProfile
-from .algorithms import SAFETY_NOTICE, calculate_jatc, calculate_qs
+from .algorithms import (
+    SAFETY_NOTICE,
+    calculate_jatc,
+    calculate_qs,
+    map_pain_response_score,
+    normalize_score,
+    route_session,
+)
 from .utils.qs_calculator import determine_routing
 
 
@@ -32,13 +35,6 @@ class Member(models.Model):
     goals = models.TextField(blank=True, help_text='비의료 참고 목적의 운동 목표입니다.')
     consent = models.BooleanField(default=False, help_text='비의료 참고 데이터 활용 동의 여부입니다.')
 
-from django.db import models
-
-from django.db import models
-
-from accounts.models import MemberProfile, TrainerProfile
-
-
 class MemberSession(models.Model):
     ROUTE_CHOICES = [
         ('AUTO', 'AUTO'),
@@ -59,13 +55,14 @@ class MemberSession(models.Model):
     goal = models.CharField(max_length=120)
     discomfort_area = models.CharField(max_length=120, blank=True)
     qs_score = models.FloatField(default=0)
-    jatc_score = models.FloatField(default=0, help_text='비의료 운동상담 참고용 JATC 점수입니다.')
+    jatc_score = models.FloatField(default=0)
     form_accuracy = models.FloatField(default=0)
     pain_response = models.FloatField(default=0)
     rpe = models.FloatField(default=0)
     rep_score = models.FloatField(default=100)
     rest_score = models.FloatField(default=100)
     qc_score = models.FloatField(default=100)
+    safety_notice = models.TextField(default=SAFETY_NOTICE)
     qs_form_component = models.FloatField(default=0)
     qs_discomfort_component = models.FloatField(default=0)
     qs_rpe_component = models.FloatField(default=0)
@@ -73,6 +70,11 @@ class MemberSession(models.Model):
     route = models.CharField(max_length=10, choices=ROUTE_CHOICES, default='AUTO')
     qc_status = models.CharField(max_length=10, choices=QC_CHOICES, default='PASS')
     memo = models.TextField(blank=True)
+    posture_score = models.FloatField(default=0)
+    lifestyle_score = models.FloatField(default=0)
+    function_training_score = models.FloatField(default=0)
+    review_note = models.TextField(blank=True)
+    trainer_confirmed = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -106,7 +108,10 @@ class MemberSession(models.Model):
         self.safety_notice = SAFETY_NOTICE
 
     def save(self, *args, **kwargs):
-        self.calculate_qs_and_route()
+        # Preserve trainer-entered aggregate scores until raw session input is
+        # available; otherwise refresh the derived QS/JATC route.
+        if self.form_accuracy or self.rpe or not self.qs_score:
+            self.calculate_qs_and_route()
         super().save(*args, **kwargs)
         Indicator.objects.update_or_create(
             member_session=self,
@@ -218,24 +223,3 @@ class StrategyItem(models.Model):
 
     def __str__(self):
         return self.title
-
-
-@receiver(post_save, sender=MemberSession)
-def sync_member_session_indicator(sender, instance, **kwargs):
-    """Create or update the non-medical indicator snapshot when a member session is saved."""
-    Indicator.objects.update_or_create(
-        member_session=instance,
-        defaults={
-            'posture_score': instance.posture_score,
-            'lifestyle_score': instance.lifestyle_score,
-            'pain_score': instance.pain_response,
-            'function_training_score': instance.function_training_score,
-            'qs_score': instance.qs_score,
-            'jatc_score': instance.jatc_score,
-            'review_signal': instance.route,
-            'review_note': instance.review_note,
-            'trainer_confirmed': instance.trainer_confirmed,
-            'report_status': 'HELD' if instance.route == 'BLOCK' else 'READY',
-            'counseling_priority': 1 if instance.route == 'BLOCK' else 2 if instance.route == 'REVIEW' else 3,
-        },
-    )

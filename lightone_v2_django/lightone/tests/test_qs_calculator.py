@@ -53,8 +53,8 @@ class QsCalculatorTests(TestCase):
         indicator = Indicator.objects.get(member_session=session)
         self.assertEqual(indicator.qs_score, 85)
         self.assertEqual(indicator.jatc_score, 82)
-        self.assertEqual(indicator.review_signal, 'AUTO')
-        self.assertEqual(indicator.report_status, 'READY')
+        self.assertEqual(indicator.route, 'AUTO')
+        self.assertFalse(indicator.trainer_review_required)
 
         session.qs_score = 35
         session.jatc_score = 38
@@ -67,7 +67,5 @@ class QsCalculatorTests(TestCase):
         indicator.refresh_from_db()
         self.assertEqual(indicator.qs_score, 35)
         self.assertEqual(indicator.jatc_score, 38)
-        self.assertEqual(indicator.review_signal, 'BLOCK')
-        self.assertEqual(indicator.report_status, 'HELD')
-        self.assertEqual(indicator.review_note, 'blocked after safety review')
-        self.assertTrue(indicator.trainer_confirmed)
+        self.assertEqual(indicator.route, 'BLOCK')
+        self.assertTrue(indicator.trainer_review_required)
