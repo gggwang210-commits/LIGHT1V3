@@ -13,6 +13,7 @@ REQUIRED_DASHBOARD_DOCS = [
     "docs/dashboard_sample_user_flows.md",
     "docs/dashboard_safety_copy_guidelines.md",
     "docs/dashboard_codex_implementation_plan.md",
+    "docs/trainer_dashboard_validation.md",
 ]
 
 

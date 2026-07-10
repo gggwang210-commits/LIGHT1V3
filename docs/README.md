@@ -12,6 +12,7 @@
 | [`docs/LIGHT_ONE_final_business_plan_v1_2026-07-07.md`](LIGHT_ONE_final_business_plan_v1_2026-07-07.md) | 최종 사업계획서 기준본 |
 | [`docs/product_positioning.md`](product_positioning.md) | 제품 포지셔닝 기준 문서 |
 | [`docs/mvp_scope.md`](mvp_scope.md) | MVP 범위와 제외 범위 기준 문서 |
+| [`docs/trainer_dashboard_validation.md`](trainer_dashboard_validation.md) | 트레이너 대시보드 MVP의 심사·파일럿 검증 기준 문서 |
 | [`docs/safety_and_privacy_policy.md`](safety_and_privacy_policy.md) | 안전·개인정보 정책 기준 문서 |
 | [`docs/technical_roadmap.md`](technical_roadmap.md) | 기술 개발 로드맵 기준 문서 |
 | [`docs/customer_validation_plan.md`](customer_validation_plan.md) | 고객 검증 계획 기준 문서 |
