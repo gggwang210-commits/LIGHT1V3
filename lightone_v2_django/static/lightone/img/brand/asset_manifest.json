@@ -1,0 +1,178 @@
+{
+  "project": "LIGHTONE V2",
+  "purpose": "Brand and product visual source assets for Django MVP, landing page, portfolio, and presentation use.",
+  "non_medical_positioning": "Use as non-medical PT consultation support SaaS visuals only.",
+  "assets": [
+    {
+      "slug": "studio-interior-night-blue",
+      "file": "studio-interior-night-blue.webp",
+      "repo_path": "lightone_v2_django/static/lightone/img/brand/studio-interior-night-blue.webp",
+      "category": "hero/background",
+      "description": "Premium night interior with cool blue training zone and warm consultation area",
+      "recommended_use": "Django landing page dark hero/background",
+      "source_file": "1.png",
+      "source_dimensions": {
+        "width": 2048,
+        "height": 1108
+      },
+      "asset_dimensions": {
+        "width": 1600,
+        "height": 866
+      },
+      "file_size_bytes": 87716,
+      "safety_note": "비의료 PT 상담·브랜드·대시보드 표현용 시각 자료. 진단·치료·처방·질병 예측 표현으로 사용하지 않음."
+    },
+    {
+      "slug": "dashboard-icon-set",
+      "file": "dashboard-icon-set.webp",
+      "repo_path": "lightone_v2_django/static/lightone/img/brand/dashboard-icon-set.webp",
+      "category": "icon/source",
+      "description": "Dark glass icon set for dashboard/menu concepts",
+      "recommended_use": "Reference source for sidebar/dashboard icon style; not final UI icon sprite",
+      "source_file": "3.png",
+      "source_dimensions": {
+        "width": 407,
+        "height": 371
+      },
+      "asset_dimensions": {
+        "width": 407,
+        "height": 371
+      },
+      "file_size_bytes": 23840,
+      "safety_note": "비의료 PT 상담·브랜드·대시보드 표현용 시각 자료. 진단·치료·처방·질병 예측 표현으로 사용하지 않음."
+    },
+    {
+      "slug": "studio-interior-day",
+      "file": "studio-interior-day.webp",
+      "repo_path": "lightone_v2_django/static/lightone/img/brand/studio-interior-day.webp",
+      "category": "landing/hero",
+      "description": "Bright premium Light One PT Studio interior, day version",
+      "recommended_use": "Landing page premium day hero",
+      "source_file": "5.png",
+      "source_dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "asset_dimensions": {
+        "width": 1600,
+        "height": 900
+      },
+      "file_size_bytes": 156704,
+      "safety_note": "비의료 PT 상담·브랜드·대시보드 표현용 시각 자료. 진단·치료·처방·질병 예측 표현으로 사용하지 않음."
+    },
+    {
+      "slug": "studio-interior-night-warm",
+      "file": "studio-interior-night-warm.webp",
+      "repo_path": "lightone_v2_django/static/lightone/img/brand/studio-interior-night-warm.webp",
+      "category": "landing/hero",
+      "description": "Warm night studio interior with equipment, plants, city view",
+      "recommended_use": "Landing page premium night hero",
+      "source_file": "6.png",
+      "source_dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "asset_dimensions": {
+        "width": 1600,
+        "height": 900
+      },
+      "file_size_bytes": 197264,
+      "safety_note": "비의료 PT 상담·브랜드·대시보드 표현용 시각 자료. 진단·치료·처방·질병 예측 표현으로 사용하지 않음."
+    },
+    {
+      "slug": "studio-interior-night-blue-alt",
+      "file": "studio-interior-night-blue-alt.webp",
+      "repo_path": "lightone_v2_django/static/lightone/img/brand/studio-interior-night-blue-alt.webp",
+      "category": "background",
+      "description": "Alternative cool night interior source",
+      "recommended_use": "Dark premium SaaS hero or section background",
+      "source_file": "8.png",
+      "source_dimensions": {
+        "width": 2048,
+        "height": 1108
+      },
+      "asset_dimensions": {
+        "width": 1600,
+        "height": 866
+      },
+      "file_size_bytes": 87716,
+      "safety_note": "비의료 PT 상담·브랜드·대시보드 표현용 시각 자료. 진단·치료·처방·질병 예측 표현으로 사용하지 않음."
+    },
+    {
+      "slug": "trainer-feedback-dashboard",
+      "file": "trainer-feedback-dashboard.webp",
+      "repo_path": "lightone_v2_django/static/lightone/img/brand/trainer-feedback-dashboard.webp",
+      "category": "dashboard/mockup",
+      "description": "Korean trainer feedback dashboard mockup, non-medical member report concept",
+      "recommended_use": "Portfolio/mockup preview of member feedback report UI",
+      "source_file": "66.png",
+      "source_dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "asset_dimensions": {
+        "width": 1600,
+        "height": 900
+      },
+      "file_size_bytes": 136478,
+      "safety_note": "비의료 PT 상담·브랜드·대시보드 표현용 시각 자료. 진단·치료·처방·질병 예측 표현으로 사용하지 않음."
+    },
+    {
+      "slug": "ai-fitness-overlay-bg",
+      "file": "ai-fitness-overlay-bg.webp",
+      "repo_path": "lightone_v2_django/static/lightone/img/brand/ai-fitness-overlay-bg.webp",
+      "category": "background",
+      "description": "AI fitness overlay background for SaaS/analytics visual",
+      "recommended_use": "AI analytics visual section background",
+      "source_file": "소스2.png",
+      "source_dimensions": {
+        "width": 543,
+        "height": 388
+      },
+      "asset_dimensions": {
+        "width": 543,
+        "height": 388
+      },
+      "file_size_bytes": 21912,
+      "safety_note": "비의료 PT 상담·브랜드·대시보드 표현용 시각 자료. 진단·치료·처방·질병 예측 표현으로 사용하지 않음."
+    },
+    {
+      "slug": "network-abstract-bg",
+      "file": "network-abstract-bg.webp",
+      "repo_path": "lightone_v2_django/static/lightone/img/brand/network-abstract-bg.webp",
+      "category": "background",
+      "description": "Abstract network background for AI/data sections",
+      "recommended_use": "Data architecture/RAG/AI section background",
+      "source_file": "소스3.png",
+      "source_dimensions": {
+        "width": 505,
+        "height": 277
+      },
+      "asset_dimensions": {
+        "width": 505,
+        "height": 277
+      },
+      "file_size_bytes": 4754,
+      "safety_note": "비의료 PT 상담·브랜드·대시보드 표현용 시각 자료. 진단·치료·처방·질병 예측 표현으로 사용하지 않음."
+    },
+    {
+      "slug": "studio-exterior-day",
+      "file": "studio-exterior-day.webp",
+      "repo_path": "lightone_v2_django/static/lightone/img/brand/studio-exterior-day.webp",
+      "category": "landing/exterior",
+      "description": "Premium exterior Light One PT Studio building concept",
+      "recommended_use": "Brand story or studio concept exterior visual",
+      "source_file": "외부.png",
+      "source_dimensions": {
+        "width": 1672,
+        "height": 941
+      },
+      "asset_dimensions": {
+        "width": 1600,
+        "height": 900
+      },
+      "file_size_bytes": 256066,
+      "safety_note": "비의료 PT 상담·브랜드·대시보드 표현용 시각 자료. 진단·치료·처방·질병 예측 표현으로 사용하지 않음."
+    }
+  ]
+}

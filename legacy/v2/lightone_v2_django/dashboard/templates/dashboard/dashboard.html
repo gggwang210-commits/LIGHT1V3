@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block title %}LIGHT ONE QS Dashboard{% endblock %}
+
+{% block content %}
+<section class="section-block" aria-labelledby="qs-dashboard-title">
+  <div class="section-title">
+    <span>QS</span>
+    <h2 id="qs-dashboard-title">Quality Score Dashboard</h2>
+  </div>
+
+  <div class="notice" role="note">
+    <b>Safety Boundary</b>
+    이 대시보드는 PT 상담 참고용이며 의료적 진단이나 치료 판단을 대체하지 않습니다.
+  </div>
+
+  <div class="two-col" aria-label="QS dashboard charts">
+    <article class="panel-card">
+      <div class="panel-head">
+        <h3>recent QS trend</h3>
+        <small>최근 세션별 QS 변화</small>
+      </div>
+      <canvas id="qsTrendChart" aria-label="recent QS trend line chart" role="img"></canvas>
+    </article>
+
+    <article class="panel-card">
+      <div class="panel-head">
+        <h3>QS Breakdown</h3>
+        <small>주요 구성요소별 점수</small>
+      </div>
+      <canvas id="qsBreakdownChart" aria-label="QS Breakdown bar chart" role="img"></canvas>
+    </article>
+  </div>
+</section>
+
+{{ qs_labels|json_script:"qs-labels-data" }}
+{{ qs_scores|json_script:"qs-scores-data" }}
+{{ breakdown_labels|json_script:"breakdown-labels-data" }}
+{{ breakdown_values|json_script:"breakdown-values-data" }}
+
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"
+  integrity="sha512-CQBWl4fJHWbryGE+Pc7UAxWMUMNMWzWxF4SQo9CgkJIN1kx6djDQZjh3Y8SZ1d+6I+1zze6Z7kHXO7q3UyZAWw=="
+  crossorigin="anonymous"
+  referrerpolicy="no-referrer"
+  defer></script>
+<script>
+  window.addEventListener('DOMContentLoaded', function () {
+    const parseJsonScript = function (elementId) {
+      const element = document.getElementById(elementId);
+      if (!element) {
+        return [];
+      }
+      return JSON.parse(element.textContent);
+    };
+
+    const qsLabels = parseJsonScript('qs-labels-data');
+    const qsScores = parseJsonScript('qs-scores-data');
+    const breakdownLabels = parseJsonScript('breakdown-labels-data');
+    const breakdownValues = parseJsonScript('breakdown-values-data');
+
+    if (typeof Chart === 'undefined') {
+      return;
+    }
+
+    const qsTrendCanvas = document.getElementById('qsTrendChart');
+    const qsBreakdownCanvas = document.getElementById('qsBreakdownChart');
+
+    if (qsTrendCanvas) {
+      new Chart(qsTrendCanvas, {
+        type: 'line',
+        data: {
+          labels: qsLabels,
+          datasets: [{
+            label: 'QS Score',
+            data: qsScores,
+            borderColor: '#1f7a5c',
+            backgroundColor: 'rgba(31, 122, 92, 0.14)',
+            borderWidth: 3,
+            pointRadius: 4,
+            tension: 0.35,
+            fill: true
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true,
+              suggestedMax: 100
+            }
+          }
+        }
+      });
+    }
+
+    if (qsBreakdownCanvas) {
+      new Chart(qsBreakdownCanvas, {
+        type: 'bar',
+        data: {
+          labels: breakdownLabels,
+          datasets: [{
+            label: 'Score',
+            data: breakdownValues,
+            backgroundColor: ['#1f7a5c', '#f0a202', '#2563eb', '#dc2626'],
+            borderRadius: 8
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true,
+              suggestedMax: 100
+            }
+          }
+        }
+      });
+    }
+  });
+</script>
+{% endblock %}

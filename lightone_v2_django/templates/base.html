@@ -1,0 +1,115 @@
+{% load static %}
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}LIGHT ONE Premium Dashboard{% endblock %}</title>
+  <meta name="description" content="LIGHT ONE은 PT샵과 헬스장이 회원 상담 리포트, 운동 수행 기록, 컨디셔닝 우선순위를 관리할 수 있도록 돕는 비의료 운동상담 SaaS입니다.">
+  <meta property="og:title" content="LIGHT ONE Premium Dashboard">
+  <meta property="og:description" content="트레이너를 위한 비의료 운동상담 리포트 SaaS, LIGHT ONE 대시보드입니다.">
+  <meta property="og:type" content="website">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="{% static 'lightone/css/lightone.css' %}">
+</head>
+
+<body>
+  <div class="ambient ambient-a"></div>
+  <div class="ambient ambient-b"></div>
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true"></div>
+      <div>
+        <strong>LIGHT ONE</strong>
+        <span>BodyScan AI</span>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <p>MAIN</p>
+      <a class="active" href="{% url 'lightone:dashboard' %}" aria-label="대시보드 페이지로 이동" aria-current="page">
+        <span class="nav-ico">⌂</span>
+        대시보드
+      </a>
+      <a href="#progress" aria-label="진행 현황 섹션으로 이동">
+        <span class="nav-ico">≡</span>
+        진행 현황
+      </a>
+      <a href="#analysis" aria-label="분석 결과 섹션으로 이동">
+        <span class="nav-ico">▥</span>
+        분석 결과
+      </a>
+      <a href="#priority" aria-label="사업 우선순위 섹션으로 이동">
+        <span class="nav-ico">◇</span>
+        사업 우선순위
+      </a>
+
+      <p>PRODUCT</p>
+      <a href="{% url 'lightone:method' %}" aria-label="코드 방법론 페이지로 이동">
+        <span class="nav-ico">⌘</span>
+        코드 방법론
+      </a>
+      <a href="#reports" aria-label="상담 리포트 섹션으로 이동">
+        <span class="nav-ico">▤</span>
+        상담 리포트
+      </a>
+      <a href="#roadmap" aria-label="로드맵 섹션으로 이동">
+        <span class="nav-ico">↗</span>
+        로드맵
+      </a>
+
+      <p>MANAGE</p>
+      <a href="#users" aria-label="사용자 섹션으로 이동">
+        <span class="nav-ico">○</span>
+        사용자
+      </a>
+      <a href="#settings" aria-label="설정 섹션으로 이동">
+        <span class="nav-ico">⚙</span>
+        설정
+      </a>
+    </nav>
+
+    <div class="sidebar-status">
+      <span>AI Wellness Engine</span>
+      <strong>Ready for analysis <i></i></strong>
+      <small>Non-medical PT report SaaS</small>
+    </div>
+
+    <footer class="side-footer">
+      © 2026 LIGHT ONE<br>
+      v5.0 · Healthcare Premium
+    </footer>
+  </aside>
+
+  <main class="main-shell">
+    <header class="topbar">
+      <div class="topbar-left">
+        <small>KDT AI 바이오헬스케어</small>
+        <strong>Trainer Report SaaS · LIGHT ONE</strong>
+      </div>
+
+      <div class="topbar-actions">
+        <button type="button" aria-label="테마 설정 전환">☼</button>
+        <button type="button" aria-label="알림 3개 확인">🔔<span>3</span></button>
+        <div class="user-chip">
+          <div class="avatar">송</div>
+          <div>
+            <strong>송광일</strong>
+            <small>Founder · Trainer</small>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="global-safety-notice">비의료 운동상담 참고, 트레이너 검토 필요</div>
+    {% block content %}{% endblock %}
+  </main>
+
+  <script src="{% static 'lightone/js/lightone.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,191 @@
+[
+  {
+    "file": "01_hero_main_dashboard.png",
+    "description": "메인 히어로 배경 / dashboard hero background",
+    "size": [
+      918,
+      270
+    ],
+    "suggested_path": "static/lightone/img/01_hero_main_dashboard.png"
+  },
+  {
+    "file": "02_hero_sub_medical_light.png",
+    "description": "서브 히어로 슬림 배경 / secondary wellness background strip",
+    "size": [
+      918,
+      180
+    ],
+    "suggested_path": "static/lightone/img/02_hero_sub_medical_light.png"
+  },
+  {
+    "file": "03_sidebar_layout_reference.png",
+    "description": "사이드바 레이아웃 참고 / sidebar reference",
+    "size": [
+      172,
+      496
+    ],
+    "suggested_path": "static/lightone/img/03_sidebar_layout_reference.png"
+  },
+  {
+    "file": "04_card_panel_background.png",
+    "description": "카드·패널 배경 / card panel background",
+    "size": [
+      367,
+      187
+    ],
+    "suggested_path": "static/lightone/img/04_card_panel_background.png"
+  },
+  {
+    "file": "05_chart_panel_background.png",
+    "description": "그래프·차트 패널 배경 / chart panel background",
+    "size": [
+      367,
+      154
+    ],
+    "suggested_path": "static/lightone/img/05_chart_panel_background.png"
+  },
+  {
+    "file": "06_kpi_card_background.png",
+    "description": "KPI 카드 배경 / KPI card background",
+    "size": [
+      367,
+      88
+    ],
+    "suggested_path": "static/lightone/img/06_kpi_card_background.png"
+  },
+  {
+    "file": "07_feature_importance_panel.png",
+    "description": "피처 중요도 패널 배경 / feature importance panel",
+    "size": [
+      470,
+      141
+    ],
+    "suggested_path": "static/lightone/img/07_feature_importance_panel.png"
+  },
+  {
+    "file": "08_content_section_background.png",
+    "description": "콘텐츠 섹션 배경 / content section background",
+    "size": [
+      440,
+      164
+    ],
+    "suggested_path": "static/lightone/img/08_content_section_background.png"
+  },
+  {
+    "file": "09_roadmap_timeline_background.png",
+    "description": "로드맵·타임라인 배경 / roadmap timeline background",
+    "size": [
+      557,
+      163
+    ],
+    "suggested_path": "static/lightone/img/09_roadmap_timeline_background.png"
+  },
+  {
+    "file": "10_01_runner_ai_illustration.png",
+    "description": "러너 AI 일러스트 / runner AI illustration",
+    "size": [
+      202,
+      126
+    ],
+    "suggested_path": "static/lightone/img/10_01_runner_ai_illustration.png"
+  },
+  {
+    "file": "10_02_hospital_corridor_blur.png",
+    "description": "웰니스 공간 배경 / wellness background",
+    "size": [
+      212,
+      126
+    ],
+    "suggested_path": "static/lightone/img/10_02_hospital_corridor_blur.png"
+  },
+  {
+    "file": "10_03_hand_hologram_body.png",
+    "description": "컨디셔닝 안내 비주얼 / conditioning visual",
+    "size": [
+      212,
+      126
+    ],
+    "suggested_path": "static/lightone/img/10_03_hand_hologram_body.png"
+  },
+  {
+    "file": "10_04_heartbeat_signal.png",
+    "description": "운동 리듬 데이터 패턴 / conditioning data pattern",
+    "size": [
+      219,
+      126
+    ],
+    "suggested_path": "static/lightone/img/10_04_heartbeat_signal.png"
+  },
+  {
+    "file": "10_05_dna_medical_texture.png",
+    "description": "추상 데이터 패턴 / abstract data pattern",
+    "size": [
+      211,
+      126
+    ],
+    "suggested_path": "static/lightone/img/10_05_dna_medical_texture.png"
+  },
+  {
+    "file": "10_06_smartwatch_health.png",
+    "description": "스마트워치 컨디셔닝 이미지 / smartwatch conditioning visual",
+    "size": [
+      210,
+      126
+    ],
+    "suggested_path": "static/lightone/img/10_06_smartwatch_health.png"
+  },
+  {
+    "file": "10_07_medical_plus_icon.png",
+    "description": "웰니스 지원 아이콘 / wellness support icon",
+    "size": [
+      185,
+      126
+    ],
+    "suggested_path": "static/lightone/img/10_07_medical_plus_icon.png"
+  },
+  {
+    "file": "11_01_dotted_wave_pattern.png",
+    "description": "도트 웨이브 패턴 / dotted wave pattern",
+    "size": [
+      295,
+      95
+    ],
+    "suggested_path": "static/lightone/img/11_01_dotted_wave_pattern.png"
+  },
+  {
+    "file": "11_02_hexagon_pattern.png",
+    "description": "헥사곤 패턴 / hexagon pattern",
+    "size": [
+      309,
+      95
+    ],
+    "suggested_path": "static/lightone/img/11_02_hexagon_pattern.png"
+  },
+  {
+    "file": "11_03_soft_wave_gradient.png",
+    "description": "소프트 웨이브 그라디언트 / soft wave gradient",
+    "size": [
+      287,
+      95
+    ],
+    "suggested_path": "static/lightone/img/11_03_soft_wave_gradient.png"
+  },
+  {
+    "file": "11_04_dark_digital_grid.png",
+    "description": "다크 디지털 그리드 / dark digital grid",
+    "size": [
+      291,
+      95
+    ],
+    "suggested_path": "static/lightone/img/11_04_dark_digital_grid.png"
+  },
+  {
+    "file": "11_05_network_node_pattern.png",
+    "description": "네트워크 노드 패턴 / network node pattern",
+    "size": [
+      280,
+      95
+    ],
+    "suggested_path": "static/lightone/img/11_05_network_node_pattern.png"
+  }
+]

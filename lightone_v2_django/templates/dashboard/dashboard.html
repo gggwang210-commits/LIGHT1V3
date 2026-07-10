@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block title %}LIGHT ONE Step 3 QS Dashboard{% endblock %}
+
+{% block content %}
+<section class="hero-card">
+  <div class="hero-copy">
+    <span class="eyebrow">STEP 3 · QS SCREEN</span>
+    <h1>
+      QS 기반 상담 품질을<br>
+      전용 화면에서 확인합니다
+    </h1>
+    <p>
+      기존 /lightone/ 대시보드는 유지하면서, Step 3 검증에 필요한 QS 평균,
+      위험 라우팅, 촬영 QC 상태를 /dashboard/에서 별도로 제공합니다.
+    </p>
+    <div class="hero-tags">
+      <span>QS {{ avg_qs }}</span>
+      <span>JATC {{ avg_jatc }}</span>
+      <span>{{ total }} Sessions</span>
+    </div>
+  </div>
+
+  <div class="score-card">
+    <span>Step 3 QS 평균</span>
+    <strong>{{ avg_qs }}</strong>
+    <small>AUTO / REVIEW / BLOCK</small>
+    <div class="score-ring"><b></b></div>
+  </div>
+</section>
+
+<section id="progress" class="section-block">
+  <div class="section-title">
+    <span>QS</span>
+    <h2>Step 3 라우팅 현황</h2>
+  </div>
+
+  <div class="metric-grid">
+    <article class="metric-card">
+      <span>전체 세션</span>
+      <strong>{{ total }}</strong>
+      <small>QS 산출 대상</small>
+    </article>
+    <article class="metric-card accent-green">
+      <span>AUTO</span>
+      <strong>{{ counts.AUTO }}</strong>
+      <small>자동 리포트 가능</small>
+    </article>
+    <article class="metric-card accent-yellow">
+      <span>REVIEW</span>
+      <strong>{{ counts.REVIEW }}</strong>
+      <small>트레이너 검토 필요</small>
+    </article>
+    <article class="metric-card accent-red">
+      <span>BLOCK</span>
+      <strong>{{ counts.BLOCK }}</strong>
+      <small>운동 중단 안내</small>
+    </article>
+  </div>
+</section>
+
+<section id="analysis" class="section-block two-col">
+  <div class="panel-card feature-panel">
+    <div class="panel-head">
+      <h3>QS 판단 보조 지표</h3>
+      <small>Feature importance</small>
+    </div>
+    {% for item in feature_importance %}
+    <div class="bar-row">
+      <span>{{ item.name }}</span>
+      <div><i style="width: {% widthratio item.value 1 100 %}%"></i></div>
+      <b>{{ item.value }}</b>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="panel-card visual-route-panel">
+    <div class="panel-head">
+      <h3>촬영 QC 상태</h3>
+      <small>Step 3 quality gate</small>
+    </div>
+    <div class="route-grid">
+      <div>
+        <span>PASS</span>
+        <strong class="green">{{ qc_counts.PASS }}</strong>
+        <small>사용 가능</small>
+      </div>
+      <div>
+        <span>CHECK</span>
+        <strong class="yellow">{{ qc_counts.CHECK }}</strong>
+        <small>확인 필요</small>
+      </div>
+      <div>
+        <span>FAIL</span>
+        <strong class="red">{{ qc_counts.FAIL }}</strong>
+        <small>재촬영 권장</small>
+      </div>
+    </div>
+    <p class="muted">
+      /dashboard/는 Step 3 QS 검증을 위한 전용 화면이며, 기존 /lightone/ 대시보드와 독립적으로 라우팅됩니다.
+    </p>
+  </div>
+</section>
+{% endblock %}

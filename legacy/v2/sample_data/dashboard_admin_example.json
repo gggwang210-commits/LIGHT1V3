@@ -1,0 +1,38 @@
+{
+  "centerId": "synthetic_center_001",
+  "centerName": "LIGHT ONE Demo Center",
+  "kpis": {
+    "activeMembers": 42,
+    "upcomingSessions": 18,
+    "completedSessions": 96,
+    "reportGenerationRate": 0.82,
+    "reviewBlockCount": 5,
+    "reRegistrationCandidates": 9,
+    "trainerResponseTimeHours": 3.4,
+    "memberSatisfactionScore": 4.6,
+    "unpaidPayments": 2,
+    "churnRiskMembers": 6
+  },
+  "trainerPerformance": [
+    {
+      "trainerLabel": "트레이너 T",
+      "sessionsThisWeek": 22,
+      "openRequests": 3
+    }
+  ],
+  "payments": [
+    {
+      "invoiceId": "invoice_001",
+      "memberLabel": "멤버 E",
+      "status": "unpaid",
+      "amountKrw": 180000
+    }
+  ],
+  "permissions": [
+    {
+      "role": "Trainer",
+      "access": "assigned_members_only",
+      "auditRequired": true
+    }
+  ]
+}

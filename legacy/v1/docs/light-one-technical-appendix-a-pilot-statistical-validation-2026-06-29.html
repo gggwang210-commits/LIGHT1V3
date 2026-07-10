@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LIGHT ONE Appendix A - QS/JATC Pilot Validation Plan</title>
+  <style>
+    body{margin:0;background:#f6f8fb;color:#111827;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',Arial,sans-serif;line-height:1.72}
+    main{max-width:1040px;margin:auto;padding:42px 20px 80px}header{background:linear-gradient(135deg,#0f6bff,#0b3f9c);color:#fff;border-radius:24px;padding:36px;margin-bottom:28px}h1{margin:0;font-size:32px;line-height:1.25}h2{margin-top:38px;border-bottom:2px solid #d9e2ef;padding-bottom:10px}.card{background:#fff;border:1px solid #d9e2ef;border-radius:18px;padding:22px;margin:16px 0;box-shadow:0 8px 24px rgba(17,24,39,.05)}.warn{background:#fff7ed;border-color:#fed7aa}.quote{border-left:5px solid #0f6bff;background:#e8f1ff;padding:14px 18px;border-radius:12px;font-weight:700}table{width:100%;border-collapse:collapse;margin:16px 0;background:white}th,td{border:1px solid #d9e2ef;padding:10px;vertical-align:top}th{background:#eef4ff}.small{font-size:13px;color:#4b5563}
+  </style>
+</head>
+<body>
+<main>
+<header>
+  <h1>기술검증 부록 A<br>QS/JATC 파일럿 연구계획 및 통계검증 계획</h1>
+  <p>LIGHT ONE — 비의료 PT 상담 리포트 SaaS</p>
+  <p class="small">작성 기준일: 2026-06-29 · 파일럿 연구계획 / 통계분석 계획</p>
+</header>
+
+<section class="card warn">
+  <h2>문서 성격</h2>
+  <p>본 부록은 비의료 운동상담 데이터의 표준화, 지표 산출, 트레이너 의사결정지원 가능성을 탐색하는 기술검증 문서다. 통합 데이터 모델과 시스템 설계는 부록 B에 분리되어 있으므로 이 문서에서는 반복하지 않는다.</p>
+</section>
+
+<section class="card">
+  <h2>1. 목적</h2>
+  <p>본 부록은 LIGHT ONE의 핵심 지표인 QS와 JATC의 현장 적용 가능성을 검토하기 위한 파일럿 연구계획서다.</p>
+  <ul><li>PT 세션 데이터 표준화 필요성</li><li>QS/JATC 산출 가능성</li><li>8주 파일럿 연구설계</li><li>n=30 파일럿 표본수 타당성</li><li>반복측정 통계분석 계획</li><li>신뢰도·타당도 검토 계획</li><li>윤리·보안·IRB 검토 사항</li></ul>
+</section>
+
+<section class="card">
+  <h2>2. 배경</h2>
+  <p>PT 현장에서는 세션 단위로 불편감 반응, 자세·정렬, 근기능, 운동 부하, 세트, 반복, 중량, RPE 등 고밀도 데이터가 반복적으로 생성된다. 그러나 데이터는 종이 기록, 메모, 엑셀, 개별 앱 등으로 분산되는 경우가 많아 세션 간 비교 가능한 통합 해석과 장기 추적 기반 운동상담이 제한된다.</p>
+  <p>따라서 PT 현장의 데이터 언어를 유지하면서도, 불편감 반응, 자세 변화, 운동 수행, 운동 부하를 동일한 시간축으로 결합하는 통합 평가 프레임워크가 필요하다.</p>
+</section>
+
+<section class="card">
+  <h2>3. 연구 질문</h2>
+  <p><strong>RQ1.</strong> PT 현장 데이터를 세션 단위로 표준화하기 위한 최소 데이터셋은 무엇인가?</p>
+  <p><strong>RQ2.</strong> 표준화된 세션 데이터로 QS와 JATC를 안정적으로 산출할 수 있는가?</p>
+  <p><strong>RQ3.</strong> QS/JATC 기반 리포트가 트레이너의 운동 계획 조정, 상담 기록, 주의 신호 확인, 회원 피드백에 실무적으로 활용 가능한가?</p>
+  <p><strong>RQ4.</strong> 8주 파일럿에서 QS/JATC 지표는 신뢰도, 수렴타당도, 반응성, 운영 가능성 측면에서 후속 연구로 확장할 만한 신호를 보이는가?</p>
+</section>
+
+<section class="card">
+  <h2>4. 탐색 가설</h2>
+  <ul><li>H1. QS는 T0 대비 T2에서 증가하는 경향을 보일 것이다.</li><li>H2. NRS는 T0 대비 T2에서 감소하는 경향을 보일 것이다. NRS 2점 이상 감소는 확정 기준이 아니라 보조 기준으로만 사용한다.</li><li>H3. JATC는 T0 대비 T2에서 개선되는 경향을 보일 것이다.</li><li>H4. 동일 개인 내에서 운동 부하 변화와 NRS 변화는 의미 있는 연관 패턴을 보일 가능성이 있다.</li><li>H5. 비마커식 자세 추정 기반 핵심 지표와 QS/JATC는 파일럿 수준에서 수용 가능한 신뢰도와 타당도 신호를 보일 것이다.</li></ul>
+</section>
+
+<section class="card">
+  <h2>5. 연구 디자인 및 표본</h2>
+  <p>본 연구는 디자인 기반 연구(DBR) 접근을 적용한 실무 적용형 단일군 전후 파일럿 연구다. 측정 시점은 T0(0주), T1(4주), T2(8주)로 설정한다.</p>
+  <p>대상은 주 1회 이상 PT를 받는 만 18세 이상 성인이다. 초기 모집 표본은 n=30이며, 중도탈락률 15–20%를 고려해 완료 표본 n=24–26명 이상 확보를 목표로 한다.</p>
+  <p>n=30은 확증 연구 규모가 아니라 실행가능성, 결측률, 탈락률, 프로토콜 준수율, 효과크기 추정, 후속 연구 표본수 산정 자료 확보를 위한 파일럿 규모다.</p>
+</section>
+
+<section class="card">
+  <h2>6. 측정 변수</h2>
+  <table><thead><tr><th>영역</th><th>변수</th><th>시점</th></tr></thead><tbody>
+    <tr><td>자세</td><td>관절 키포인트, 머리 전방 위치, 체간 기울기, 무릎 정렬, 골반 기울기, 좌우 비대칭</td><td>세션</td></tr>
+    <tr><td>불편감 반응</td><td>NRS 0–10</td><td>전·중·후</td></tr>
+    <tr><td>운동 부하</td><td>세트, 반복, 중량, 휴식, 세션 볼륨</td><td>세트</td></tr>
+    <tr><td>강도</td><td>RPE 0–10</td><td>세트 후 또는 세션 후</td></tr>
+    <tr><td>수행 품질</td><td>반복 완료율, 휴식 준수율, 자세 정확도, 반응 점수</td><td>세트·세션</td></tr>
+    <tr><td>운영</td><td>이행률, 리포트 생성률, 트레이너 검토율, 결측률, 탈락률</td><td>주차</td></tr>
+  </tbody></table>
+</section>
+
+<section class="card">
+  <h2>7. 데이터 수집 절차</h2>
+  <ol><li>사전 교육: 촬영 각도, 거리, 조명, NRS/RPE 입력, 세트 기록 방식 교육</li><li>장비 설정: 스마트폰 카메라 고정. 특정 모델에 종속하지 않고 센터 보유 스마트폰 또는 연구용 스마트폰 사용</li><li>세션 수행: 영상 촬영과 트레이너 입력 병행</li><li>데이터 동기화: 영상, 운동 기록, 설문 응답을 타임스탬프 기준으로 동기화</li><li>리포트 생성: QS/JATC 산출 후 트레이너 검토용 상담 리포트 초안 생성</li></ol>
+</section>
+
+<section class="card">
+  <h2>8. QS/JATC 산출</h2>
+  <p><strong>QS</strong>는 세션 또는 세트 단위 운동 수행 품질 지표다. 구성요소는 자세 정확도, 반복 완료율, 휴식 준수율, 반응 점수다.</p>
+  <p class="quote">QS = weighted mean of posture accuracy, repetition completion, rest compliance, response score × 100</p>
+  <table><thead><tr><th>QS 범위</th><th>해석</th><th>조치</th></tr></thead><tbody><tr><td>80 이상</td><td>양호</td><td>진행 가능</td></tr><tr><td>60–79</td><td>검토 필요</td><td>REVIEW</td></tr><tr><td>60 미만</td><td>주의</td><td>조정 검토</td></tr></tbody></table>
+  <p><strong>JATC</strong>는 반응, 자세, 기능, 생활습관 도메인을 통합해 회원의 세션 기반 상태를 요약하는 지표다. 각 도메인은 0–100점 척도로 정규화하고, 점수가 높을수록 부정적 의미를 갖는 변수는 역코딩한다.</p>
+</section>
+
+<section class="card">
+  <h2>9. 통계 분석 계획</h2>
+  <p>주분석은 선형 혼합효과모형(LMM)을 사용한다. 종속변수는 QS, JATC, NRS 각각으로 설정한다. 고정효과는 Time을 포함하고 필요 시 연령, 성별, BMI, 초기 NRS를 공변량으로 추가한다. 랜덤효과는 개인별 random intercept를 기본으로 설정한다.</p>
+  <p>보조 분석으로 반복측정 ANOVA를 사용할 수 있다. 정규성, 구형성 가정을 확인하고 위반 시 Greenhouse–Geisser 보정을 적용한다.</p>
+  <p class="quote">NRS ~ Load + Time + Load × Time + Subject random effect</p>
+  <p>Load 지표는 세션 볼륨, 평균 강도, sRPE-load 중 1–2개로 제한한다.</p>
+</section>
+
+<section class="card">
+  <h2>10. 신뢰도 및 타당도 평가</h2>
+  <ul><li>자세 지표 신뢰도: 동일 조건 반복 촬영, ICC, SEM, MDC95, Bland–Altman plot</li><li>ICC 목표: 0.75 이상. 점추정치와 95% 신뢰구간 함께 보고</li><li>QS/JATC 내부 일관성: Cronbach’s alpha 참고 평가. 단독 확정 근거로 사용하지 않음</li><li>타당도 평가: NRS, 기능 설문, 전문가 평정, 세션 이행률, 프로그램 준수율과의 상관 검토</li></ul>
+</section>
+
+<section class="card">
+  <h2>11. Alpha 0.82와 r=0.65 해석</h2>
+  <p>QS 또는 JATC에서 Cronbach’s alpha=0.82가 관찰될 경우, 내부 일관성은 일반적으로 좋은 수준으로 해석할 수 있다. 그러나 alpha는 항목 수, 항목 간 중복성, 지표의 차원성, 구성요소 간 상관의 영향을 받는다.</p>
+  <p>타당도 관련 상관계수 r=0.65가 관찰될 경우, QS/JATC가 외부 기준과 중등도 이상으로 연결된다고 해석할 수 있다. 다만 완전한 대체 지표를 의미하지 않는다. QS/JATC는 세션 기반 의사결정에서 빠르게 추적 가능한 보완 지표로 사용하는 것이 적절하다.</p>
+</section>
+
+<section class="card">
+  <h2>12. 보고 원칙과 운영 KPI</h2>
+  <p>주요 가설은 양측 유의수준 α=0.05로 설정한다. 다만 파일럿 연구의 핵심은 p-value가 아니다.</p>
+  <table><thead><tr><th>KPI</th><th>목표</th></tr></thead><tbody><tr><td>결측률</td><td>15% 미만</td></tr><tr><td>중도탈락률</td><td>20% 미만</td></tr><tr><td>프로토콜 준수율</td><td>85% 이상</td></tr><tr><td>완료 표본</td><td>24명 이상</td></tr><tr><td>리포트 생성률</td><td>90% 이상</td></tr><tr><td>트레이너 검토율</td><td>90% 이상</td></tr></tbody></table>
+</section>
+
+<section class="card">
+  <h2>13. 윤리 및 데이터 보안</h2>
+  <ul><li>IRB 심의 대상 여부 확인</li><li>개인정보 수집 동의</li><li>영상 데이터 수집 동의</li><li>데이터 보관 기간과 활용 범위 고지</li><li>연구 철회 가능성 안내</li><li>비식별화, 데이터 최소 수집, 접근 권한 관리, 암호화 저장, 감사 로그 적용</li></ul>
+</section>
+
+<section class="card">
+  <h2>14. 한계</h2>
+  <p>본 연구는 단일군 파일럿이므로 변화의 원인을 QS/JATC 기반 리포트만으로 확정할 수 없다. 대조군이 없기 때문에 자연 변화, 트레이너 효과, 참여자 기대효과, 운동 지속 효과, 외부 생활습관 변화를 완전히 배제할 수 없다.</p>
+  <p>스마트폰 기반 자세 추정은 촬영 각도, 조명, 의복, 가림, 운동 종류, 운동 속도, 카메라 거리의 영향을 받을 수 있다. markerless 자세 지표는 현장 참고 지표로 해석해야 한다.</p>
+</section>
+
+<section class="card">
+  <h2>15. 선행연구 표 처리 방침</h2>
+  <p>사용자 초안에 포함된 2025년 선행연구 5개는 연구 방향을 설명하는 데 유용하다. 다만 DOI, PubMed, 저널명, 원문 링크가 확인되지 않은 세부 수치는 최종 커밋본에 사실로 단정하지 않는다.</p>
+  <ol><li>OpenCap OA 보행 분석 정확도 검증</li><li>OA 환자 데이터 기반 dual-camera markerless 시스템</li><li>슬개건병증 상대부하 6RM/10RM/14RM 반응 비교</li><li>PFP 저항훈련 볼륨 관련 systematic review/meta-analysis</li><li>만성 근골격계 불편감 다중 도메인 ML 예후 프로파일</li></ol>
+</section>
+
+<section class="card">
+  <h2>16. 사업화 연결</h2>
+  <p>본 기술검증은 LIGHT ONE의 기술적 근거로 활용한다. LIGHT ONE은 PT샵, 헬스장, 필라테스 센터에서 세션 데이터를 구조화하고, QS/JATC 기반 상담 리포트를 생성하는 비의료 운동상담 보조 SaaS다.</p>
+  <p>모두의창업 신청서에서는 본 부록을 “MVP 기술검증 및 현장 적용성 검증 계획”으로 표현한다.</p>
+</section>
+
+<section class="card">
+  <h2>17. 신청서 본문 연결용 요약문</h2>
+  <p>LIGHT ONE은 PT 세션에서 반복적으로 생성되는 운동 수행, 불편감 반응, 자세 변화, RPE, 세트·반복·중량 데이터를 표준화하고, 이를 QS와 JATC 지표로 요약해 트레이너가 검토할 수 있는 비의료 운동상담 리포트를 생성하는 SaaS입니다. 향후 8주 파일럿을 통해 데이터 수집 가능성, 지표 산출 가능성, 신뢰도·타당도, 결측률, 세션 이행률을 검토하고, 운동상담 의사결정지원 도구로 고도화할 계획입니다.</p>
+</section>
+
+<section class="card warn">
+  <h2>18. 금지 표현과 대체 표현</h2>
+  <table><thead><tr><th>금지 표현</th><th>대체 표현</th></tr></thead><tbody><tr><td>처방</td><td>운동 계획 조정</td></tr><tr><td>치료</td><td>운동 수행 변화 기록</td></tr><tr><td>진단</td><td>운동상담 참고자료</td></tr><tr><td>통증 원인 판별</td><td>불편감 반응 기록</td></tr><tr><td>부상 예측</td><td>주의 신호 표시</td></tr><tr><td>재활 효과 검증</td><td>세션 변화 추이 확인</td></tr><tr><td>임상효과 입증</td><td>기술검증 및 현장 적용성 확인</td></tr><tr><td>AI가 판단</td><td>트레이너가 검토</td></tr></tbody></table>
+</section>
+
+<section class="card warn">
+  <h2>19. [확인필요]</h2>
+  <ol><li>2025년 선행연구 5개의 DOI·저널·원문 확인</li><li>NRS 2점 감소를 보조 기준으로 유지할지 여부</li><li>QS/JATC 가중치 산정 방식</li><li>JATC가 reflective scale인지 formative index인지 결정</li><li>IRB 심의 대상 여부</li><li>의료기기 해당 가능성</li><li>영상 데이터의 개인정보 처리 기준</li><li>스마트폰 촬영 프로토콜 표준화</li><li>markerless 자세 지표의 운동별 신뢰도</li><li>8주 파일럿 이후 대조군 연구 설계 여부</li><li>alpha 0.82와 r=0.65가 실제 관찰값인지, 가정값인지 구분</li><li>QS/JATC의 MCID, SEM, MDC 기준 산출 가능성</li></ol>
+</section>
+</main>
+</body>
+</html>

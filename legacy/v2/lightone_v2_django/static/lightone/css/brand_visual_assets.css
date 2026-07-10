@@ -1,0 +1,61 @@
+/* LIGHTONE visual asset helper classes
+   Use only for non-medical PT consultation support SaaS screens.
+*/
+:root {
+  --lo-white: #ffffff;
+  --lo-light-gray: #f8f9fa;
+  --lo-border-gray: #e0e0e0;
+  --lo-navy: #1a2d4d;
+  --lo-deep-green: #0f3d35;
+  --lo-mint: #2db86d;
+  --lo-text-muted: #666666;
+  --lo-warm-light: #f6e7d0;
+}
+
+.lo-hero-visual {
+  width: 100%;
+  min-height: 420px;
+  border-radius: 28px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.lo-hero-day {
+  background-image: linear-gradient(90deg, rgba(10, 22, 38, 0.58), rgba(10, 22, 38, 0.18)), url("../img/brand/studio-interior-day.webp");
+}
+
+.lo-hero-night {
+  background-image: linear-gradient(90deg, rgba(3, 14, 28, 0.68), rgba(3, 14, 28, 0.18)), url("../img/brand/studio-interior-night-warm.webp");
+}
+
+.lo-hero-exterior {
+  background-image: linear-gradient(90deg, rgba(8, 20, 34, 0.62), rgba(8, 20, 34, 0.12)), url("../img/brand/studio-exterior-day.webp");
+}
+
+.lo-ai-section-bg {
+  background-image: linear-gradient(90deg, rgba(5, 18, 32, 0.82), rgba(5, 18, 32, 0.44)), url("../img/brand/ai-fitness-overlay-bg.webp");
+  background-position: center;
+  background-size: cover;
+}
+
+.lo-visual-card {
+  border: 1px solid var(--lo-border-gray);
+  border-radius: 20px;
+  background: var(--lo-white);
+  box-shadow: 0 12px 32px rgba(18, 34, 54, 0.08);
+  overflow: hidden;
+}
+
+.lo-visual-card img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.lo-nonmedical-caption {
+  color: var(--lo-text-muted);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}

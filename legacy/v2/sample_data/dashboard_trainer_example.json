@@ -1,0 +1,42 @@
+{
+  "trainerId": "synthetic_trainer_001",
+  "displayName": "트레이너 T",
+  "todaySessions": [
+    {
+      "sessionId": "session_001",
+      "memberLabel": "멤버 A",
+      "time": "19:00",
+      "status": "scheduled"
+    }
+  ],
+  "reviewQueue": [
+    {
+      "id": "queue_001",
+      "memberLabel": "멤버 B",
+      "route": "REVIEW",
+      "reason": "통증 반응 기록 변화 확인 필요"
+    }
+  ],
+  "reportDrafts": [
+    {
+      "id": "draft_001",
+      "memberLabel": "멤버 A",
+      "status": "needs_trainer_review"
+    }
+  ],
+  "requests": [
+    {
+      "id": "request_001",
+      "memberLabel": "멤버 C",
+      "message": "다음 세션 강도 조정 가능 여부",
+      "status": "open"
+    }
+  ],
+  "retentionCandidates": [
+    {
+      "memberLabel": "멤버 D",
+      "remainingSessions": 2,
+      "suggestedAction": "최근 변화 요약 후 재등록 상담 준비"
+    }
+  ]
+}

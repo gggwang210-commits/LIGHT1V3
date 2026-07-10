@@ -1,0 +1,35 @@
+[
+  {
+    "member_id": "synthetic-member-a",
+    "display_name": "Synthetic Member A",
+    "goal": "Build a consistent beginner strength routine",
+    "session_date": "2026-07-01",
+    "exercise": "Goblet squat, incline push-up, seated row",
+    "rpe": 6,
+    "pain_response": "No pain reported during the session; mild general fatigue noted after the final set.",
+    "trainer_memo": "Keep tempo slow and reinforce breathing cues before increasing load.",
+    "route": "standard_progression"
+  },
+  {
+    "member_id": "synthetic-member-b",
+    "display_name": "Synthetic Member B",
+    "goal": "Improve movement confidence for daily activity",
+    "session_date": "2026-07-02",
+    "exercise": "Step-up, cable press, hip hinge drill",
+    "rpe": 5,
+    "pain_response": "Member reported brief discomfort awareness during step-ups, which decreased after range adjustment.",
+    "trainer_memo": "Use a lower step height and monitor comfort response during warm-up sets.",
+    "route": "trainer_review"
+  },
+  {
+    "member_id": "synthetic-member-c",
+    "display_name": "Synthetic Member C",
+    "goal": "Maintain conditioning with low-impact sessions",
+    "session_date": "2026-07-03",
+    "exercise": "Bike intervals, band pull-apart, dead bug",
+    "rpe": 7,
+    "pain_response": "No pain reported; breathing effort increased during the final bike interval.",
+    "trainer_memo": "Keep intervals short and add recovery time if form quality changes.",
+    "route": "conditioning_focus"
+  }
+]

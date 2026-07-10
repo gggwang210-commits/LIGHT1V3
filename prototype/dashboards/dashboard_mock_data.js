@@ -1,0 +1,1 @@
+window.LIGHTONE_DASHBOARD_DATA={member:{name:'멤버 A',condition:'Good',pain:'Check',next:'세션 전 5분 걷기',reservation:'2026-07-09 19:00',payment:'4회 남음'},trainer:{name:'트레이너 T',sessions:6,review:3,drafts:4,requests:5},admin:{center:'LIGHT ONE Demo Center',active:42,sessions:18,reports:'82%',reviewBlock:5,unpaid:2}};

@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LIGHT ONE Non-medical PT Consultation Report SaaS</title>
+  <meta
+    name="description"
+    content="LIGHT ONE is a non-medical PT consultation report SaaS concept for structuring trainer-reviewed member counseling records."
+  />
+  <meta property="og:title" content="LIGHT ONE Non-medical PT Consultation Report SaaS" />
+  <meta property="og:description" content="Trainer-reviewed, non-medical consultation reports for PT centers and fitness studios." />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="ko_KR" />
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --navy: #0b1f3a;
+      --blue: #1d4ed8;
+      --soft-blue: #dbeafe;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #dbe3ef;
+      --accent: #0f766e;
+      --warning-bg: #fff7ed;
+      --warning-border: #fed7aa;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: -999px;
+      top: 12px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      background: #ffffff;
+      color: var(--navy);
+      z-index: 10;
+    }
+
+    .skip-link:focus {
+      left: 12px;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, "Noto Sans KR", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--navy), #143a66);
+      color: #ffffff;
+      padding: 72px 0 56px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      font-size: 14px;
+      color: #dbeafe;
+    }
+
+    .hero {
+      max-width: 860px;
+    }
+
+    .hero h1 {
+      margin: 20px 0 16px;
+      font-size: clamp(40px, 6vw, 72px);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+
+    .hero p {
+      margin: 0;
+      max-width: 760px;
+      font-size: clamp(18px, 2.2vw, 24px);
+      color: #e5edf8;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-weight: 700;
+      border: 1px solid transparent;
+    }
+
+    .button-primary {
+      background: #ffffff;
+      color: var(--navy);
+    }
+
+    .button-secondary {
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.28);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    main {
+      padding: 44px 0 72px;
+    }
+
+    section {
+      margin: 28px 0;
+    }
+
+    .section-heading {
+      max-width: 760px;
+      margin-bottom: 18px;
+    }
+
+    .section-heading span {
+      display: inline-block;
+      margin-bottom: 8px;
+      color: var(--blue);
+      font-weight: 800;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .section-heading h2 {
+      margin: 0;
+      color: var(--navy);
+      font-size: clamp(28px, 4vw, 42px);
+      letter-spacing: -0.03em;
+    }
+
+    .section-heading p {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .grid-two {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      color: var(--navy);
+      font-size: 20px;
+    }
+
+    .card p,
+    .card li {
+      color: var(--muted);
+    }
+
+    .card ul {
+      margin: 12px 0 0;
+      padding-left: 20px;
+    }
+
+    .workflow {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
+    }
+
+    .step {
+      position: relative;
+      min-height: 150px;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .step-number {
+      display: inline-flex;
+      width: 32px;
+      height: 32px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: var(--soft-blue);
+      color: var(--blue);
+      font-weight: 800;
+      margin-bottom: 12px;
+    }
+
+    .step h3 {
+      margin: 0 0 8px;
+      color: var(--navy);
+      font-size: 16px;
+    }
+
+    .step p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .notice {
+      background: var(--warning-bg);
+      border: 1px solid var(--warning-border);
+      border-radius: 20px;
+      padding: 22px;
+    }
+
+    .notice strong {
+      color: #9a3412;
+    }
+
+    .roadmap {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+    }
+
+    .phase {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+    }
+
+    .phase small {
+      display: inline-block;
+      margin-bottom: 8px;
+      color: var(--accent);
+      font-weight: 800;
+    }
+
+    .phase h3 {
+      margin: 0 0 8px;
+      color: var(--navy);
+      font-size: 16px;
+    }
+
+    .phase p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    footer {
+      padding: 32px 0;
+      background: #0b1f3a;
+      color: #dbeafe;
+    }
+
+    footer .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    footer p {
+      margin: 0;
+      max-width: 760px;
+    }
+
+    footer a {
+      color: #bfdbfe;
+    }
+
+    @media (max-width: 960px) {
+      .grid,
+      .grid-two,
+      .workflow,
+      .roadmap {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      header {
+        padding: 52px 0 40px;
+      }
+
+      .grid,
+      .grid-two,
+      .workflow,
+      .roadmap {
+        grid-template-columns: 1fr;
+      }
+
+      .card,
+      .step,
+      .phase,
+      .notice {
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">본문으로 건너뛰기</a>
+  <header role="banner">
+    <div class="container hero">
+      <div class="badge">Concept Repository · Safety-first MVP Scope</div>
+      <h1>LIGHT ONE Non-medical PT Consultation Report SaaS</h1>
+      <p>
+        Trainer-reviewed wellness consultation reports for PT centers, gyms, and Pilates studios.
+        LIGHT ONE structures member counseling records and keeps outputs within non-medical support boundaries.
+      </p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="#cadss">Explore Review Workflow</a>
+        <a class="button button-secondary" href="#safety">View Safety Boundary</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content" tabindex="-1">
+    <section class="container" id="problem">
+      <div class="section-heading">
+        <span>Problem</span>
+        <h2>PT consultation report tools need clear non-medical boundaries before they become user-facing products.</h2>
+        <p>
+          LIGHT ONE starts by defining what the system can responsibly support, where uncertainty must be shown,
+          and when expert review should remain part of the workflow.
+        </p>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <h3>AI Over-reliance</h3>
+          <p>Users may over-trust AI-generated feedback when limits, uncertainty, and review conditions are not visible.</p>
+        </article>
+        <article class="card">
+          <h3>Medical Misunderstanding</h3>
+          <p>Wellness feedback can be misunderstood if language suggests professional judgment replacement.</p>
+        </article>
+        <article class="card">
+          <h3>Privacy, Bias, and Uncertainty</h3>
+          <p>Body and health-related signals require careful handling of privacy, data bias, and model uncertainty.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="container" id="solution">
+      <div class="section-heading">
+        <span>Solution</span>
+        <h2>A documentation-first path toward a safer wellness support platform.</h2>
+        <p>
+          The current MVP scope focuses on technical communication, safety policy, and a static landing page.
+          It does not claim clinical validation or production AI deployment.
+        </p>
+      </div>
+      <div class="grid-two">
+        <article class="card">
+          <h3>Posture and Body-shape Observation</h3>
+          <ul>
+            <li>Visual posture observation support</li>
+            <li>Body alignment summary concepts</li>
+            <li>Educational insight for movement awareness</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Discomfort Response Reference</h3>
+          <ul>
+            <li>Self-reported discomfort-context summaries</li>
+            <li>Lifestyle and movement-context summaries</li>
+            <li>Uncertainty-aware user explanation</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Review Safety Layer</h3>
+          <ul>
+            <li>Output boundary control</li>
+            <li>Human review triggers</li>
+            <li>Unsafe claim prevention</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Expert Decision-support</h3>
+          <ul>
+            <li>Trainer and planner-facing materials</li>
+            <li>Audit-friendly documentation</li>
+            <li>Reviewable product roadmap</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="container" id="cadss">
+      <div class="section-heading">
+        <span>Review Workflow</span>
+        <h2>Controlled Report Review Workflow</h2>
+        <p>
+          The review workflow controls how report drafts are generated, checked,
+          limited, and explained before trainers share them with members.
+        </p>
+      </div>
+      <div class="workflow">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3>User Input</h3>
+          <p>Collect only the information required for the intended wellness support flow.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3>Report Drafting</h3>
+          <p>Generate structured consultation-report drafts with documented assumptions.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3>Boundary & Uncertainty Check</h3>
+          <p>Identify unverified assumptions, bias risks, and context gaps.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <h3>Safety Layer</h3>
+          <p>Filter unsafe claims and keep outputs within wellness support boundaries.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">5</div>
+          <h3>Human Review</h3>
+          <p>Route sensitive or uncertain cases toward expert review.</p>
+        </div>
+        <div class="step">
+          <div class="step-number">6</div>
+          <h3>User-facing Explanation</h3>
+          <p>Show clear, limited, and uncertainty-aware explanations.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="container" id="safety">
+      <div class="section-heading">
+        <span>Safety Boundary</span>
+        <h2>Non-medical wellness support with explicit uncertainty.</h2>
+      </div>
+      <div class="notice">
+        <p>
+          <strong>Safety notice:</strong> LIGHT ONE is currently a concept and technical landing page project.
+          It is designed for non-medical wellness consultation support and trainer-reviewed report drafting.
+          It does not replace qualified professional judgment. Regulatory applicability remains unresolved. [확인필요]
+        </p>
+        <p>
+          This static page does not collect personal information or sensitive health information.
+          Any future data collection, model deployment, or public-facing report feature requires privacy,
+          security, legal, and regulatory review. [확인필요]
+        </p>
+      </div>
+    </section>
+
+    <section class="container" id="roadmap">
+      <div class="section-heading">
+        <span>Roadmap</span>
+        <h2>From documentation to reviewable prototype planning.</h2>
+      </div>
+      <div class="roadmap">
+        <article class="phase">
+          <small>Phase 1</small>
+          <h3>Documentation</h3>
+          <p>Define scope, safety boundaries, and review workflow concept.</p>
+        </article>
+        <article class="phase">
+          <small>Phase 2</small>
+          <h3>Landing Page</h3>
+          <p>Publish a static technical page for GitHub Pages.</p>
+        </article>
+        <article class="phase">
+          <small>Phase 3</small>
+          <h3>Prototype Planning</h3>
+          <p>Map user journeys, inputs, outputs, and review points.</p>
+        </article>
+        <article class="phase">
+          <small>Phase 4</small>
+          <h3>Validation Planning</h3>
+          <p>Prepare pilot data review, bias checks, and evaluation plans. [확인필요]</p>
+        </article>
+        <article class="phase">
+          <small>Phase 5</small>
+          <h3>Expert Review</h3>
+          <p>Review privacy, safety, regulatory, and business risks. [확인필요]</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+    <div class="container footer-inner">
+      <p>
+        LIGHT ONE Non-medical PT Consultation Report SaaS · Safety-first concept repository.
+        Review the project documents in <a href="docs/governance/non-medical-boundary.md">Non-medical Boundary</a>,
+        <a href="docs/governance/privacy-checklist.md">Privacy Checklist</a>, and <a href="docs/repository-map.md">Repository Map</a>.
+      </p>
+      <p>Commit direction: feat: add LIGHT ONE technical landing page</p>
+    </div>
+  </footer>
+</body>
+</html>

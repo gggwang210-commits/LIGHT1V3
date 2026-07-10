@@ -1,0 +1,197 @@
+[
+  {
+    "model": "accounts.user",
+    "pk": 9101,
+    "fields": {
+      "password": "!",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "synthetic_member_001",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-07-01T00:00:00Z",
+      "role": "member",
+      "name": "member_code_001",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 9102,
+    "fields": {
+      "password": "!",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "synthetic_member_002",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-07-01T00:00:00Z",
+      "role": "member",
+      "name": "member_code_002",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.user",
+    "pk": 9103,
+    "fields": {
+      "password": "!",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "synthetic_member_003",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-07-01T00:00:00Z",
+      "role": "member",
+      "name": "member_code_003",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "accounts.memberprofile",
+    "pk": 9201,
+    "fields": {
+      "user": 9101,
+      "birth_date": null,
+      "sex": "F",
+      "goals": "age_group=20s; gender=F; goals=mobility_and_baseline_strength; consent=true"
+    }
+  },
+  {
+    "model": "accounts.memberprofile",
+    "pk": 9202,
+    "fields": {
+      "user": 9102,
+      "birth_date": null,
+      "sex": "M",
+      "goals": "age_group=30s; gender=M; goals=posture_control_and_endurance; consent=true"
+    }
+  },
+  {
+    "model": "accounts.memberprofile",
+    "pk": 9203,
+    "fields": {
+      "user": 9103,
+      "birth_date": null,
+      "sex": "F",
+      "goals": "age_group=40s; gender=F; goals=low_impact_conditioning; consent=false"
+    }
+  },
+  {
+    "model": "lightone.membersession",
+    "pk": 9301,
+    "fields": {
+      "member": 9201,
+      "trainer": null,
+      "member_name": "member_code_001",
+      "trainer_name": "trainer_code_demo",
+      "goal": "mobility_and_baseline_strength",
+      "discomfort_area": "none_reported",
+      "qs_score": 88.0,
+      "jatc_score": 82.0,
+      "form_accuracy": 8.0,
+      "pain_response": 1.0,
+      "rpe": 6.0,
+      "route": "AUTO",
+      "qc_status": "PASS",
+      "memo": "indicator: age_group=20s; gender=F; consent=true; routing_status=AUTO",
+      "created_at": "2026-07-01T09:00:00Z"
+    }
+  },
+  {
+    "model": "lightone.membersession",
+    "pk": 9302,
+    "fields": {
+      "member": 9201,
+      "trainer": null,
+      "member_name": "member_code_001",
+      "trainer_name": "trainer_code_demo",
+      "goal": "mobility_and_baseline_strength",
+      "discomfort_area": "shoulder_attention",
+      "qs_score": 74.0,
+      "jatc_score": 70.0,
+      "form_accuracy": 7.0,
+      "pain_response": 3.0,
+      "rpe": 7.0,
+      "route": "AUTO",
+      "qc_status": "PASS",
+      "memo": "indicator: age_group=20s; gender=F; consent=true; routing_status=AUTO",
+      "created_at": "2026-07-02T09:00:00Z"
+    }
+  },
+  {
+    "model": "lightone.membersession",
+    "pk": 9303,
+    "fields": {
+      "member": 9202,
+      "trainer": null,
+      "member_name": "member_code_002",
+      "trainer_name": "trainer_code_demo",
+      "goal": "posture_control_and_endurance",
+      "discomfort_area": "knee_attention",
+      "qs_score": 62.0,
+      "jatc_score": 66.0,
+      "form_accuracy": 6.0,
+      "pain_response": 4.0,
+      "rpe": 8.0,
+      "route": "REVIEW",
+      "qc_status": "CHECK",
+      "memo": "indicator: age_group=30s; gender=M; consent=true; routing_status=REVIEW",
+      "created_at": "2026-07-01T10:00:00Z"
+    }
+  },
+  {
+    "model": "lightone.membersession",
+    "pk": 9304,
+    "fields": {
+      "member": 9202,
+      "trainer": null,
+      "member_name": "member_code_002",
+      "trainer_name": "trainer_code_demo",
+      "goal": "posture_control_and_endurance",
+      "discomfort_area": "none_reported",
+      "qs_score": 71.0,
+      "jatc_score": 76.0,
+      "form_accuracy": 7.0,
+      "pain_response": 2.0,
+      "rpe": 7.0,
+      "route": "AUTO",
+      "qc_status": "PASS",
+      "memo": "indicator: age_group=30s; gender=M; consent=true; routing_status=AUTO",
+      "created_at": "2026-07-03T10:00:00Z"
+    }
+  },
+  {
+    "model": "lightone.membersession",
+    "pk": 9305,
+    "fields": {
+      "member": 9203,
+      "trainer": null,
+      "member_name": "member_code_003",
+      "trainer_name": "trainer_code_demo",
+      "goal": "low_impact_conditioning",
+      "discomfort_area": "lumbar_attention",
+      "qs_score": 35.0,
+      "jatc_score": 42.0,
+      "form_accuracy": 4.0,
+      "pain_response": 7.0,
+      "rpe": 8.0,
+      "route": "BLOCK",
+      "qc_status": "FAIL",
+      "memo": "indicator: age_group=40s; gender=F; consent=false; routing_status=BLOCK",
+      "created_at": "2026-07-01T11:00:00Z"
+    }
+  }
+]

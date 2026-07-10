@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>LIGHT ONE Admin Dashboard</title>
+  <link rel="stylesheet" href="dashboard_theme.css">
+  <script src="dashboard_mock_data.js"></script>
+</head>
+<body>
+  <header>
+    <nav class="topnav">
+      <a href="member_dashboard.html">Member</a>
+      <a href="trainer_dashboard.html">Trainer</a>
+      <a href="admin_dashboard.html">Admin</a>
+    </nav>
+    <div class="hero">
+      <div>
+        <h1>LIGHT ONE Admin Dashboard</h1>
+        <p>센터 운영, 트레이너 업무, 회원 이용 흐름을 KPI 중심으로 확인하는 관리자 프로토타입입니다.</p>
+      </div>
+      <strong>Operational KPI · Human-in-the-Loop Review</strong>
+    </div>
+  </header>
+
+  <main>
+    <section class="card wide" aria-labelledby="admin-principles">
+      <span class="badge good">Admin Scope</span>
+      <h2 id="admin-principles">관리자 운영 원칙</h2>
+      <p class="muted">
+        본 화면은 센터 운영 현황과 업무 처리 상태를 요약합니다. Risk / Review Queue는 주의 신호 확인과
+        트레이너 검토 필요 항목을 관리하기 위한 운영 큐이며, 의료적 해석이나 판단을 제공하지 않습니다.
+      </p>
+    </section>
+
+    <div class="grid" aria-label="센터 운영 KPI">
+      <section class="card">
+        <span class="badge good">Center KPI</span>
+        <h2>센터 운영 KPI</h2>
+        <p class="metric">42명</p>
+        <p>활성 회원</p>
+        <p class="muted">오늘 예약 18건 · 출석 확인 15건 · 취소 2건</p>
+        <a class="button" href="#operations">운영 상세</a>
+      </section>
+
+      <section class="card">
+        <span class="badge good">Trainer KPI</span>
+        <h2>트레이너 성과</h2>
+        <p class="metric">92%</p>
+        <p>세션 기록 완료율</p>
+        <p class="muted">초안 4건 · 검토 완료 11건 · 평균 응답 3.2시간</p>
+        <a class="button" href="#trainers">성과 보기</a>
+      </section>
+
+      <section class="card">
+        <span class="badge check">Member Flow</span>
+        <h2>회원 상태</h2>
+        <p class="metric">8명</p>
+        <p>후속 안내 필요</p>
+        <p class="muted">신규 온보딩 6명 · 휴면 전환 예정 3명</p>
+        <a class="button" href="#members">회원 흐름</a>
+      </section>
+
+      <section class="card">
+        <span class="badge check">Booking / Payment</span>
+        <h2>예약/결제</h2>
+        <p class="metric">2건</p>
+        <p>결제 확인 필요</p>
+        <p class="muted">예약 변경 요청 5건 · 만료 예정 패키지 7건</p>
+        <a class="button" href="#payments">처리 현황</a>
+      </section>
+    </div>
+
+    <div class="grid" aria-label="관리 운영 지표">
+      <section class="card" id="operations">
+        <span class="badge review">Review Queue</span>
+        <h2>Risk / Review Queue</h2>
+        <p class="metric">5건</p>
+        <p>주의 신호 확인 및 트레이너 검토 필요 항목</p>
+        <ul class="list">
+          <li>REVIEW: 4건 — 트레이너 검토 후 안내 문구 확정</li>
+          <li>BLOCK: 1건 — 자동 안내 보류 및 담당자 확인 대기</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <span class="badge good">Consent</span>
+        <h2>동의 완료율</h2>
+        <p class="metric">96%</p>
+        <p>필수 동의 완료 회원 비율</p>
+        <p class="muted">미완료 2명 · 갱신 예정 4명</p>
+      </section>
+
+      <section class="card">
+        <span class="badge check">Access Log</span>
+        <h2>민감 데이터 접근 로그</h2>
+        <p class="metric">17건</p>
+        <p>최근 24시간 관리자/트레이너 접근 기록</p>
+        <p class="muted">정책 확인 대상 1건 · 감사 로그 저장 완료</p>
+      </section>
+
+      <section class="card">
+        <span class="badge good">Reports</span>
+        <h2>리포트 사용량</h2>
+        <p class="metric">82%</p>
+        <p>주간 리포트 생성률</p>
+        <p class="muted">열람 31건 · 공유 대기 6건 · 재생성 요청 2건</p>
+      </section>
+    </div>
+
+    <div class="grid" aria-label="상세 운영 테이블">
+      <section class="card" id="trainers">
+        <span class="badge good">Trainer Performance</span>
+        <h2>트레이너 성과 요약</h2>
+        <ul class="list">
+          <li>트레이너 T: 세션 6건 · 기록 완료 100% · 검토 대기 1건</li>
+          <li>트레이너 K: 세션 5건 · 기록 완료 80% · 검토 대기 2건</li>
+          <li>트레이너 J: 세션 7건 · 기록 완료 95% · 검토 대기 1건</li>
+        </ul>
+      </section>
+
+      <section class="card" id="members">
+        <span class="badge check">Member Status</span>
+        <h2>회원 상태 분포</h2>
+        <ul class="list">
+          <li>정상 이용: 31명</li>
+          <li>후속 안내 필요: 8명</li>
+          <li>예약 공백 14일 이상: 3명</li>
+        </ul>
+      </section>
+
+      <section class="card" id="payments">
+        <span class="badge check">Revenue Ops</span>
+        <h2>예약/결제 운영</h2>
+        <ul class="list">
+          <li>오늘 확정 예약: 18건</li>
+          <li>결제 확인 필요: 2건</li>
+          <li>패키지 재안내 대상: 7건</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <span class="badge good">Renewal Pipeline</span>
+        <h2>재등록 파이프라인</h2>
+        <ul class="list">
+          <li>상담 예정: 9명</li>
+          <li>제안서 발송: 6명</li>
+          <li>결정 대기: 4명</li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    LIGHT ONE은 의료 진단·치료·처방을 제공하지 않습니다. 본 관리자 화면은 합성 데이터 기반의 비의료 웰니스 운영 참고용 프로토타입이며,
+    표시된 주의 신호와 검토 항목은 트레이너 확인 및 센터 운영 관리를 돕기 위한 정보입니다.
+  </footer>
+</body>
+</html>

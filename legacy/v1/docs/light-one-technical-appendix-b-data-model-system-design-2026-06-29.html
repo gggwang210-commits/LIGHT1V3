@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LIGHT ONE 기술검증 부록 B - 통합 데이터 모델 및 시스템 설계</title>
+  <style>
+    body{margin:0;background:#f6f8fb;color:#111827;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Noto Sans KR',Arial,sans-serif;line-height:1.72}
+    main{max-width:1040px;margin:auto;padding:42px 20px 80px}header{background:linear-gradient(135deg,#0f6bff,#0b3f9c);color:white;border-radius:24px;padding:36px;margin-bottom:28px}h1{margin:0;font-size:32px;line-height:1.25}h2{margin-top:38px;border-bottom:2px solid #d9e2ef;padding-bottom:10px}h3{margin-top:26px}.card{background:white;border:1px solid #d9e2ef;border-radius:18px;padding:22px;margin:16px 0;box-shadow:0 8px 24px rgba(17,24,39,.05)}.quote{border-left:5px solid #0f6bff;background:#e8f1ff;padding:14px 18px;border-radius:12px;font-weight:700}.warn{background:#fff7ed;border-color:#fed7aa}table{width:100%;border-collapse:collapse;margin:16px 0;background:white}th,td{border:1px solid #d9e2ef;padding:10px;vertical-align:top}th{background:#eef4ff}.small{font-size:13px;color:#4b5563}code{background:#eef4ff;padding:2px 5px;border-radius:5px}
+  </style>
+</head>
+<body>
+<main>
+<header>
+  <h1>기술검증 부록 B<br>통합 데이터 모델 및 시스템 설계</h1>
+  <p>LIGHT ONE — 비의료 PT 상담 리포트 SaaS</p>
+  <p class="small">작성 기준일: 2026-06-29 · 기술검증 부록 / 시스템 설계 / 데이터 모델 설계</p>
+</header>
+
+<section class="card warn">
+  <h2>문서 성격 및 주의</h2>
+  <p>본 부록은 의료 진단·치료·처방 목적이 아니라, PT 현장의 운동상담 데이터 표준화와 리포트 생성 가능성을 검토하기 위한 기술설계 자료다.</p>
+  <p class="quote">LIGHT ONE은 PT 현장에서 반복적으로 생성되는 운동 수행, 통증 반응, 자세 변화, 생활습관 데이터를 구조화하고, QS/JATC 지표를 기반으로 트레이너가 검토할 수 있는 비의료 운동상담 리포트를 생성하는 SaaS다.</p>
+</section>
+
+<section class="card">
+  <h2>4.1 설계 방향과 기본 원칙</h2>
+  <h3>1. PT 현장 데이터 우선 원칙</h3>
+  <p>LIGHT ONE은 병원 EMR, 웨어러블, 대규모 임상 데이터보다 실제 PT 현장에서 매 세션 반복 생성되는 데이터를 우선한다.</p>
+  <ul><li>상담 기록</li><li>운동 수행 기록</li><li>세트·반복·중량</li><li>RPE</li><li>통증 반응</li><li>자세 변화</li><li>생활습관 기록</li><li>세션 후 피드백</li></ul>
+  <h3>2. 통증·자세·수행·생활습관의 단일 타임라인화</h3>
+  <p>통증, 자세, 근기능, 생활습관을 별도 파일이나 분리된 앱으로 관리하지 않고 한 사람의 변화 과정을 동일한 시간축 위에 정렬한다.</p>
+  <h3>3. 트레이너·회원·AI 3자 관점 통합</h3>
+  <p>동일한 데이터를 트레이너에게는 운동상담 의사결정 근거로, 회원에게는 이해 가능한 상담 리포트로, AI에는 향후 패턴 분석과 리포트 자동화를 위한 구조화 데이터로 제공한다. 단, AI는 최종 판단자가 아니라 트레이너가 검토할 리포트 초안과 주의 신호를 생성하는 보조 도구다.</p>
+  <h3>4. 단계적 AI 고도화 가능성</h3>
+  <p>초기 MVP는 규칙 기반 평가와 간단한 통계 분석으로 시작하고, 데이터 축적 이후 머신러닝 기반 변화 패턴 분석, 세션 이탈 가능성 탐색, 주의 신호 분류 등으로 확장한다.</p>
+</section>
+
+<section class="card">
+  <h2>4.2 통합 데이터 레이어 구조</h2>
+  <p>통합 데이터 모델은 세 레이어로 구성된다.</p>
+  <ol><li>회원 정보 레이어</li><li>평가·세션 레이어</li><li>분석·지표 레이어</li></ol>
+  <p>각 레이어는 독립된 테이블 또는 컬렉션으로 구성되며, <code>Member_ID</code>와 <code>Session_ID</code>를 기준으로 연결된다.</p>
+
+  <h3>회원 정보 레이어</h3>
+  <p>회원의 장기적 배경 정보를 저장한다. 초기 MVP에서는 필수 항목과 선택 항목을 구분하여 민감정보 수집 위험을 줄인다.</p>
+  <table><thead><tr><th>구분</th><th>항목</th></tr></thead><tbody>
+    <tr><td>필수</td><td>Member_ID, 성별, 연령대, 주요 운동 목표, 운동 경험, 주요 불편감 부위, 세션 참여 빈도, 동의 상태</td></tr>
+    <tr><td>선택</td><td>직업군, 활동 환경, 수면 시간, 좌식 시간, 스트레스 수준, 운동 제한 경험, 과거 부상 경험, 생활습관</td></tr>
+    <tr><td>고위험 민감</td><td>진단명, 수술 이력, 약물 복용, 질환 정보, 의료기관 치료 이력</td></tr>
+  </tbody></table>
+  <p>고위험 민감 항목은 의료적 판단 목적이 아니라 운동상담 시 주의가 필요한 참고정보로만 사용하며, 수집 시 별도 동의와 접근권한 관리가 필요하다.</p>
+
+  <h3>평가·세션 레이어</h3>
+  <p>평가·세션 레이어는 시간에 따라 반복적으로 생성되는 데이터를 저장하는 LIGHT ONE의 핵심 데이터 원천이다.</p>
+  <h4>평가 데이터</h4>
+  <ul><li>자세 평가: 정면/측면 사진, 주요 관절 정렬, 머리 전방 위치, 어깨 높이 차이, 골반 기울기, 무릎 정렬, 발 아치 상태, 좌우 비대칭</li><li>기능 평가: 스쿼트, 런지, 힙힌지, 팔 거상, 한 발 서기, 호흡 패턴, 균형·안정성</li><li>통증 반응 평가: 통증 부위, NRS, 발생 시점, 유발 동작, 완화 요인, 세션 중·후 변화</li><li>근기능·운동성과 평가: 반복 가능 횟수, 수행 중단 여부, 세트 완료율, 좌우 수행 차이, RPE, 주관적 피로도</li></ul>
+  <h4>세션 데이터</h4>
+  <ul><li>세션 메타: Session_ID, Member_ID, 날짜, 시간, 담당 트레이너, 세션 목적, 세션 상태</li><li>운동 수행: 운동 이름, 세트, 반복, 중량, 휴식, 수행 완료 여부, RPE, 특이사항</li><li>통증 반응: 운동별 통증 발생 여부, 통증 강도, 발생 세트, 즉시 조정 내용, 운동 중단 여부, REVIEW 필요 여부</li><li>세션 후 피드백: 만족도, 주관적 피로도, 통증 변화 인식, 다음 세션 주의점, 회원·트레이너 코멘트</li></ul>
+  <h4>영상·이미지 데이터</h4>
+  <p>영상 원본은 별도 파일 저장소에 저장하고, 분석 결과는 Media_ID, Session_ID, 운동 이름, 촬영 조건, 관절 좌표, 관절각, 비대칭 지표, 추정 신뢰도, 분석 실패 여부 같은 메타데이터로 저장한다.</p>
+
+  <h3>분석·지표 레이어</h3>
+  <p>회원 정보와 세션 데이터를 기반으로 생성되는 2차 지표를 저장한다. 이 레이어는 트레이너, 회원, AI가 같은 데이터를 서로 다른 방식으로 활용할 수 있게 하는 인터페이스다.</p>
+  <table><thead><tr><th>영역</th><th>예시 지표</th></tr></thead><tbody>
+    <tr><td>통증 반응</td><td>부위별 NRS 변화, 세션 전후 NRS 변화, 운동별 통증 발생 빈도, REVIEW 필요 여부</td></tr>
+    <tr><td>자세</td><td>머리 전방 위치, 어깨 높이 차이, 골반 기울기, 무릎 정렬, 체간 기울기, 좌우 비대칭, 추정 신뢰도</td></tr>
+    <tr><td>운동 수행</td><td>반복 완료율, 세트 완료율, 휴식 준수율, RPE 변화, 세션 볼륨, QS</td></tr>
+    <tr><td>생활습관</td><td>수면 시간, 좌식 시간, 스트레스 수준, 활동량, 생활습관 변화 메모</td></tr>
+    <tr><td>통합</td><td>QS, JATC, 주의 신호 등급, 상담 우선순위, 리포트 생성 상태, 트레이너 검토 상태</td></tr>
+  </tbody></table>
+  <p>분석·지표 레이어는 의료 진단을 위한 점수 체계가 아니라 비의료 운동상담 리포트와 트레이너 의사결정 보조를 위한 현장 지표다.</p>
+</section>
+
+<section class="card">
+  <h2>4.3 핵심 데이터 항목 정의</h2>
+  <h3>통증 반응 데이터</h3>
+  <p>통증 데이터는 의료 진단 코드가 아니라 PT 현장에서 운동상담 참고자료로 활용 가능한 언어로 정의한다. 통증 강도는 NRS 0–10으로 기록한다. “통증 원인 판별”이 아니라 “통증 반응 기록”으로 표현한다.</p>
+  <h3>자세 데이터</h3>
+  <p>자세 데이터는 트레이너의 주관적 관찰을 보조하기 위해 정량화한다. 포즈 추정 결과는 절대적 진단값이 아니라 세션 간 변화 추적을 위한 참고값이다.</p>
+  <h3>근기능·운동성과 데이터</h3>
+  <p>근기능 데이터는 단순 근육량보다 실제 운동 수행 가능성에 초점을 둔다. 통증 증가, RPE 급상승, 반복 완료율 저하를 같은 세션 타임라인에서 확인한다.</p>
+  <h3>생활습관 데이터</h3>
+  <p>초기 MVP에서는 수면, 좌식 시간, 스트레스, 활동량, 수분 섭취, 식사 패턴 메모 등 최소 항목만 수집한다. 예측 모델의 핵심값보다 상담 리포트의 참고 정보로 사용한다.</p>
+</section>
+
+<section class="card">
+  <h2>4.4 시스템 아키텍처 설계</h2>
+  <p>시스템 흐름은 데이터 수집 → 데이터 저장·정리 → 분석·지표 산출 → 피드백·리포트의 네 단계로 구성한다.</p>
+  <h3>데이터 수집</h3>
+  <p>회원 입력, 트레이너 입력, 영상 입력으로 구성한다. MVP에서는 스마트폰 1대와 표준 촬영 가이드를 기준으로 설계한다.</p>
+  <h3>데이터 저장·정리</h3>
+  <p>구조화 데이터와 비정형 데이터를 분리한다. 영상 원본은 별도 저장소에 저장하고, 분석 테이블에는 파일 경로, 촬영 조건, 분석 결과 메타데이터만 저장한다.</p>
+  <h3>분석·AI 모델링</h3>
+  <ol><li>규칙 기반 평가: NRS 급증, 반복 완료율 저하, 휴식 준수율 저하, QS 저하에 따른 REVIEW 표시</li><li>통계·지표 분석: NRS, QS, JATC, 세션 이행률, 프로그램 준수율, RPE 추세, 세션 볼륨 변화 계산</li><li>AI 기반 패턴 분석: 주의 신호 탐지, 세션 이탈 가능성 탐색, RPE 급증 패턴, 리포트 문장 생성, 상담 우선순위 제안</li></ol>
+  <p>AI 결과는 항상 트레이너 검토를 거친다. 질병 예측, 통증 원인 판별, 치료 효과 예측, 자동 처방, 재활 효과 검증 표현은 사용하지 않는다.</p>
+  <h3>피드백·리포트</h3>
+  <p>최종 출력은 트레이너용 대시보드와 회원용 리포트다. 트레이너 대시보드는 오늘 세션에서 확인해야 할 내용을 보여주고, 회원 리포트는 변화 흐름을 직관적으로 전달한다.</p>
+</section>
+
+<section class="card">
+  <h2>4.5 모듈 구성</h2>
+  <ol><li>회원 관리 모듈</li><li>평가·기록 모듈</li><li>영상·포즈 분석 모듈</li><li>규칙 기반 평가 모듈</li><li>AI 분석 모듈</li><li>리포트·알림 모듈</li></ol>
+</section>
+
+<section class="card">
+  <h2>4.6 데이터베이스 설계 초안</h2>
+  <table><thead><tr><th>테이블</th><th>핵심 필드</th></tr></thead><tbody>
+    <tr><td>Members</td><td>member_id, gender, age_group, goal_type, main_discomfort_area, activity_context, consent_status, created_at</td></tr>
+    <tr><td>Sessions</td><td>session_id, member_id, trainer_id, session_date, session_type, session_status, memo</td></tr>
+    <tr><td>Exercises</td><td>exercise_record_id, session_id, exercise_name, set_number, reps_target, reps_completed, weight_kg, rest_target_sec, rest_actual_sec, rpe, pain_nrs, completion_status</td></tr>
+    <tr><td>Assessments</td><td>assessment_id, member_id, session_id, assessment_type, posture_metric, function_metric, pain_nrs_pre, pain_nrs_post, lifestyle_note</td></tr>
+    <tr><td>Media</td><td>media_id, member_id, session_id, file_type, file_path, capture_angle, capture_distance, lighting_condition, analysis_status, created_at</td></tr>
+    <tr><td>PoseMetrics</td><td>pose_metric_id, media_id, session_id, keypoint_set, joint_angle, asymmetry_index, confidence_score, failure_flag</td></tr>
+    <tr><td>Indicators</td><td>indicator_id, member_id, session_id, qs_score, jatc_score, pain_signal, posture_signal, workload_signal, review_status, generated_at</td></tr>
+    <tr><td>Reports</td><td>report_id, member_id, session_id, report_type, trainer_summary, member_summary, action_points, review_status, published_at</td></tr>
+  </tbody></table>
+  <p>이 구조는 향후 FHIR 또는 기타 헬스 데이터 표준과 매핑 가능한 구조로 확장할 수 있다. 단, 초기 서비스는 의료기관 EMR 연동보다 PT 현장 리포트 생성에 집중한다.</p>
+</section>
+
+<section class="card">
+  <h2>4.7 보안 및 개인정보 설계</h2>
+  <ul><li>최소 수집</li><li>목적 명확화</li><li>명시적 동의</li><li>비식별화</li><li>접근권한 분리</li><li>암호화 저장</li><li>감사 로그</li><li>보관 기간 설정</li><li>삭제 요청 처리</li></ul>
+  <p>영상 원본은 별도 저장소에 보관하고, 분석 테이블에는 필요한 메타데이터와 추출 지표만 저장한다. AES-256 등 암호화 방식은 실제 인프라와 보안 설계에 따라 확정한다.</p>
+</section>
+
+<section class="card">
+  <h2>4.8 인터페이스 설계</h2>
+  <h3>트레이너용 인터페이스</h3>
+  <ol><li>회원 상태 요약</li><li>세션 입력 화면</li><li>운동별 통증 반응 화면</li><li>QS/JATC 결과 화면</li><li>다음 세션 포인트 화면</li></ol>
+  <h3>회원용 리포트</h3>
+  <ol><li>이번 세션 요약</li><li>지난 세션 대비 변화</li><li>통증 반응 변화</li><li>운동 수행 변화</li><li>생활습관 체크</li><li>다음 실천 포인트</li></ol>
+  <h3>원장용 대시보드</h3>
+  <ul><li>트레이너별 리포트 생성률</li><li>회원별 상담 진행률</li><li>REVIEW 발생 건수</li><li>재등록 상담 대상자</li><li>장기 미방문 회원</li><li>상담 품질 체크 현황</li></ul>
+</section>
+
+<section class="card">
+  <h2>4.9 단계별 구현 로드맵</h2>
+  <table><thead><tr><th>단계</th><th>목표</th><th>구현 항목</th></tr></thead><tbody>
+    <tr><td>1단계</td><td>Rule-based MVP</td><td>회원 등록, 세션 기록, NRS/RPE, 운동 기록, QS/JATC, 상담 리포트</td></tr>
+    <tr><td>2단계</td><td>영상·포즈 분석</td><td>스마트폰 촬영, 키포인트, 관절각, 비대칭 지표, 자세 리포트</td></tr>
+    <tr><td>3단계</td><td>AI 리포트 자동화</td><td>상담 요약, 주의 신호 문장, 다음 세션 체크포인트, 트레이너 검토</td></tr>
+    <tr><td>4단계</td><td>패턴 분석</td><td>개인별 변화 패턴, 이행률, 반복 주의 신호, 이탈 가능성, 조정 후보안</td></tr>
+  </tbody></table>
+</section>
+
+<section class="card">
+  <h2>4.10 소결</h2>
+  <p>본 장은 PT 현장 데이터를 중심에 둔 통합 데이터 모델과 시스템 아키텍처를 제시한다. 병원 EMR이나 웨어러블 데이터가 아니라 PT 세션에서 실제로 생성되는 데이터를 1차 데이터로 설정하고, 통증 반응, 자세 변화, 운동 수행, 생활습관을 단일 타임라인으로 연결했다.</p>
+  <p>본 시스템은 의료 진단이나 치료를 목적으로 하지 않는다. LIGHT ONE은 트레이너가 검토할 수 있는 비의료 운동상담 리포트를 생성하고, 회원이 자신의 변화 과정을 이해할 수 있도록 돕는 PT 상담 리포트 SaaS다.</p>
+</section>
+
+<section class="card warn">
+  <h2>반영한 핵심 수정</h2>
+  <ul><li>처방 → 운동 계획 조정</li><li>통증 완화 → 통증 반응 기록</li><li>체형 교정 → 자세 변화 추적</li><li>재활 연계 → 운동상담 연계</li><li>통증 악화 위험 예측 → 주의 신호 탐지</li><li>추천 운동 자동 생성 → 프로그램 조정 후보안 제안</li><li>AI가 판단 → 트레이너가 검토</li></ul>
+</section>
+</main>
+</body>
+</html>

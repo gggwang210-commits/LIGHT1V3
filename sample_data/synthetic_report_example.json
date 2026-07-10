@@ -1,0 +1,25 @@
+{
+  "non_medical_disclaimer": "This synthetic report is for MVP input and report flow explanation only. It is not medical advice, diagnosis, treatment, or prescription.",
+  "trainer_review_required": true,
+  "qs_score": {
+    "value": 72,
+    "scale": "0-100",
+    "interpretation": "Session quality appears acceptable for a cautious next-step plan, pending trainer review."
+  },
+  "routing_result": {
+    "route": "trainer_review",
+    "reason": "A brief discomfort awareness was noted and the trainer should confirm the next session adjustment."
+  },
+  "conditioning_suggestion": "Use a steady low-impact warm-up, moderate effort sets, and extra rest if movement quality changes.",
+  "attention_signal": {
+    "level": "monitor",
+    "note": "Review comfort response and perceived effort before progressing volume or range."
+  },
+  "member_summary": "Synthetic Member B completed a reduced-range session with moderate effort and responded well to form and range adjustments.",
+  "next_session_focus": [
+    "Confirm comfort level during warm-up",
+    "Maintain controlled step-up range",
+    "Prioritize consistent breathing and stable tempo",
+    "Review session notes before increasing difficulty"
+  ]
+}

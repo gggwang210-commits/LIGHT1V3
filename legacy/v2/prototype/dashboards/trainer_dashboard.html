@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>LIGHT ONE Trainer Dashboard</title>
+  <link rel="stylesheet" href="dashboard_theme.css">
+  <script src="dashboard_mock_data.js"></script>
+  <style>
+    .workflow{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin:18px 0}.step{background:#fffdf8;border:1px solid #e7dece;border-radius:18px;padding:16px}.step strong{color:var(--forest)}.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}.search{width:100%;border:1px solid #d8cebd;border-radius:12px;padding:12px;background:white}.table{width:100%;border-collapse:collapse;margin-top:10px}.table th,.table td{border-bottom:1px solid #eee3d2;padding:10px;text-align:left;vertical-align:top}.tag{display:inline-block;border-radius:999px;background:#eef7f3;color:#123c35;padding:4px 8px;margin:2px;font-size:12px;font-weight:700}.notice{border-left:5px solid var(--gold);background:#fff8e8;border-radius:14px;padding:14px}.queue{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}.queue .card{box-shadow:none}.footer-note{max-width:1180px;margin:0 auto;line-height:1.6}
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="topnav"><a href="member_dashboard.html">Member</a><a href="trainer_dashboard.html">Trainer</a><a href="admin_dashboard.html">Admin</a></nav>
+    <div class="hero">
+      <div>
+        <h1>LIGHT ONE Trainer Dashboard</h1>
+        <p>세션 준비, 진행 기록, 세션 후 피드백, 주간 리뷰를 연결하는 비의료 웰니스 상담 지원 화면입니다.</p>
+      </div>
+      <strong>Human-in-the-Loop Trainer Review</strong>
+    </div>
+  </header>
+
+  <main>
+    <section class="notice wide" aria-label="non medical score notice">
+      <strong>QS/JATC 데모 참고값 안내</strong>
+      <p>QS와 JATC는 트레이너가 회원 컨디션 변화와 세션 운영 흐름을 검토하기 위한 데모 참고값입니다. 의료 판단 기준, 진단 지표, 치료 필요성 판단 기준으로 사용하지 않습니다.</p>
+    </section>
+
+    <section aria-label="trainer workflow">
+      <h2>Session Workflow</h2>
+      <div class="workflow">
+        <article class="step"><strong>세션 전</strong><p>Today Sessions에서 예약 회원을 선택하고 최근 피드백, QS/JATC 참고값, REVIEW/BLOCK 라우팅 상태를 확인합니다.</p></article>
+        <article class="step"><strong>세션 중</strong><p>운동 난이도 조정, 동작 범위 조정, RPE, 특이 반응을 수행 기록으로 남기고 원인 판단 표현은 사용하지 않습니다.</p></article>
+        <article class="step"><strong>세션 후</strong><p>Report Drafts에서 초안을 검토하고 휴식·회복 안내와 컨디셔닝 과제를 안전한 표현으로 정리합니다.</p></article>
+        <article class="step"><strong>주간 리뷰</strong><p>주간 변화, 리포트 발송 상태, 다음 세션 계획, 재상담 포인트를 비교해 트레이너 노트에 저장합니다.</p></article>
+      </div>
+    </section>
+
+    <div class="grid">
+      <section class="card">
+        <span class="badge good">Today</span>
+        <h2>Today Sessions</h2>
+        <p class="metric">6</p>
+        <p>오늘 예정 세션과 세션 전 확인 항목입니다.</p>
+        <ul class="list">
+          <li>10:00 김하늘 · 세션 전 체크 완료</li>
+          <li>14:00 이도윤 · REVIEW 사유 확인 필요</li>
+          <li>19:00 박서연 · 다음 세션 계획 승인 대기</li>
+        </ul>
+        <a class="button" href="#next-session-plan">세션 준비</a>
+      </section>
+
+      <section class="card">
+        <span class="badge check">Search</span>
+        <h2>Member Search/List</h2>
+        <p>회원명, 예약일, 라우팅 상태로 검색합니다.</p>
+        <input class="search" type="search" value="김하늘" aria-label="회원 검색">
+        <table class="table">
+          <thead><tr><th>회원</th><th>상태</th><th>다음 행동</th></tr></thead>
+          <tbody>
+            <tr><td>김하늘</td><td><span class="tag">AUTO</span></td><td>기본 계획 유지</td></tr>
+            <tr><td>이도윤</td><td><span class="tag">REVIEW</span></td><td>동작 범위 조정 검토</td></tr>
+            <tr><td>박서연</td><td><span class="tag">BLOCK</span></td><td>세션 운영 보류 안내</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="card wide">
+        <span class="badge review">Trainer Routing</span>
+        <h2>Review Queue</h2>
+        <p>AUTO/REVIEW/BLOCK은 의료 위험 등급이 아니라 트레이너 검토 라우팅 상태입니다. 세션 운영 확인, 기록 보완, 안내 문구 검토를 돕기 위한 내부 워크플로우로만 사용합니다.</p>
+        <div class="queue">
+          <article class="card"><h3>AUTO</h3><p>기본 세션 흐름으로 진행 가능하되 트레이너가 최종 확인합니다.</p></article>
+          <article class="card"><h3>REVIEW</h3><p>통증 반응, 촬영 품질, 주관적 피로도 등 기록을 트레이너가 확인합니다.</p></article>
+          <article class="card"><h3>BLOCK</h3><p>진단이 아니며 세션 운영 보류와 전문가 상담 권고 안내가 필요한 caution signal로 취급합니다.</p></article>
+        </div>
+      </section>
+
+      <section class="card">
+        <span class="badge check">Draft</span>
+        <h2>Report Drafts</h2>
+        <p class="metric">4</p>
+        <p>AI-assisted 초안은 발송 전 트레이너가 표현을 검토합니다.</p>
+        <ul class="list">
+          <li>의료 진단처럼 보이는 표현 제거</li>
+          <li>휴식·회복 안내 문구 확인</li>
+          <li>다음 컨디셔닝 과제 배정</li>
+        </ul>
+        <a class="button" href="#">리포트 초안 검토</a>
+      </section>
+
+      <section class="card" id="next-session-plan">
+        <span class="badge good">Plan</span>
+        <h2>Next Session Plan</h2>
+        <p>다음 세션에 반영할 안전한 운영 조정안입니다.</p>
+        <ul class="list">
+          <li>운동 난이도 조정: 하체 복합 동작 강도 1단계 낮춤</li>
+          <li>동작 범위 조정: 어깨 부담 동작은 편안한 범위에서 진행</li>
+          <li>휴식·회복 안내: 세션 후 수분 섭취와 가벼운 회복 루틴 안내</li>
+          <li>컨디셔닝 과제: 호흡, 가동성, 저강도 코어 안정화</li>
+        </ul>
+        <a class="button" href="#">다음 세션 주의사항 저장</a>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-note">LIGHT ONE은 의료 진단·치료·처방을 제공하지 않습니다. 본 트레이너 대시보드는 합성 데이터 기반 비의료 웰니스 상담 지원 프로토타입이며, QS/JATC 및 AUTO/REVIEW/BLOCK 표시는 트레이너 검토와 세션 운영을 돕는 참고 정보입니다. 갑작스러운 심한 통증, 일상생활 제한, 기타 우려 증상이 있는 경우 전문기관 상담을 권합니다.</div>
+  </footer>
+</body>
+</html>

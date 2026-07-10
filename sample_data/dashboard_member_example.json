@@ -1,0 +1,45 @@
+{
+  "memberId": "synthetic_member_001",
+  "displayName": "멤버 A",
+  "today": {
+    "condition": "Good",
+    "energy": 4,
+    "sleepHours": 7,
+    "nextAction": "세션 전 5분 걷기"
+  },
+  "weeklyChange": {
+    "summary": "세션 2회 완료, 컨디션 기록 5회",
+    "trend": "Check"
+  },
+  "painResponse": {
+    "area": "shoulder_reference",
+    "latestLevel": 2,
+    "trend": "lower_than_last_week",
+    "label": "Check"
+  },
+  "postureReference": {
+    "qcStatus": "good",
+    "items": [
+      "어깨 높이 참고 지표",
+      "스쿼트 동작 범위 참고"
+    ]
+  },
+  "trainerFeedback": "동작 범위를 편안하게 유지해 주세요.",
+  "reservation": {
+    "date": "2026-07-09",
+    "time": "19:00",
+    "trainer": "트레이너 T"
+  },
+  "payment": {
+    "plan": "프리미엄 컨디셔닝 8회권",
+    "remainingSessions": 4,
+    "status": "paid"
+  },
+  "reports": [
+    {
+      "id": "report_001",
+      "title": "7월 1주 비의료 웰니스 참고 리포트",
+      "status": "trainer_reviewed"
+    }
+  ]
+}

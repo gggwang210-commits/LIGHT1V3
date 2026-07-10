@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}세션 기록 - LIGHT ONE{% endblock %}
+
+{% block content %}
+<section class="detail-hero">
+  <a href="{% url 'lightone:dashboard' %}">← 대시보드로 돌아가기</a>
+  <div class="detail-grid">
+    <div>
+      <span class="eyebrow dark">NEW SESSION</span>
+      <h1>PT 세션 기록 입력</h1>
+      <p>본 결과는 비의료 운동상담 참고용이며, 최종 운동 조정은 트레이너 검토 후 안내됩니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section-block" style="max-width: 600px; margin: 0 auto;">
+  <div class="panel-card">
+    <form method="post">
+      {% csrf_token %}
+      
+      <div style="margin-bottom: 20px;">
+        <label style="display: block; font-weight: 600; margin-bottom: 8px;">회원 이름</label>
+        {{ form.member_name }}
+      </div>
+      
+      <div style="margin-bottom: 20px;">
+        <label style="display: block; font-weight: 600; margin-bottom: 8px;">오늘의 목표</label>
+        {{ form.goal }}
+      </div>
+      
+      <div style="margin-bottom: 20px;">
+        <label style="display: block; font-weight: 600; margin-bottom: 8px;">불편감 부위 (선택)</label>
+        {{ form.discomfort_area }}
+      </div>
+      
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 20px;">
+        <div><label style="display: block; font-weight: 600; margin-bottom: 8px;">자세 품질 (0~10)</label>{{ form.form_accuracy }}</div>
+        <div><label style="display: block; font-weight: 600; margin-bottom: 8px;">반복 수행 점수 (0~100)</label>{{ form.rep_score }}</div>
+        <div><label style="display: block; font-weight: 600; margin-bottom: 8px;">휴식 준수 점수 (0~100)</label>{{ form.rest_score }}</div>
+        <div><label style="display: block; font-weight: 600; margin-bottom: 8px;">통증 반응 (0~10)</label>{{ form.pain_response }}</div>
+        <div><label style="display: block; font-weight: 600; margin-bottom: 8px;">운동자각도 RPE (0~10, 라우팅 참고)</label>{{ form.rpe }}</div>
+        <div><label style="display: block; font-weight: 600; margin-bottom: 8px;">촬영 QC 상태</label>{{ form.qc_status }}</div>
+        <div><label style="display: block; font-weight: 600; margin-bottom: 8px;">촬영 QC 점수</label>{{ form.qc_score }}</div>
+        <div><label style="display: block; font-weight: 600; margin-bottom: 8px;">Posture</label>{{ form.posture_score }}</div>
+        <div><label style="display: block; font-weight: 600; margin-bottom: 8px;">Lifestyle</label>{{ form.lifestyle_score }}</div>
+        <div><label style="display: block; font-weight: 600; margin-bottom: 8px;">Function Training</label>{{ form.function_training_score }}</div>
+      </div>
+      
+      <div style="margin-bottom: 20px;">
+        <label style="display: block; font-weight: 600; margin-bottom: 8px;">트레이너 메모</label>
+        {{ form.memo }}
+      </div>
+      
+      <button type="submit" style="width: 100%; padding: 14px; background: var(--blue); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 16px;">기록 저장 및 QS 산출</button>
+    </form>
+  </div>
+</section>
+
+<style>
+  .form-control {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 15px;
+  }
+  .form-control:focus {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(31, 111, 255, 0.1);
+  }
+</style>
+{% endblock %}
