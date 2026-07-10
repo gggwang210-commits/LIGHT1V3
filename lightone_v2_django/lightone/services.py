@@ -1,3 +1,4 @@
+from .algorithms import SAFETY_NOTICE
 from .models import Member, MemberSession, StrategyItem
 
 
@@ -118,6 +119,9 @@ def dashboard_context(member_id=None):
         'counts': counts,
         'qc_counts': qc_counts,
         'feature_importance': feature_importance,
+        'safety_notice': SAFETY_NOTICE,
+        'chart_labels': qs_labels,
+        'chart_qs': qs_scores,
         'qs_labels': qs_labels,
         'qs_scores': qs_scores,
         'breakdown_labels': breakdown_labels,
@@ -125,3 +129,31 @@ def dashboard_context(member_id=None):
     }
     context.update(_member_dashboard_context(member_id))
     return context
+
+
+def trainer_dashboard_context():
+    sessions = list(MemberSession.objects.select_related('indicator').all())
+    sessions = [_decorate_session(session) for session in sessions]
+    counts = {key: sum(1 for session in sessions if session.route == key) for key in STATUS_BADGES}
+    review_queue = [
+        session for session in sessions
+        if session.route in {'REVIEW', 'BLOCK'} or session.qc_status != 'PASS'
+    ]
+    today_sessions = sessions[:6]
+    report_drafts = [session for session in sessions if session.route == 'AUTO'][:4]
+    avg_qs = round(sum(session.qs_score for session in sessions) / len(sessions), 1) if sessions else 0
+    pending_confirmations = sum(1 for session in sessions if not session.trainer_confirmed)
+
+    return {
+        'sessions': sessions,
+        'today_sessions': today_sessions,
+        'review_queue': review_queue,
+        'report_drafts': report_drafts,
+        'counts': counts,
+        'avg_qs': avg_qs,
+        'pending_confirmations': pending_confirmations,
+        'safety_notice': (
+            '비의료 웰니스 참고 정보입니다. 진단·치료·통증 원인 확정이 아니며, '
+            '트레이너 확인 후 회원에게 안내합니다.'
+        ),
+    }

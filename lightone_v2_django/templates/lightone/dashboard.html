@@ -81,35 +81,6 @@
     font-weight: 950;
   }
 
-  <div class="notice">
-    <b>ⓘ Safety Boundary</b>
-    본 결과는 비의료 운동상담 참고용이며, 최종 운동 조정은 트레이너 검토 후 안내됩니다. · REVIEW/BLOCK은 트레이너가 안전 신호를 확인한 뒤 진행 여부를 안내합니다.
-  </div>
-  <div class="member-dashboard" data-selected-member-id="{{ selected_member_id|default:'' }}">
-    <h3>선택 회원 QS 추이</h3>
-    <p class="muted">이 영역은 비의료 운동상담 참고 정보만 표시하며 직접 식별정보를 표시하지 않습니다.</p>
-    <div class="qs-chart" data-labels="{{ qs_labels|join:',' }}" data-scores="{{ qs_scores|join:',' }}"></div>
-    <div class="breakdown-values" data-values="{{ breakdown_values|join:',' }}"></div>
-    <div class="status-badges" aria-label="routing status badges">
-      <span class="{{ status_badges.AUTO }}">AUTO</span>
-      <span class="{{ status_badges.REVIEW }}">REVIEW</span>
-      <span class="{{ status_badges.BLOCK }}">BLOCK</span>
-    </div>
-    <ul class="recent-sessions">
-      {% for session in recent_sessions %}
-      <li>
-        <strong>{{ session.exercise_name }}</strong>
-        <span>QS {{ session.indicator.qs_score }}</span>
-        <span>{{ session.indicator.routing_status }}</span>
-      </li>
-      {% empty %}
-      <li>선택 회원의 최근 세션이 없습니다.</li>
-      {% endfor %}
-    </ul>
-  </div>
-
-</section>
-
   .lo-lead {
     margin: 0;
     max-width: 640px;
@@ -561,10 +532,48 @@
   .lo-pill.route-review { background: var(--lo-amber); }
   .lo-pill.route-block { background: var(--lo-red); }
 
+  .lo-status-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 18px;
+  }
+
+  .lo-status-badges span {
+    display: inline-flex;
+    padding: 8px 12px;
+    border-radius: 999px;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 950;
+  }
+
+  .badge-green,
+  .badge-auto { background: var(--lo-mint); }
+  .badge-yellow,
+  .badge-review { background: var(--lo-amber); }
+  .badge-red,
+  .badge-block { background: var(--lo-red); }
+
   .lo-strategy-list {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 16px;
+  }
+
+  .lo-member-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 0.5fr);
+    gap: 18px;
+  }
+
+  .lo-inline-notice {
+    border-radius: 24px;
+    padding: 22px;
+    border: 1px solid rgba(31, 111, 255, 0.16);
+    background: #f7fbff;
+    color: var(--lo-muted);
+    line-height: 1.65;
   }
 
   .lo-strategy-item {
@@ -646,6 +655,7 @@
     .lo-report-grid,
     .lo-story-grid,
     .lo-metric-grid,
+    .lo-member-panel,
     .lo-route-grid,
     .lo-strategy-list,
     .lo-roadmap { grid-template-columns: 1fr; }
@@ -812,6 +822,11 @@
           <div class="lo-route-box review"><span>REVIEW</span><strong>{{ counts.REVIEW }}</strong><small>검토 필요</small></div>
           <div class="lo-route-box block"><span>BLOCK</span><strong>{{ counts.BLOCK }}</strong><small>진행 보류</small></div>
         </div>
+        <div class="lo-status-badges" aria-label="routing status badges">
+          <span class="{{ status_badges.AUTO }}">AUTO</span>
+          <span class="{{ status_badges.REVIEW }}">REVIEW</span>
+          <span class="{{ status_badges.BLOCK }}">BLOCK</span>
+        </div>
         <canvas id="routeChart" height="170"></canvas>
       </article>
     </div>
@@ -885,45 +900,16 @@
     </div>
   </section>
 
-    <p class="muted">
-      불편감 반응이 높거나 촬영 QC가 낮으면 REVIEW/BLOCK으로 분류하여
-      트레이너가 안전 신호를 확인한 뒤 진행 여부를 안내하는 흐름으로 넘깁니다. AI는 최종 판단자가 아니라 상담 보조 레이어입니다.
-    </p>
-  </div>
-</section>
-
-<section id="reports" class="section-block">
-  <div class="section-title">
-    <span>03</span>
-    <h2>AI 상담 리포트 미리보기</h2>
-  </div>
-
-  <label class="member-select-label" for="member-select">회원 선택</label>
-  <select id="member-select" class="member-select" name="member_id">
-    {% for s in sessions %}
-    <option value="{{ s.member_name }}">{{ s.member_name }}</option>
-    {% endfor %}
-  </select>
-
-  <div class="report-grid">
-    {% for s in recent_sessions %}
-    <a class="report-card route-{{ s.route|lower }} {{ s.routing_badge_class }}" href="{% url 'lightone:report_detail' s.pk %}">
-      <div class="report-top">
-        <strong>{{ s.member_name }}</strong>
-        <span class="routing-badge {{ s.routing_badge_class }}">{{ s.routing_label }}</span>
+  <section class="lo-section">
+    <div class="lo-section-head">
+      <div>
+        <span class="lo-section-kicker">06 · Review Evidence</span>
+        <h2>트레이너 검토를 돕는 근거와 안전 경계</h2>
       </div>
       <p class="lo-section-desc">
-        이 영역은 AI 판단을 절대화하지 않고, 트레이너가 어떤 요소를 먼저 확인해야 하는지 설명하기 위한 보조 지표입니다.
+        불편감 반응이 높거나 촬영 QC가 낮으면 REVIEW/BLOCK으로 분류하여 트레이너가 먼저 확인합니다.
       </p>
-      <div class="report-kpis">
-        <b>QS {{ s.qs_score }}</b>
-        <b>JATC {{ s.jatc_score }}</b>
-        <b>QC {{ s.qc_status }}</b>
-      </div>
-    </a>
-    {% endfor %}
-  </div>
-
+    </div>
     <div class="lo-two-col">
       <article class="lo-panel">
         <div class="lo-panel-head">
