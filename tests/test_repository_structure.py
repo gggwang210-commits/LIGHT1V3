@@ -13,6 +13,7 @@ def test_required_repository_documents_exist():
         REPO_ROOT / "docs" / "safety_and_privacy_policy.md",
         REPO_ROOT / "docs" / "judge_risk_review.md",
         REPO_ROOT / "docs" / "trainer_dashboard_validation.md",
+        REPO_ROOT / "docs" / "pilot_interview_checklist.md",
     ]
 
     missing = [str(path.relative_to(REPO_ROOT)) for path in required_paths if not path.exists()]

@@ -16,6 +16,7 @@
 | [`docs/safety_and_privacy_policy.md`](safety_and_privacy_policy.md) | 안전·개인정보 정책 기준 문서 |
 | [`docs/technical_roadmap.md`](technical_roadmap.md) | 기술 개발 로드맵 기준 문서 |
 | [`docs/customer_validation_plan.md`](customer_validation_plan.md) | 고객 검증 계획 기준 문서 |
+| [`docs/pilot_interview_checklist.md`](pilot_interview_checklist.md) | PT센터 파일럿 데모 인터뷰 진행표와 통과/보류 기준 |
 | [`docs/pitch_summary.md`](pitch_summary.md) | 발표·피치 요약 기준 문서 |
 | [`docs/judge_risk_review.md`](judge_risk_review.md) | 공공기관·투자자·대기업 심사 관점의 리스크와 단계별 통과 기준 |
 
