@@ -1,4 +1,4 @@
-# LIGHT ONE V2
+# LIGHT ONE V3
 
 > 비의료 PT 상담 리포트 SaaS MVP  
 > 작성 기준일: 2026-07-09
