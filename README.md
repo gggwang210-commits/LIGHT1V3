@@ -1,6 +1,6 @@
 # LIGHT ONE V3
 
-> PT 센터와 트레이너를 위한 비의료 운동상담 리포트 SaaS MVP
+> PT 센터 및 트레이너 대상 비의료 운동상담 리포트 SaaS MVP
 
 **Status:** Pilot MVP · Development  
 **Default branch:** `Main-ONE`  
