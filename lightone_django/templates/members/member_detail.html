@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% block title %}{{ member.name }} 회원 상세{% endblock %}
+{% block nav_members %}active{% endblock %}
+{% block page_title %}<i class="bi bi-person-fill me-2" style="color:var(--lo-primary)"></i>{{ member.name }} 회원 상세{% endblock %}
+
+{% block content %}
+<div class="d-flex gap-2 mb-4 lo-fade-in">
+  <a href="{% url 'member_list' %}" class="lo-btn lo-btn-outline lo-btn-sm">
+    <i class="bi bi-arrow-left"></i> 목록
+  </a>
+  <a href="{% url 'member_edit' member.pk %}" class="lo-btn lo-btn-outline lo-btn-sm">
+    <i class="bi bi-pencil-fill"></i> 수정
+  </a>
+  <a href="{% url 'session_create' %}?member={{ member.pk }}" class="lo-btn lo-btn-primary lo-btn-sm">
+    <i class="bi bi-plus-circle-fill"></i> 세션 기록
+  </a>
+  <a href="{% url 'report_generate' member.pk %}" class="lo-btn lo-btn-primary lo-btn-sm">
+    <i class="bi bi-file-earmark-bar-graph-fill"></i> 리포트 생성
+  </a>
+</div>
+
+<div class="row g-4">
+  <!-- 기본 정보 -->
+  <div class="col-md-4">
+    <div class="lo-card lo-fade-in">
+      <div class="lo-card-header">
+        <i class="bi bi-person-vcard-fill" style="color:var(--lo-primary)"></i>
+        <h5>기본 정보</h5>
+      </div>
+      <div class="lo-card-body">
+        <div class="text-center mb-4">
+          <div style="width:72px;height:72px;background:var(--lo-primary);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;color:#fff;">
+            {{ member.name|first }}
+          </div>
+          <div style="font-size:20px;font-weight:800;margin-top:10px;">{{ member.name }}</div>
+          <div style="font-size:13px;color:var(--lo-text-muted);">{{ member.age|default:"—" }}세 · {{ member.get_sex_display|default:"—" }}</div>
+        </div>
+        <table style="width:100%;font-size:13.5px;">
+          <tr><td style="color:var(--lo-text-muted);padding:6px 0;width:40%;">운동 목표</td>
+              <td style="font-weight:600;">{{ member.get_goal_display }}</td></tr>
+          <tr><td style="color:var(--lo-text-muted);padding:6px 0;">불편 부위</td>
+              <td>{{ member.discomfort_area|default:"—" }}</td></tr>
+          <tr><td style="color:var(--lo-text-muted);padding:6px 0;">등록일</td>
+              <td>{{ member.registered_at|date:"Y.m.d" }}</td></tr>
+          <tr><td style="color:var(--lo-text-muted);padding:6px 0;">특이사항</td>
+              <td style="font-size:12px;">{{ member.memo|default:"—" }}</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- 세션 기록 -->
+  <div class="col-md-8">
+    <div class="lo-card lo-fade-in">
+      <div class="lo-card-header">
+        <i class="bi bi-activity" style="color:var(--lo-primary)"></i>
+        <h5>최근 세션 기록 (최대 10건)</h5>
+      </div>
+      <div class="lo-card-body p-0">
+        <table class="lo-table">
+          <thead>
+            <tr>
+              <th>세션일</th>
+              <th>운동</th>
+              <th>QS 점수</th>
+              <th>라우팅</th>
+              <th>통증</th>
+              <th>RPE</th>
+              <th>자세 정확도</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for s in sessions %}
+            <tr>
+              <td style="font-size:12px;">{{ s.session_date|date:"m/d"|default:s.created_at|date:"m/d" }}</td>
+              <td style="font-size:13px;">{{ s.exercise_name|default:"—" }}</td>
+              <td>
+                <div style="display:flex;align-items:center;gap:7px;">
+                  <span style="font-weight:700;">{{ s.qs_score }}</span>
+                  <div class="lo-qs-bar" style="width:50px;">
+                    <div class="lo-qs-fill" style="width:{{ s.qs_score }}%"></div>
+                  </div>
+                </div>
+              </td>
+              <td><span class="lo-route {{ s.route }}">{{ s.route }}</span></td>
+              <td>{{ s.pain_response }}</td>
+              <td>{{ s.rpe }}</td>
+              <td>{{ s.form_accuracy }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="7" class="text-center py-4" style="color:var(--lo-text-muted);">
+              세션 기록이 없습니다.
+            </td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block title %}세션 기록{% endblock %}
+{% block nav_sessions %}active{% endblock %}
+{% block page_title %}<i class="bi bi-activity me-2" style="color:var(--lo-primary)"></i>세션 기록 목록{% endblock %}
+
+{% block content %}
+<div class="lo-section-header lo-fade-in">
+  <h2 class="lo-section-title">
+    <span class="lo-section-num">02</span>전체 세션 기록 (최근 50건)
+  </h2>
+  <a href="{% url 'session_create' %}" class="lo-btn lo-btn-primary">
+    <i class="bi bi-plus-circle-fill"></i> 새 세션 기록
+  </a>
+</div>
+
+<div class="lo-card lo-fade-in">
+  <div class="lo-card-body p-0">
+    <table class="lo-table">
+      <thead>
+        <tr>
+          <th>회원</th>
+          <th>세션일</th>
+          <th>운동</th>
+          <th>QS 점수</th>
+          <th>라우팅</th>
+          <th>통증</th>
+          <th>RPE</th>
+          <th>자세 정확도</th>
+          <th>QC</th>
+          <th>상세</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for s in sessions %}
+        <tr>
+          <td style="font-weight:600;">{{ s.member.name }}</td>
+          <td style="font-size:12px;">{{ s.session_date|date:"Y.m.d"|default:s.created_at|date:"Y.m.d" }}</td>
+          <td style="font-size:13px;">{{ s.exercise_name|default:"—" }}</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:7px;">
+              <span style="font-weight:700;min-width:32px;">{{ s.qs_score }}</span>
+              <div class="lo-qs-bar" style="width:60px;">
+                <div class="lo-qs-fill" style="width:{{ s.qs_score }}%"></div>
+              </div>
+            </div>
+          </td>
+          <td><span class="lo-route {{ s.route }}">{{ s.route }}</span></td>
+          <td>{{ s.pain_response }}</td>
+          <td>{{ s.rpe }}</td>
+          <td>{{ s.form_accuracy }}</td>
+          <td>
+            <span style="font-size:11px;padding:2px 7px;border-radius:10px;
+              {% if s.qc_status == 'PASS' %}background:#e8f5ee;color:#2d6a4f;
+              {% elif s.qc_status == 'CHECK' %}background:#fdf6e3;color:#9a6700;
+              {% else %}background:#fdf0ec;color:#c0392b;{% endif %}
+              font-weight:600;">{{ s.qc_status }}</span>
+          </td>
+          <td>
+            <a href="{% url 'session_detail' s.pk %}" class="lo-btn lo-btn-outline lo-btn-sm">상세</a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="10" class="text-center py-5" style="color:var(--lo-text-muted);">
+          <i class="bi bi-inbox" style="font-size:32px;display:block;margin-bottom:10px;"></i>
+          세션 기록이 없습니다.
+        </td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,188 @@
+{% extends 'base.html' %}
+{% block title %}{{ report.member.name }} 상담 리포트{% endblock %}
+{% block nav_reports %}active{% endblock %}
+{% block page_title %}<i class="bi bi-file-earmark-bar-graph-fill me-2" style="color:var(--lo-primary)"></i>{{ report.member.name }} 상담 리포트{% endblock %}
+
+{% block content %}
+<div class="d-flex gap-2 mb-4 lo-fade-in">
+  <a href="{% url 'report_list' %}" class="lo-btn lo-btn-outline lo-btn-sm"><i class="bi bi-arrow-left"></i> 목록</a>
+  <a href="{% url 'member_detail' report.member.pk %}" class="lo-btn lo-btn-outline lo-btn-sm"><i class="bi bi-person-fill"></i> 회원 상세</a>
+</div>
+
+<!-- 리포트 헤더 -->
+<div class="lo-report-header lo-fade-in mb-4">
+  <div class="row align-items-center">
+    <div class="col-md-7">
+      <div style="font-size:11px;letter-spacing:1.5px;opacity:0.6;text-transform:uppercase;margin-bottom:6px;">LIGHT ONE · 상담 리포트</div>
+      <div class="lo-report-member">{{ report.member.name }} 회원</div>
+      <div class="lo-report-period">분석 기간: {{ report.week_start|date:"Y년 m월 d일" }} ~ {{ report.week_end|date:"Y년 m월 d일" }}</div>
+      <div class="lo-report-period">총 {{ report.session_count }}회 세션 기반 분석</div>
+      {% if report.reregistration_signal %}
+      <div class="lo-signal-badge mt-2" style="background:rgba(82,183,136,0.25);">
+        <i class="bi bi-star-fill"></i> 재등록 추천 신호 — 지속적인 운동 참여가 확인됩니다
+      </div>
+      {% endif %}
+    </div>
+    <div class="col-md-5 mt-3 mt-md-0">
+      <div class="row g-2 text-center">
+        <div class="col-4">
+          <div style="font-size:11px;opacity:0.6;">평균 QS</div>
+          <div style="font-size:28px;font-weight:900;">{{ report.avg_qs }}</div>
+        </div>
+        <div class="col-4">
+          <div style="font-size:11px;opacity:0.6;">평균 통증</div>
+          <div style="font-size:28px;font-weight:900;">{{ report.avg_pain }}</div>
+        </div>
+        <div class="col-4">
+          <div style="font-size:11px;opacity:0.6;">평균 RPE</div>
+          <div style="font-size:28px;font-weight:900;">{{ report.avg_rpe }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row g-4">
+  <!-- 라우팅 분포 차트 -->
+  <div class="col-md-4">
+    <div class="lo-card lo-fade-in">
+      <div class="lo-card-header">
+        <i class="bi bi-diagram-3-fill" style="color:var(--lo-primary)"></i>
+        <h5>라우팅 분포</h5>
+      </div>
+      <div class="lo-card-body">
+        <canvas id="routeChart" height="200"></canvas>
+        <div class="d-flex justify-content-around mt-3">
+          <div class="text-center">
+            <div class="lo-route AUTO mb-1">AUTO</div>
+            <div style="font-size:22px;font-weight:900;">{{ report.auto_count }}</div>
+          </div>
+          <div class="text-center">
+            <div class="lo-route REVIEW mb-1">REVIEW</div>
+            <div style="font-size:22px;font-weight:900;">{{ report.review_count }}</div>
+          </div>
+          <div class="text-center">
+            <div class="lo-route BLOCK mb-1">BLOCK</div>
+            <div style="font-size:22px;font-weight:900;">{{ report.block_count }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QS 추이 차트 -->
+  <div class="col-md-8">
+    <div class="lo-card lo-fade-in">
+      <div class="lo-card-header">
+        <i class="bi bi-graph-up" style="color:var(--lo-primary)"></i>
+        <h5>세션별 QS 점수 추이</h5>
+      </div>
+      <div class="lo-card-body">
+        <canvas id="qsChart" height="180"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- 세션 상세 목록 -->
+  <div class="col-12">
+    <div class="lo-card lo-fade-in">
+      <div class="lo-card-header">
+        <i class="bi bi-list-check" style="color:var(--lo-primary)"></i>
+        <h5>기간 내 세션 상세</h5>
+      </div>
+      <div class="lo-card-body p-0">
+        <table class="lo-table">
+          <thead>
+            <tr>
+              <th>날짜</th>
+              <th>운동</th>
+              <th>QS</th>
+              <th>라우팅</th>
+              <th>통증</th>
+              <th>RPE</th>
+              <th>자세 정확도</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for s in sessions %}
+            <tr>
+              <td style="font-size:12px;">{{ s.session_date|date:"m/d" }}</td>
+              <td>{{ s.exercise_name|default:"—" }}</td>
+              <td style="font-weight:700;">{{ s.qs_score }}</td>
+              <td><span class="lo-route {{ s.route }}">{{ s.route }}</span></td>
+              <td>{{ s.pain_response }}</td>
+              <td>{{ s.rpe }}</td>
+              <td>{{ s.form_accuracy }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="7" class="text-center py-3" style="color:var(--lo-text-muted);">기간 내 세션 없음</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- 트레이너 안내 -->
+  <div class="col-12">
+    <div class="lo-card lo-fade-in" style="border-left:4px solid var(--lo-primary);">
+      <div class="lo-card-body" style="font-size:13px;color:var(--lo-text-muted);">
+        <i class="bi bi-shield-check me-2" style="color:var(--lo-primary)"></i>
+        이 리포트는 트레이너의 판단을 보조하는 참고 자료입니다. 의료 진단·처방·재활 처방이 아닙니다.
+        BLOCK 신호 발생 시 트레이너가 직접 확인 후 전문가 상담 여부를 판단하세요.
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// 라우팅 도넛 차트
+const routeCtx = document.getElementById('routeChart');
+if (routeCtx) {
+  new Chart(routeCtx, {
+    type: 'doughnut',
+    data: {
+      labels: ['AUTO', 'REVIEW', 'BLOCK'],
+      datasets: [{
+        data: [{{ report.auto_count }}, {{ report.review_count }}, {{ report.block_count }}],
+        backgroundColor: ['#52b788', '#e9c46a', '#e76f51'],
+        borderWidth: 0,
+      }]
+    },
+    options: { cutout: '65%', plugins: { legend: { display: false } } }
+  });
+}
+
+// QS 추이 라인 차트
+const qsCtx = document.getElementById('qsChart');
+if (qsCtx) {
+  const labels = [{% for s in sessions %}"{{ s.session_date|date:'m/d'|default:s.created_at|date:'m/d' }}"{% if not forloop.last %},{% endif %}{% endfor %}];
+  const data   = [{% for s in sessions %}{{ s.qs_score }}{% if not forloop.last %},{% endif %}{% endfor %}];
+  new Chart(qsCtx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [{
+        label: 'QS 점수',
+        data,
+        borderColor: '#2a9d8f',
+        backgroundColor: 'rgba(42,157,143,0.08)',
+        borderWidth: 2.5,
+        pointBackgroundColor: '#2a9d8f',
+        pointRadius: 5,
+        tension: 0.35,
+        fill: true,
+      }]
+    },
+    options: {
+      scales: {
+        y: { min: 0, max: 100, ticks: { stepSize: 20 } }
+      },
+      plugins: { legend: { display: false } }
+    }
+  });
+}
+</script>
+{% endblock %}

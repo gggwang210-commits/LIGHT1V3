@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block title %}회원 {{ action }}{% endblock %}
+{% block nav_members %}active{% endblock %}
+{% block page_title %}<i class="bi bi-person-plus-fill me-2" style="color:var(--lo-primary)"></i>회원 {{ action }}{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-7">
+    <div class="lo-card lo-fade-in">
+      <div class="lo-card-header">
+        <i class="bi bi-person-fill" style="color:var(--lo-primary)"></i>
+        <h5>회원 {{ action }} 양식</h5>
+      </div>
+      <div class="lo-card-body">
+        <form method="post">
+          {% csrf_token %}
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="lo-form-label">이름 <span style="color:var(--lo-danger)">*</span></label>
+              <input type="text" name="name" class="lo-form-control" value="{{ member.name|default:'' }}" required placeholder="홍길동">
+            </div>
+            <div class="col-md-3">
+              <label class="lo-form-label">나이</label>
+              <input type="number" name="age" class="lo-form-control" value="{{ member.age|default:'' }}" placeholder="30" min="10" max="100">
+            </div>
+            <div class="col-md-3">
+              <label class="lo-form-label">성별</label>
+              <select name="sex" class="lo-form-control">
+                <option value="">선택</option>
+                <option value="M" {% if member.sex == 'M' %}selected{% endif %}>남성</option>
+                <option value="F" {% if member.sex == 'F' %}selected{% endif %}>여성</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="lo-form-label">운동 목표</label>
+              <select name="goal" class="lo-form-control">
+                <option value="posture" {% if member.goal == 'posture' %}selected{% endif %}>체형교정</option>
+                <option value="pain" {% if member.goal == 'pain' %}selected{% endif %}>통증감소</option>
+                <option value="strength" {% if member.goal == 'strength' %}selected{% endif %}>스트레스 감소</option>
+                <option value="weight" {% if member.goal == 'weight' %}selected{% endif %}>체중관리</option>
+                <option value="rehab" {% if member.goal == 'rehab' %}selected{% endif %}>기능회복</option>
+                <option value="performance" {% if member.goal == 'performance' %}selected{% endif %}>운동능력 향상</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label class="lo-form-label">불편 부위</label>
+              <input type="text" name="discomfort_area" class="lo-form-control" value="{{ member.discomfort_area|default:'' }}" placeholder="예: 허리, 무릎, 어깨">
+            </div>
+            <div class="col-12">
+              <label class="lo-form-label">특이사항 / 메모</label>
+              <textarea name="memo" class="lo-form-control" rows="3" placeholder="트레이너 메모, 주의사항 등">{{ member.memo|default:'' }}</textarea>
+            </div>
+          </div>
+          <div class="d-flex gap-2 mt-4">
+            <button type="submit" class="lo-btn lo-btn-primary">
+              <i class="bi bi-check-circle-fill"></i> {{ action }} 완료
+            </button>
+            <a href="{% url 'member_list' %}" class="lo-btn lo-btn-outline">
+              <i class="bi bi-x-circle"></i> 취소
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

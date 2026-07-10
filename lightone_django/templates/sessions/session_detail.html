@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% block title %}세션 상세{% endblock %}
+{% block nav_sessions %}active{% endblock %}
+{% block page_title %}<i class="bi bi-activity me-2" style="color:var(--lo-primary)"></i>세션 상세 — {{ session.member.name }}{% endblock %}
+
+{% block content %}
+<div class="d-flex gap-2 mb-4 lo-fade-in">
+  <a href="{% url 'session_list' %}" class="lo-btn lo-btn-outline lo-btn-sm"><i class="bi bi-arrow-left"></i> 목록</a>
+  <a href="{% url 'member_detail' session.member.pk %}" class="lo-btn lo-btn-outline lo-btn-sm"><i class="bi bi-person-fill"></i> 회원 상세</a>
+</div>
+
+<!-- QS 결과 헤더 -->
+<div class="lo-report-header lo-fade-in mb-4">
+  <div class="row align-items-center">
+    <div class="col-md-6">
+      <div style="font-size:13px;opacity:0.7;margin-bottom:4px;">{{ session.member.name }} · {{ session.session_date|date:"Y년 m월 d일"|default:session.created_at|date:"Y년 m월 d일" }}</div>
+      <div style="font-size:32px;font-weight:900;">QS {{ session.qs_score }}점</div>
+      <div class="mt-2">
+        <span class="lo-route {{ session.route }}" style="font-size:14px;padding:5px 14px;">
+          {% if session.route == 'AUTO' %}<i class="bi bi-check-circle-fill me-1"></i>
+          {% elif session.route == 'REVIEW' %}<i class="bi bi-eye-fill me-1"></i>
+          {% else %}<i class="bi bi-exclamation-triangle-fill me-1"></i>{% endif %}
+          {{ session.route }} — {{ session.get_route_display }}
+        </span>
+      </div>
+    </div>
+    <div class="col-md-6 mt-3 mt-md-0">
+      <div class="row g-2 text-center">
+        <div class="col-4">
+          <div style="font-size:11px;opacity:0.6;">통증 반응</div>
+          <div style="font-size:24px;font-weight:900;">{{ session.pain_response }}</div>
+          <div style="font-size:10px;opacity:0.5;">/10</div>
+        </div>
+        <div class="col-4">
+          <div style="font-size:11px;opacity:0.6;">RPE</div>
+          <div style="font-size:24px;font-weight:900;">{{ session.rpe }}</div>
+          <div style="font-size:10px;opacity:0.5;">/10</div>
+        </div>
+        <div class="col-4">
+          <div style="font-size:11px;opacity:0.6;">자세 정확도</div>
+          <div style="font-size:24px;font-weight:900;">{{ session.form_accuracy }}</div>
+          <div style="font-size:10px;opacity:0.5;">/10</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% if session.route == 'BLOCK' %}
+  <div class="lo-signal-badge mt-3" style="background:rgba(231,111,81,0.25);">
+    <i class="bi bi-exclamation-triangle-fill"></i>
+    안전 신호 발생 — 트레이너가 직접 확인 후 판단하세요. 의료 진단이 아닙니다.
+  </div>
+  {% elif session.route == 'REVIEW' %}
+  <div class="lo-signal-badge mt-3">
+    <i class="bi bi-eye-fill"></i>
+    트레이너 검토 필요 — 다음 세션 전 상태를 재확인하세요.
+  </div>
+  {% endif %}
+</div>
+
+<div class="row g-4">
+  <!-- 운동 기록 -->
+  <div class="col-md-6">
+    <div class="lo-card lo-fade-in">
+      <div class="lo-card-header">
+        <i class="bi bi-lightning-fill" style="color:var(--lo-primary)"></i>
+        <h5>운동 기록</h5>
+      </div>
+      <div class="lo-card-body">
+        <table style="width:100%;font-size:13.5px;">
+          <tr><td style="color:var(--lo-text-muted);padding:7px 0;width:45%;">주요 운동</td><td style="font-weight:600;">{{ session.exercise_name|default:"—" }}</td></tr>
+          <tr><td style="color:var(--lo-text-muted);padding:7px 0;">세트 × 회수</td><td>{{ session.sets }}세트 × {{ session.reps }}회</td></tr>
+          <tr><td style="color:var(--lo-text-muted);padding:7px 0;">중량</td><td>{{ session.weight_kg }}kg</td></tr>
+          <tr><td style="color:var(--lo-text-muted);padding:7px 0;">JATC 점수</td><td>{{ session.jatc_score }}점</td></tr>
+          <tr><td style="color:var(--lo-text-muted);padding:7px 0;">촬영 QC</td><td>{{ session.qc_status }}</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- 체형 관찰 -->
+  <div class="col-md-6">
+    <div class="lo-card lo-fade-in">
+      <div class="lo-card-header">
+        <i class="bi bi-person-standing" style="color:var(--lo-primary)"></i>
+        <h5>체형 관찰 6항목</h5>
+      </div>
+      <div class="lo-card-body">
+        <canvas id="postureChart" height="200"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- 트레이너 메모 -->
+  {% if session.memo %}
+  <div class="col-12">
+    <div class="lo-card lo-fade-in">
+      <div class="lo-card-header">
+        <i class="bi bi-chat-text-fill" style="color:var(--lo-primary)"></i>
+        <h5>트레이너 메모</h5>
+      </div>
+      <div class="lo-card-body">
+        <p style="font-size:14px;line-height:1.8;margin:0;">{{ session.memo }}</p>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+const postureCtx = document.getElementById('postureChart');
+if (postureCtx) {
+  new Chart(postureCtx, {
+    type: 'radar',
+    data: {
+      labels: ['어깨 정렬', '골반 정렬', '척추 정렬', '무릎 정렬', '발목 정렬', '좌우 균형'],
+      datasets: [{
+        label: '체형 점수',
+        data: [
+          {{ shoulder_score|default:"0" }},
+          {{ pelvis_score|default:"0" }},
+          {{ session.spine_alignment }},
+          {{ session.knee_alignment }},
+          {{ session.ankle_alignment }},
+          {{ lr_score|default:"0" }},
+        ],
+        backgroundColor: 'rgba(42,157,143,0.15)',
+        borderColor: 'rgba(42,157,143,0.8)',
+        borderWidth: 2,
+        pointBackgroundColor: '#2a9d8f',
+      }]
+    },
+    options: {
+      scales: { r: { min: 0, max: 10, ticks: { stepSize: 2, font: { size: 10 } } } },
+      plugins: { legend: { display: false } }
+    }
+  });
+}
+</script>
+{% endblock %}

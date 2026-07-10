@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+{% block title %}세션 기록 입력{% endblock %}
+{% block nav_session_new %}active{% endblock %}
+{% block page_title %}<i class="bi bi-plus-circle-fill me-2" style="color:var(--lo-primary)"></i>세션 기록 입력{% endblock %}
+
+{% block content %}
+<div class="row g-4">
+  <div class="col-md-8">
+    <div class="lo-card lo-fade-in">
+      <div class="lo-card-header">
+        <i class="bi bi-activity" style="color:var(--lo-primary)"></i>
+        <h5>PT 세션 데이터 입력</h5>
+        <span style="font-size:12px;color:var(--lo-text-muted);margin-left:auto;">QS 점수는 저장 시 자동 계산됩니다</span>
+      </div>
+      <div class="lo-card-body">
+        <form method="post">
+          {% csrf_token %}
+
+          <!-- 기본 정보 -->
+          <div class="mb-4">
+            <div style="font-size:13px;font-weight:700;color:var(--lo-primary);margin-bottom:12px;border-bottom:2px solid var(--lo-primary-light);padding-bottom:6px;">
+              <i class="bi bi-person-fill me-1"></i> 기본 정보
+            </div>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="lo-form-label">회원 선택 <span style="color:var(--lo-danger)">*</span></label>
+                <select name="member" class="lo-form-control" required>
+                  <option value="">— 회원 선택 —</option>
+                  {% for m in members %}
+                  <option value="{{ m.pk }}">{{ m.name }} ({{ m.get_goal_display }})</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col-md-3">
+                <label class="lo-form-label">세션 날짜</label>
+                <input type="date" name="session_date" class="lo-form-control" value="{% now 'Y-m-d' %}">
+              </div>
+              <div class="col-md-3">
+                <label class="lo-form-label">촬영 QC</label>
+                <select name="qc_status" class="lo-form-control">
+                  <option value="PASS">PASS — 정상</option>
+                  <option value="CHECK">CHECK — 재확인</option>
+                  <option value="FAIL">FAIL — 분석불가</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- 운동 기록 -->
+          <div class="mb-4">
+            <div style="font-size:13px;font-weight:700;color:var(--lo-primary);margin-bottom:12px;border-bottom:2px solid var(--lo-primary-light);padding-bottom:6px;">
+              <i class="bi bi-lightning-fill me-1"></i> 운동 기록
+            </div>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="lo-form-label">주요 운동명</label>
+                <input type="text" name="exercise_name" class="lo-form-control" placeholder="예: 스쿼트, 데드리프트">
+              </div>
+              <div class="col-md-2">
+                <label class="lo-form-label">세트</label>
+                <input type="number" name="sets" class="lo-form-control" value="3" min="1" max="20">
+              </div>
+              <div class="col-md-2">
+                <label class="lo-form-label">회수</label>
+                <input type="number" name="reps" class="lo-form-control" value="10" min="1" max="100">
+              </div>
+              <div class="col-md-2">
+                <label class="lo-form-label">중량(kg)</label>
+                <input type="number" name="weight_kg" class="lo-form-control" value="0" min="0" step="0.5">
+              </div>
+            </div>
+          </div>
+
+          <!-- 컨디션 지표 -->
+          <div class="mb-4">
+            <div style="font-size:13px;font-weight:700;color:var(--lo-primary);margin-bottom:12px;border-bottom:2px solid var(--lo-primary-light);padding-bottom:6px;">
+              <i class="bi bi-heart-pulse-fill me-1"></i> 컨디션 지표 (QS 점수 자동 계산 기준)
+            </div>
+            <div class="row g-3">
+              <div class="col-md-4">
+                <label class="lo-form-label">통증 반응 (0~10)</label>
+                <input type="number" name="pain_response" class="lo-form-control" value="0" min="0" max="10" step="0.5">
+                <div class="lo-form-hint">0=없음, 10=극심한 통증</div>
+              </div>
+              <div class="col-md-4">
+                <label class="lo-form-label">RPE 운동 자각도 (0~10)</label>
+                <input type="number" name="rpe" class="lo-form-control" value="5" min="0" max="10" step="0.5">
+                <div class="lo-form-hint">적정 범위: 6~8</div>
+              </div>
+              <div class="col-md-4">
+                <label class="lo-form-label">자세 정확도 (0~10)</label>
+                <input type="number" name="form_accuracy" class="lo-form-control" value="7" min="0" max="10" step="0.5">
+                <div class="lo-form-hint">트레이너 관찰 평가</div>
+              </div>
+              <div class="col-md-4">
+                <label class="lo-form-label">JATC 점수 (0~100)</label>
+                <input type="number" name="jatc_score" class="lo-form-control" value="70" min="0" max="100">
+                <div class="lo-form-hint">관절 가동범위 평가</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 자세 관찰 -->
+          <div class="mb-4">
+            <div style="font-size:13px;font-weight:700;color:var(--lo-primary);margin-bottom:12px;border-bottom:2px solid var(--lo-primary-light);padding-bottom:6px;">
+              <i class="bi bi-person-standing me-1"></i> 체형 관찰 (6항목)
+            </div>
+            <div class="row g-3">
+              <div class="col-md-4">
+                <label class="lo-form-label">어깨 기울기 (도)</label>
+                <input type="number" name="shoulder_tilt" class="lo-form-control" value="0" step="0.5">
+                <div class="lo-form-hint">0=수평, 양수=우측 높음</div>
+              </div>
+              <div class="col-md-4">
+                <label class="lo-form-label">골반 기울기 (도)</label>
+                <input type="number" name="pelvis_tilt" class="lo-form-control" value="0" step="0.5">
+              </div>
+              <div class="col-md-4">
+                <label class="lo-form-label">척추 정렬도 (0~10)</label>
+                <input type="number" name="spine_alignment" class="lo-form-control" value="7" min="0" max="10" step="0.5">
+              </div>
+              <div class="col-md-4">
+                <label class="lo-form-label">무릎 정렬도 (0~10)</label>
+                <input type="number" name="knee_alignment" class="lo-form-control" value="7" min="0" max="10" step="0.5">
+              </div>
+              <div class="col-md-4">
+                <label class="lo-form-label">발목 정렬도 (0~10)</label>
+                <input type="number" name="ankle_alignment" class="lo-form-control" value="7" min="0" max="10" step="0.5">
+              </div>
+              <div class="col-md-4">
+                <label class="lo-form-label">좌우 편차 (도)</label>
+                <input type="number" name="lr_deviation" class="lo-form-control" value="0" step="0.5">
+              </div>
+            </div>
+          </div>
+
+          <!-- 메모 -->
+          <div class="mb-4">
+            <label class="lo-form-label">트레이너 메모</label>
+            <textarea name="memo" class="lo-form-control" rows="3" placeholder="세션 특이사항, 다음 세션 주의사항 등"></textarea>
+          </div>
+
+          <div class="d-flex gap-2">
+            <button type="submit" class="lo-btn lo-btn-primary">
+              <i class="bi bi-check-circle-fill"></i> 세션 저장 (QS 자동 계산)
+            </button>
+            <a href="{% url 'session_list' %}" class="lo-btn lo-btn-outline">취소</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- QS 계산 설명 -->
+  <div class="col-md-4">
+    <div class="lo-card lo-fade-in">
+      <div class="lo-card-header">
+        <i class="bi bi-info-circle-fill" style="color:var(--lo-primary)"></i>
+        <h5>QS 점수 계산 방식</h5>
+      </div>
+      <div class="lo-card-body" style="font-size:13px;">
+        <div style="background:var(--lo-primary-light);border-radius:8px;padding:14px;margin-bottom:16px;">
+          <strong>QS = 100 - 통증패널티 - RPE패널티 + 자세보너스</strong>
+        </div>
+        <ul style="padding-left:16px;line-height:2;">
+          <li>통증 반응 × 5점 감점</li>
+          <li>|RPE - 7| × 2점 감점</li>
+          <li>자세 정확도 × 1.5점 가산</li>
+        </ul>
+        <hr>
+        <div style="margin-bottom:8px;"><span class="lo-route AUTO">AUTO</span> QS ≥ 70, 통증 < 4</div>
+        <div style="margin-bottom:8px;"><span class="lo-route REVIEW">REVIEW</span> QS 40~70 또는 통증 4~6</div>
+        <div><span class="lo-route BLOCK">BLOCK</span> QS < 40 또는 통증 ≥ 7</div>
+        <div class="mt-3 p-2 rounded" style="background:#fdf0ec;font-size:11.5px;color:#7b2d1e;">
+          <i class="bi bi-shield-exclamation me-1"></i>
+          BLOCK은 의료 판단이 아닌 안전 신호입니다. 트레이너가 직접 확인하세요.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

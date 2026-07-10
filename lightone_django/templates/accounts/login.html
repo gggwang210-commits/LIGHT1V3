@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}로그인{% endblock %}
+
+{% block content %}
+<div class="lo-auth-card">
+  <div class="lo-auth-logo">
+    <div class="lo-auth-logo-mark">L1</div>
+    <div class="lo-auth-brand">LIGHT ONE</div>
+    <div class="lo-auth-sub">AI 기반 체형분석 PT 솔루션 · 트레이너 전용</div>
+  </div>
+
+  {% if messages %}
+  {% for message in messages %}
+  <div class="alert alert-danger lo-alert mb-3" role="alert">
+    <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ message }}
+  </div>
+  {% endfor %}
+  {% endif %}
+
+  <form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label class="lo-form-label">아이디</label>
+      <input type="text" name="username" class="lo-form-control" placeholder="트레이너 아이디" required autofocus>
+    </div>
+    <div class="mb-4">
+      <label class="lo-form-label">비밀번호</label>
+      <input type="password" name="password" class="lo-form-control" placeholder="비밀번호" required>
+    </div>
+    <button type="submit" class="lo-btn lo-btn-primary w-100 justify-content-center">
+      <i class="bi bi-box-arrow-in-right"></i> 로그인
+    </button>
+  </form>
+
+  <div class="text-center mt-4" style="font-size:12px;color:var(--lo-text-muted);">
+    <i class="bi bi-shield-lock me-1"></i>
+    이 시스템은 트레이너의 판단을 보조하는 도구입니다.<br>의료 진단·처방이 아닙니다.
+  </div>
+</div>
+{% endblock %}
