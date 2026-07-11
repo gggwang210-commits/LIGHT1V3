@@ -5,292 +5,428 @@
 {% block content %}
 <style>
   .trainer-console {
+    --trainer-ink: #14251f;
+    --trainer-muted: #63736d;
+    --trainer-green: #176b55;
+    --trainer-green-soft: #e9f6f1;
+    --trainer-gold: #b77b17;
+    --trainer-gold-soft: #fff5df;
     display: grid;
-    gap: 22px;
-    color: #102033;
-  }
-
-  .trainer-header {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 22px;
-    align-items: end;
-    padding: 28px;
-    border: 1px solid rgba(138, 157, 182, 0.24);
-    border-radius: 18px;
-    background: #ffffff;
-    box-shadow: 0 18px 42px rgba(16, 32, 51, 0.08);
-  }
-
-  .trainer-header h1 {
-    margin: 8px 0 10px;
-    font-size: 34px;
-    line-height: 1.16;
+    gap: 20px;
+    max-width: 1460px;
+    margin: 0 auto;
+    color: var(--trainer-ink);
     letter-spacing: 0;
   }
 
-  .trainer-header p {
-    max-width: 780px;
-    margin: 0;
-    color: #66758a;
-    line-height: 1.7;
+  .trainer-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 28px;
+    align-items: center;
+    min-height: 280px;
+    padding: 34px 38px;
+    border-radius: 8px;
+    color: #fff;
+    background:
+      linear-gradient(100deg, rgba(7, 30, 27, 0.96) 0%, rgba(11, 58, 48, 0.82) 52%, rgba(7, 24, 22, 0.42) 100%),
+      url('/static/lightone/studio/studio_interior_evening.png') center / cover no-repeat;
+    box-shadow: 0 18px 44px rgba(17, 67, 57, 0.16);
   }
 
-  .trainer-kicker {
-    color: #1f6fff;
+  .trainer-kicker,
+  .panel-kicker {
+    display: block;
+    color: #87dbc0;
     font-size: 12px;
     font-weight: 900;
     letter-spacing: 0.08em;
   }
 
-  .trainer-stats {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(150px, 1fr));
-    gap: 14px;
-  }
-
-  .trainer-stat,
-  .trainer-panel {
-    border: 1px solid rgba(138, 157, 182, 0.24);
-    border-radius: 14px;
-    background: #ffffff;
-    box-shadow: 0 14px 34px rgba(16, 32, 51, 0.07);
-  }
-
-  .trainer-stat {
-    min-height: 118px;
-    padding: 20px;
-  }
-
-  .trainer-stat span,
-  .trainer-panel small {
-    color: #6f7f93;
-    font-size: 12px;
-    font-weight: 800;
-  }
-
-  .trainer-stat strong {
-    display: block;
-    margin-top: 10px;
-    font-size: 34px;
+  .trainer-hero h1 {
+    max-width: 760px;
+    margin: 10px 0 12px;
+    font-size: 36px;
+    line-height: 1.22;
     letter-spacing: 0;
   }
 
-  .trainer-layout {
+  .trainer-hero p {
+    max-width: 780px;
+    margin: 0;
+    color: #d7eee7;
+    line-height: 1.7;
+  }
+
+  .hitl-seal {
+    width: 136px;
+    min-height: 136px;
     display: grid;
-    grid-template-columns: minmax(0, 1.35fr) minmax(340px, 0.65fr);
-    gap: 18px;
+    place-content: center;
+    gap: 7px;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 50%;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.08);
   }
 
-  .trainer-panel {
-    overflow: hidden;
+  .hitl-seal strong { font-size: 24px; }
+  .hitl-seal small { color: #c8e8de; font-weight: 800; }
+
+  .trainer-summary {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(150px, 1fr));
+    gap: 12px;
   }
 
-  .trainer-panel-head {
+  .summary-card,
+  .trainer-panel,
+  .workflow-step {
+    border: 1px solid #dfe9e5;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 10px 26px rgba(25, 66, 57, 0.06);
+  }
+
+  .summary-card {
+    min-height: 112px;
+    padding: 18px 20px;
+    border-top: 4px solid var(--trainer-green);
+  }
+
+  .summary-card:nth-child(2) { border-top-color: #3778b7; }
+  .summary-card:nth-child(3) { border-top-color: #d18c18; }
+  .summary-card:nth-child(4) { border-top-color: #ba3c4f; }
+  .summary-card span { color: var(--trainer-muted); font-size: 12px; font-weight: 800; }
+  .summary-card strong { display: block; margin-top: 8px; font-size: 32px; }
+
+  .safety-notice {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 14px;
+    align-items: start;
+    padding: 15px 18px;
+    border: 1px solid #eed7a7;
+    border-left: 5px solid var(--trainer-gold);
+    border-radius: 8px;
+    background: var(--trainer-gold-soft);
+  }
+
+  .safety-notice strong { color: #81540c; }
+  .safety-notice p { margin: 2px 0 0; color: #735f3d; line-height: 1.6; font-size: 13px; }
+
+  .section-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 12px;
+  }
+
+  .section-heading h2 { margin: 4px 0 0; font-size: 21px; }
+  .section-heading p { margin: 0; color: var(--trainer-muted); font-size: 13px; }
+
+  .workflow-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+
+  .workflow-step { position: relative; min-height: 142px; padding: 18px; overflow: hidden; }
+  .workflow-step::after { content: attr(data-step); position: absolute; right: 14px; top: 9px; color: #e2eee9; font-size: 44px; font-weight: 900; }
+  .workflow-step strong { position: relative; z-index: 1; display: block; margin-bottom: 9px; color: var(--trainer-green); }
+  .workflow-step p { position: relative; z-index: 1; margin: 0; color: var(--trainer-muted); line-height: 1.6; font-size: 13px; }
+
+  .trainer-grid {
+    display: grid;
+    grid-template-columns: minmax(300px, 0.76fr) minmax(0, 1.24fr);
+    gap: 16px;
+  }
+
+  .trainer-grid.secondary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .trainer-panel { overflow: hidden; }
+  .trainer-panel.span-all { grid-column: 1 / -1; }
+
+  .panel-head {
     display: flex;
     justify-content: space-between;
     gap: 16px;
-    padding: 20px 22px;
-    border-bottom: 1px solid rgba(138, 157, 182, 0.18);
+    align-items: start;
+    padding: 18px 20px;
+    border-bottom: 1px solid #e7eeeb;
   }
 
-  .trainer-panel h2 {
+  .panel-head h2 { margin: 4px 0 0; font-size: 19px; }
+  .panel-head small { color: var(--trainer-muted); font-weight: 700; }
+
+  .session-list,
+  .draft-list,
+  .plan-list {
+    display: grid;
+    gap: 0;
     margin: 0;
-    font-size: 20px;
-    letter-spacing: 0;
+    padding: 0;
+    list-style: none;
   }
 
-  .trainer-table {
-    width: 100%;
-    border-collapse: collapse;
+  .session-item,
+  .draft-item,
+  .plan-list li {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 12px;
+    align-items: center;
+    padding: 14px 20px;
+    border-bottom: 1px solid #edf2f0;
   }
 
-  .trainer-table th,
-  .trainer-table td {
-    padding: 15px 18px;
-    border-bottom: 1px solid rgba(138, 157, 182, 0.15);
-    text-align: left;
-    font-size: 14px;
-    vertical-align: top;
-  }
-
-  .trainer-table th {
-    color: #6f7f93;
-    font-size: 11px;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    background: #f7f9fc;
-  }
+  .session-item:last-child,
+  .draft-item:last-child,
+  .plan-list li:last-child { border-bottom: 0; }
+  .session-item strong, .draft-item strong { display: block; font-size: 14px; }
+  .session-item small, .draft-item small { display: block; margin-top: 4px; color: var(--trainer-muted); }
 
   .route-chip {
     display: inline-flex;
-    min-width: 72px;
+    min-width: 70px;
+    min-height: 28px;
+    align-items: center;
     justify-content: center;
-    padding: 7px 10px;
+    padding: 6px 9px;
     border-radius: 999px;
-    color: #ffffff;
+    color: #fff;
     font-size: 11px;
     font-weight: 900;
   }
 
-  .badge-green { background: #13a67c; }
-  .badge-yellow { background: #d98a00; }
-  .badge-red { background: #db3350; }
-  .badge-gray { background: #7a8796; }
+  .badge-green { background: #17845f; }
+  .badge-yellow { background: #ca7e00; }
+  .badge-red { background: #c7354b; }
+  .badge-gray { background: #718078; }
 
-  .action-list {
+  .member-search {
+    display: flex;
+    gap: 8px;
+    padding: 14px 20px;
+    background: #f7faf9;
+    border-bottom: 1px solid #e7eeeb;
+  }
+
+  .member-search input {
+    width: 100%;
+    min-height: 42px;
+    border: 1px solid #ccdcd6;
+    border-radius: 6px;
+    padding: 10px 12px;
+    color: var(--trainer-ink);
+    background: #fff;
+  }
+
+  .trainer-table { width: 100%; border-collapse: collapse; }
+  .trainer-table th, .trainer-table td { padding: 13px 16px; border-bottom: 1px solid #e9efed; text-align: left; vertical-align: middle; font-size: 13px; }
+  .trainer-table th { color: #60716a; background: #f7faf9; font-size: 11px; }
+  .trainer-table tr:last-child td { border-bottom: 0; }
+  .trainer-table td small { display: block; margin-top: 3px; color: var(--trainer-muted); }
+
+  .route-guide {
     display: grid;
-    gap: 12px;
-    padding: 18px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    padding: 16px 20px 0;
   }
 
-  .action-card {
-    border: 1px solid rgba(138, 157, 182, 0.22);
-    border-radius: 12px;
-    padding: 16px;
-    background: #fbfcff;
+  .route-guide article { padding: 14px; border: 1px solid #e0e9e5; border-radius: 6px; background: #f9fbfa; }
+  .route-guide strong { display: block; margin-bottom: 6px; }
+  .route-guide p { margin: 0; color: var(--trainer-muted); font-size: 12px; line-height: 1.55; }
+  .route-guide .auto strong { color: #17845f; }
+  .route-guide .review strong { color: #b66d00; }
+  .route-guide .block strong { color: #bd2f45; }
+
+  .review-table-wrap { overflow-x: auto; padding-top: 14px; }
+  .panel-footnote { margin: 0; padding: 14px 20px; border-top: 1px solid #e7eeeb; background: #f5faf8; color: var(--trainer-muted); font-size: 12px; line-height: 1.6; }
+
+  .draft-count { font-size: 28px; color: var(--trainer-green); font-weight: 900; }
+  .plan-list li { grid-template-columns: 28px minmax(0, 1fr); color: #44564f; font-size: 13px; line-height: 1.55; }
+  .plan-list b { width: 24px; height: 24px; display: grid; place-items: center; border-radius: 50%; color: var(--trainer-green); background: var(--trainer-green-soft); }
+
+  .empty-state { padding: 24px 20px; color: var(--trainer-muted); text-align: center; }
+  .hidden-row { display: none; }
+
+  @media (max-width: 1180px) {
+    .trainer-summary, .workflow-grid { grid-template-columns: repeat(2, 1fr); }
+    .trainer-grid, .trainer-grid.secondary { grid-template-columns: 1fr; }
   }
 
-  .action-card strong {
-    display: block;
-    margin-bottom: 7px;
-  }
-
-  .action-card p,
-  .safety-box {
-    margin: 0;
-    color: #66758a;
-    line-height: 1.6;
-    font-size: 13px;
-  }
-
-  .safety-box {
-    padding: 18px 22px;
-    border-top: 1px solid rgba(138, 157, 182, 0.18);
-    background: #f8fbff;
-  }
-
-  @media (max-width: 1080px) {
-    .trainer-header,
-    .trainer-layout,
-    .trainer-stats {
-      grid-template-columns: 1fr;
-    }
+  @media (max-width: 720px) {
+    .trainer-hero { grid-template-columns: 1fr; padding: 26px 22px; }
+    .trainer-hero h1 { font-size: 29px; }
+    .hitl-seal { width: auto; min-height: 64px; border-radius: 6px; }
+    .trainer-summary, .workflow-grid, .route-guide { grid-template-columns: 1fr; }
+    .section-heading, .panel-head { display: block; }
+    .section-heading p, .panel-head > small { margin-top: 8px; display: block; }
   }
 </style>
 
 <div class="trainer-console">
-  <section class="trainer-header">
+  <section class="trainer-hero">
     <div>
-      <span class="trainer-kicker">TRAINER CONSOLE</span>
-      <h1>오늘 확인해야 할 회원 변화와 검토 큐</h1>
-      <p>
-        트레이너가 세션 전후에 바로 확인할 수 있도록 QS/JATC, 통증 반응 기록,
-        촬영 QC, 리포트 초안 상태를 한 화면에 모았습니다.
-      </p>
+      <span class="trainer-kicker">LIGHT ONE · TRAINER OPERATIONS</span>
+      <h1>LIGHT ONE PT V1 REPORT SYSTEM</h1>
+      <p>트레이너 회원관리 SaaS 서비스 · AI 기반 비의료적 컨디셔닝 케어</p>
     </div>
-    <div class="route-chip badge-yellow">HITL</div>
+    <div class="hitl-seal" aria-label="트레이너 최종 검토">
+      <strong>HITL</strong>
+      <small>Trainer Review</small>
+    </div>
   </section>
 
-  <section class="trainer-stats" aria-label="trainer dashboard summary">
-    <article class="trainer-stat"><span>오늘 세션</span><strong>{{ today_sessions|length }}</strong></article>
-    <article class="trainer-stat"><span>평균 QS</span><strong>{{ avg_qs }}</strong></article>
-    <article class="trainer-stat"><span>REVIEW/BLOCK</span><strong>{{ review_queue|length }}</strong></article>
-    <article class="trainer-stat"><span>확인 대기</span><strong>{{ pending_confirmations }}</strong></article>
+  <section class="trainer-summary" aria-label="트레이너 대시보드 요약">
+    <article class="summary-card"><span>오늘 세션</span><strong>{{ today_sessions|length }}</strong></article>
+    <article class="summary-card"><span>평균 QS 참고값</span><strong>{{ avg_qs }}</strong></article>
+    <article class="summary-card"><span>REVIEW / BLOCK</span><strong>{{ review_queue|length }}</strong></article>
+    <article class="summary-card"><span>트레이너 확인 대기</span><strong>{{ pending_confirmations }}</strong></article>
   </section>
 
-  <section class="trainer-layout">
+  <section class="safety-notice" aria-label="비의료 참고 정보 안내">
+    <strong>QS/JATC 안내</strong>
+    <p>{{ safety_notice }} AUTO/REVIEW/BLOCK은 의료 위험 등급이 아니라 내부 세션 운영 라우팅 상태입니다.</p>
+  </section>
+
+  <section aria-labelledby="workflow-title">
+    <div class="section-heading">
+      <div><span class="panel-kicker">WORKFLOW</span><h2 id="workflow-title">Session Workflow</h2></div>
+      <p>세션 전 확인부터 다음 계획까지 같은 기준으로 기록합니다.</p>
+    </div>
+    <div class="workflow-grid">
+      {% for step in workflow_steps %}
+      <article class="workflow-step" data-step="{{ step.number }}">
+        <strong>{{ step.title }}</strong>
+        <p>{{ step.description }}</p>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="trainer-grid" aria-label="오늘 세션과 회원 목록">
     <article class="trainer-panel">
-      <div class="trainer-panel-head">
-        <div>
-          <h2>검토 우선순위 큐</h2>
-          <small>통증 반응, RPE, 촬영 품질, 메모를 트레이너가 확인합니다.</small>
-        </div>
-        <small>AUTO {{ counts.AUTO }} · REVIEW {{ counts.REVIEW }} · BLOCK {{ counts.BLOCK }}</small>
+      <div class="panel-head">
+        <div><span class="panel-kicker">TODAY</span><h2>Today Sessions</h2></div>
+        <strong>{{ today_sessions|length }}건</strong>
       </div>
+      <ul class="session-list">
+        {% for session in today_sessions %}
+        <li class="session-item">
+          <div><strong>{{ session.member_name }}</strong><small>{{ session.goal }} · {{ session.created_at|date:'m/d H:i' }}</small></div>
+          <span class="route-chip {{ session.routing_badge_class }}">{{ session.routing_label }}</span>
+        </li>
+        {% empty %}
+        <li class="empty-state">표시할 세션이 없습니다.</li>
+        {% endfor %}
+      </ul>
+    </article>
 
+    <article class="trainer-panel">
+      <div class="panel-head">
+        <div><span class="panel-kicker">MEMBERS</span><h2>Member Search / List</h2></div>
+        <small>회원명, 목표, 상태 검색</small>
+      </div>
+      <div class="member-search">
+        <input id="member-search" type="search" placeholder="회원명 또는 상태 입력" aria-label="회원 검색">
+      </div>
+      <div class="review-table-wrap">
+        <table class="trainer-table" id="member-table">
+          <thead><tr><th>회원</th><th>최근 목표</th><th>불편감 부위</th><th>상태</th></tr></thead>
+          <tbody>
+            {% for session in sessions|slice:':8' %}
+            <tr data-member-row>
+              <td><strong>{{ session.member_name }}</strong></td>
+              <td>{{ session.goal }}</td>
+              <td>{{ session.discomfort_area|default:'기록 없음' }}</td>
+              <td><span class="route-chip {{ session.routing_badge_class }}">{{ session.routing_label }}</span></td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4" class="empty-state">회원 세션 데이터가 없습니다.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </article>
+  </section>
+
+  <section class="trainer-panel" id="review-queue">
+    <div class="panel-head">
+      <div><span class="panel-kicker">TRAINER ROUTING</span><h2>Review Queue</h2></div>
+      <small>AUTO {{ counts.AUTO }} · REVIEW {{ counts.REVIEW }} · BLOCK {{ counts.BLOCK }}</small>
+    </div>
+    <div class="route-guide">
+      <article class="auto"><strong>AUTO</strong><p>기본 흐름 후보입니다. 전달 전 트레이너가 최종 확인합니다.</p></article>
+      <article class="review"><strong>REVIEW</strong><p>통증 반응, RPE, 촬영 품질과 기록을 우선 검토합니다.</p></article>
+      <article class="block"><strong>BLOCK</strong><p>세션 운영을 보류하고 안전 안내와 후속 조치를 확인합니다.</p></article>
+    </div>
+    <div class="review-table-wrap">
       <table class="trainer-table">
-        <thead>
-          <tr>
-            <th>회원</th>
-            <th>확인 항목</th>
-            <th>QS/JATC</th>
-            <th>상태</th>
-          </tr>
-        </thead>
+        <thead><tr><th>우선순위</th><th>회원</th><th>확인 항목</th><th>QS / JATC</th><th>상태</th></tr></thead>
         <tbody>
           {% for session in review_queue %}
           <tr>
-            <td><strong>{{ session.member_name }}</strong><br><small>{{ session.goal }}</small></td>
+            <td>{{ forloop.counter|stringformat:'02d' }}</td>
+            <td><strong>{{ session.member_name }}</strong><small>{{ session.goal }}</small></td>
             <td>불편감 {{ session.pain_response }} · RPE {{ session.rpe }} · QC {{ session.qc_status }}</td>
-            <td>QS {{ session.qs_score }}<br>JATC {{ session.jatc_score }}</td>
+            <td>QS {{ session.qs_score }} · JATC {{ session.jatc_score }}</td>
             <td><span class="route-chip {{ session.routing_badge_class }}">{{ session.routing_label }}</span></td>
           </tr>
           {% empty %}
-          <tr>
-            <td colspan="4">현재 REVIEW/BLOCK 검토 큐가 없습니다.</td>
-          </tr>
+          <tr><td colspan="5" class="empty-state">현재 REVIEW/BLOCK 검토 큐가 없습니다.</td></tr>
           {% endfor %}
         </tbody>
       </table>
+    </div>
+    <p class="panel-footnote">BLOCK은 진단 결과가 아닙니다. 갑작스러운 심한 불편감이나 일상생활 제한 등 우려 상황은 세션을 중단하고 전문기관 상담을 안내합니다.</p>
+  </section>
+
+  <section class="trainer-grid secondary" aria-label="리포트 초안과 다음 세션 계획">
+    <article class="trainer-panel">
+      <div class="panel-head">
+        <div><span class="panel-kicker">REPORTS</span><h2>Report Drafts</h2></div>
+        <span class="draft-count">{{ report_drafts|length }}</span>
+      </div>
+      <ul class="draft-list">
+        {% for session in report_drafts %}
+        <li class="draft-item">
+          <div><strong>{{ session.member_name }}</strong><small>의료 표현·회복 안내·다음 과제 확인</small></div>
+          <span class="route-chip {{ session.routing_badge_class }}">검토 대기</span>
+        </li>
+        {% empty %}
+        <li class="empty-state">검토할 리포트 초안이 없습니다.</li>
+        {% endfor %}
+      </ul>
     </article>
 
-    <aside class="trainer-panel">
-      <div class="trainer-panel-head">
-        <div>
-          <h2>다음 행동</h2>
-          <small>전달 전 트레이너 확인 기준</small>
-        </div>
+    <article class="trainer-panel" id="next-session-plan">
+      <div class="panel-head">
+        <div><span class="panel-kicker">PLAN</span><h2>Next Session Plan</h2></div>
+        <small>안전한 운영 조정안</small>
       </div>
-      <div class="action-list">
-        <div class="action-card">
-          <strong>BLOCK</strong>
-          <p>세션을 보류하고 불편감 반응과 촬영 품질을 확인합니다. 필요 시 전문기관 상담을 안내합니다.</p>
-        </div>
-        <div class="action-card">
-          <strong>REVIEW</strong>
-          <p>운동 난이도, 범위, 휴식 시간을 조정할지 확인하고 회원 안내 문구를 점검합니다.</p>
-        </div>
-        <div class="action-card">
-          <strong>AUTO</strong>
-          <p>리포트 초안을 그대로 전달하지 않고, 트레이너가 마지막 문구를 확인합니다.</p>
-        </div>
-      </div>
-      <p class="safety-box">{{ safety_notice }}</p>
-    </aside>
-  </section>
-
-  <section class="trainer-panel">
-    <div class="trainer-panel-head">
-      <div>
-        <h2>오늘 세션 준비</h2>
-        <small>회원별 최근 목표와 참고 점수</small>
-      </div>
-    </div>
-    <table class="trainer-table">
-      <thead>
-        <tr>
-          <th>회원</th>
-          <th>목표</th>
-          <th>불편감 부위</th>
-          <th>리포트 상태</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for session in today_sessions %}
-        <tr>
-          <td><strong>{{ session.member_name }}</strong></td>
-          <td>{{ session.goal }}</td>
-          <td>{{ session.discomfort_area|default:'기록 없음' }}</td>
-          <td><span class="route-chip {{ session.routing_badge_class }}">{{ session.routing_label }}</span></td>
-        </tr>
-        {% empty %}
-        <tr>
-          <td colspan="4">표시할 세션이 없습니다. 샘플 데이터를 먼저 적재하세요.</td>
-        </tr>
+      <ol class="plan-list">
+        {% for action in next_session_actions %}
+        <li><b>{{ forloop.counter }}</b><span>{{ action }}</span></li>
         {% endfor %}
-      </tbody>
-    </table>
+      </ol>
+    </article>
   </section>
 </div>
+
+<script>
+  (() => {
+    const input = document.querySelector('#member-search');
+    const rows = document.querySelectorAll('[data-member-row]');
+    if (!input) return;
+    input.addEventListener('input', () => {
+      const query = input.value.trim().toLocaleLowerCase('ko');
+      rows.forEach((row) => {
+        row.classList.toggle('hidden-row', !row.textContent.toLocaleLowerCase('ko').includes(query));
+      });
+    });
+  })();
+</script>
 {% endblock %}
