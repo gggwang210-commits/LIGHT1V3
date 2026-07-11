@@ -4,253 +4,779 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>회원가입 - LIGHT ONE</title>
-  <meta name="description" content="LIGHT ONE 회원가입">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <title>회원가입 | LIGHT ONE</title>
+  <meta
+    name="description"
+    content="LIGHT ONE 비의료 PT 상담 리포트 서비스 회원가입"
+  >
+
   <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      padding: 32px 0;
-      display: flex;
-      justify-content: center;
-      background: #07131e url("{% static 'lightone/studio/studio_exterior.png' %}") center / cover no-repeat;
-      overflow-x: hidden;
-      font-family: "Noto Sans KR", Inter, sans-serif;
-      color: #f7fbff;
-      letter-spacing: 0;
+    :root {
+      --bg-dark: #06131c;
+      --bg-panel: rgba(250, 252, 253, 0.97);
+      --brand-green: #176b55;
+      --brand-green-dark: #105541;
+      --brand-mint: #69dfbd;
+      --text-dark: #14251f;
+      --text-muted: #697a73;
+      --border: #cbd8d3;
+      --focus: #2476ff;
+      --error: #9d2137;
+      --error-bg: #fff0f2;
+      --radius-lg: 24px;
+      --shadow: 0 28px 80px rgba(0, 0, 0, 0.28);
     }
 
-    .login-media,
-    .login-shade {
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-height: 100%;
+      background: var(--bg-dark);
+    }
+
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+      margin: 0;
+      overflow-x: hidden;
+      background:
+        var(--bg-dark)
+        url("{% static 'lightone/studio/studio_exterior.png' %}")
+        center / cover no-repeat;
+      color: #f7fbff;
+      font-family:
+        Pretendard,
+        "Noto Sans KR",
+        "Apple SD Gothic Neo",
+        "Malgun Gothic",
+        Arial,
+        sans-serif;
+    }
+
+    button,
+    input,
+    a {
+      font: inherit;
+    }
+
+    .background-media,
+    .background-overlay {
       position: fixed;
       inset: 0;
     }
 
-    .login-media {
+    .background-media {
+      z-index: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
+      background: var(--bg-dark);
     }
 
-    .login-shade {
+    .background-overlay {
+      z-index: 1;
+      pointer-events: none;
       background:
-        linear-gradient(90deg, rgba(4, 15, 24, 0.94) 0%, rgba(4, 19, 31, 0.74) 48%, rgba(4, 19, 31, 0.38) 100%),
-        linear-gradient(180deg, rgba(5, 16, 25, 0.12), rgba(5, 16, 25, 0.66));
+        linear-gradient(
+          90deg,
+          rgba(4, 15, 24, 0.95) 0%,
+          rgba(4, 18, 28, 0.80) 46%,
+          rgba(4, 18, 28, 0.48) 100%
+        ),
+        linear-gradient(
+          180deg,
+          rgba(4, 14, 22, 0.18) 0%,
+          rgba(4, 14, 22, 0.68) 100%
+        );
     }
 
-    .login-shell {
+    .auth-page {
       position: relative;
       z-index: 2;
-      width: min(1180px, calc(100% - 48px));
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 420px;
-      gap: 48px;
-      align-items: start;
-    }
-
-    .login-brand {
-      max-width: 660px;
-      padding: 28px 30px;
-      border-radius: 24px;
-      background: rgba(6, 19, 28, 0.54);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(14px);
-    }
-
-    .login-eyebrow { color: #65d9b6; font-size: 12px; font-weight: 900; letter-spacing: 0.1em; }
-    .login-brand h1 { margin: 16px 0; font-size: clamp(44px, 6vw, 78px); line-height: 1.04; }
-    .login-brand p { margin: 0; color: #d4e2e8; font-size: 17px; line-height: 1.75; }
-    .login-brand small { display: block; margin-top: 22px; color: #9fb4bc; line-height: 1.6; }
-
-    .login-panel {
-      padding: 34px;
-      border: 1px solid rgba(15, 32, 48, 0.14);
-      border-radius: 18px;
-      background: rgba(250, 253, 255, 0.96);
-      color: #12251f;
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.22);
-      backdrop-filter: blur(18px);
-    }
-
-    .login-panel h2 { margin: 0 0 6px; font-size: 24px; }
-    .login-panel > p { margin: 0 0 24px; color: #66766f; font-size: 13px; }
-    .login-field { margin-bottom: 16px; }
-    .login-field label { display: block; margin-bottom: 7px; font-size: 13px; font-weight: 800; }
-    .login-field input {
-      width: 100%;
-      min-height: 46px;
-      border: 1px solid #cad8d3;
-      border-radius: 8px;
-      padding: 12px 14px;
-      color: #12251f;
-      background: #fff;
-      font: inherit;
-    }
-
-    .login-field input:focus { outline: 3px solid rgba(31, 111, 255, 0.2); border-color: #1f6fff; }
-    .login-submit {
-      width: 100%;
-      min-height: 50px;
-      margin-top: 4px;
-      border: 0;
-      border-radius: 10px;
-      color: #fff;
-      background: #176b55;
-      font: inherit;
-      font-weight: 900;
-      cursor: pointer;
-    }
-
-    .login-submit:hover { background: #105541; }
-    .login-error { margin: 0 0 16px; padding: 11px 12px; border-radius: 8px; color: #9d2137; background: #fff0f2; font-size: 13px; }
-    .login-actions {
       display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-top: 26px;
+      flex-direction: column;
+      width: 100%;
+      min-height: 100vh;
+      min-height: 100dvh;
     }
 
-    .login-action {
+    .auth-shell {
+      display: grid;
+      flex: 1 0 auto;
+      grid-template-columns: minmax(0, 1fr) minmax(380px, 430px);
+      gap: clamp(32px, 5vw, 64px);
+      align-items: center;
+      width: min(1180px, calc(100% - 48px));
+      margin: 0 auto;
+      padding: 32px 0 24px;
+    }
+
+    .brand-panel {
+      min-width: 0;
+      max-width: 680px;
+      padding: clamp(26px, 4vw, 40px);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      border-radius: var(--radius-lg);
+      background: rgba(5, 19, 29, 0.58);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.18);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .brand-eyebrow {
+      display: block;
+      margin-bottom: 18px;
+      color: var(--brand-mint);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      line-height: 1.5;
+    }
+
+    .brand-title {
+      margin: 0;
+      color: #ffffff;
+      font-size: clamp(44px, 5.5vw, 76px);
+      font-weight: 900;
+      letter-spacing: -0.045em;
+      line-height: 1.02;
+      word-break: keep-all;
+    }
+
+    .brand-title .accent {
+      color: #4d8dff;
+    }
+
+    .brand-description {
+      margin: 26px 0 0;
+      color: #d6e3e8;
+      font-size: clamp(15px, 1.5vw, 18px);
+      font-weight: 600;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+
+    .brand-safety {
+      display: block;
+      margin-top: 22px;
+      color: #a9bdc5;
+      font-size: 13px;
+      line-height: 1.75;
+      word-break: keep-all;
+    }
+
+    .auth-panel {
+      width: 100%;
+      min-width: 0;
+      padding: clamp(25px, 3.5vw, 34px);
+      border: 1px solid rgba(15, 32, 48, 0.14);
+      border-radius: 20px;
+      background: var(--bg-panel);
+      box-shadow: var(--shadow);
+      color: var(--text-dark);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .auth-panel h1 {
+      margin: 0;
+      color: var(--text-dark);
+      font-size: 27px;
+      font-weight: 900;
+      letter-spacing: -0.035em;
+      line-height: 1.3;
+    }
+
+    .auth-description {
+      margin: 8px 0 22px;
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .account-notice {
+      margin: -8px 0 20px;
+      padding: 11px 13px;
+      border: 1px solid rgba(23, 107, 85, 0.15);
+      border-radius: 9px;
+      background: #edf7f3;
+      color: #265b4c;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.6;
+    }
+
+    .error-summary {
+      margin: 0 0 17px;
+      padding: 13px 14px;
+      border: 1px solid rgba(157, 33, 55, 0.18);
+      border-radius: 10px;
+      background: var(--error-bg);
+      color: var(--error);
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.6;
+    }
+
+    .field-group {
+      margin-bottom: 15px;
+    }
+
+    .field-label {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--text-dark);
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .field-input {
+      display: block;
+      width: 100%;
+      min-height: 48px;
+      padding: 11px 14px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      outline: none;
+      background: #ffffff;
+      color: var(--text-dark);
+      font-size: 16px;
+      transition:
+        border-color 0.16s ease,
+        box-shadow 0.16s ease;
+    }
+
+    .field-input:hover {
+      border-color: #9fb2aa;
+    }
+
+    .field-input:focus {
+      border-color: var(--focus);
+      box-shadow: 0 0 0 4px rgba(36, 118, 255, 0.16);
+    }
+
+    .field-input.is-invalid {
+      border-color: var(--error);
+    }
+
+    .field-help {
+      margin: 7px 0 0;
+      color: var(--text-muted);
+      font-size: 11px;
+      line-height: 1.55;
+    }
+
+    .field-error {
+      margin: 7px 0 0;
+      color: var(--error);
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .submit-button {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-width: 130px;
-      padding: 12px 18px;
-      border-radius: 999px;
-      border: 1px solid rgba(23, 107, 85, 0.14);
-      color: #12251f;
-      background: rgba(255, 255, 255, 0.88);
-      text-decoration: none;
-      font-weight: 700;
-      transition: transform 0.18s ease, background 0.18s ease, color 0.18s ease;
-    }
-
-    .login-action:hover { transform: translateY(-1px); background: #f1f7f5; }
-    .login-action--active {
-      color: #fff;
-      background: #176b55;
-      border-color: transparent;
-    }
-
-    .notice-box {
-      position: relative;
-      z-index: 2;
-      max-width: 1000px;
-      width: min(100%, calc(100% - 36px));
-      margin: 32px auto 0;
-      padding: 18px 20px;
-      border-radius: 18px;
-      background: rgba(0, 0, 0, 0.70);
+      width: 100%;
+      min-height: 52px;
+      margin-top: 4px;
+      padding: 12px 20px;
+      border: 0;
+      border-radius: 10px;
+      background: var(--brand-green);
       color: #ffffff;
+      font-weight: 900;
+      cursor: pointer;
+      transition:
+        background 0.16s ease,
+        transform 0.16s ease,
+        box-shadow 0.16s ease;
+    }
+
+    .submit-button:hover {
+      background: var(--brand-green-dark);
+      box-shadow: 0 10px 24px rgba(23, 107, 85, 0.22);
+      transform: translateY(-1px);
+    }
+
+    .submit-button:focus-visible {
+      outline: 3px solid rgba(36, 118, 255, 0.34);
+      outline-offset: 3px;
+    }
+
+    .auth-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 11px;
+      margin-top: 22px;
+    }
+
+    .action-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 10px 13px;
+      border: 1px solid rgba(23, 107, 85, 0.18);
+      border-radius: 999px;
+      background: #ffffff;
+      color: var(--text-dark);
       font-size: 14px;
-      line-height: 1.8;
+      font-weight: 800;
       text-align: center;
+      text-decoration: none;
+      transition:
+        border-color 0.16s ease,
+        background 0.16s ease,
+        color 0.16s ease,
+        transform 0.16s ease;
+    }
+
+    .action-link:hover {
+      border-color: rgba(23, 107, 85, 0.42);
+      background: #f0f7f4;
+      transform: translateY(-1px);
+    }
+
+    .action-link.active {
+      border-color: var(--brand-green);
+      background: var(--brand-green);
+      color: #ffffff;
+    }
+
+    .action-link.admin-link {
+      grid-column: 1 / -1;
+    }
+
+    .service-notice {
+      flex: 0 0 auto;
+      width: min(1000px, calc(100% - 36px));
+      margin: 0 auto 24px;
+      padding: 15px 20px;
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      border-radius: 16px;
+      background: rgba(0, 0, 0, 0.72);
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.75;
+      text-align: center;
+      word-break: keep-all;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
 
     .media-toggle {
       position: fixed;
       right: 22px;
       bottom: 22px;
-      z-index: 3;
-      width: 44px;
-      height: 44px;
-      border: 1px solid rgba(255, 255, 255, 0.4);
+      z-index: 5;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 46px;
+      height: 46px;
+      border: 1px solid rgba(255, 255, 255, 0.42);
       border-radius: 50%;
-      color: #fff;
-      background: rgba(6, 22, 34, 0.62);
+      background: rgba(5, 20, 30, 0.74);
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 900;
       cursor: pointer;
+      backdrop-filter: blur(8px);
     }
 
-    @media (max-width: 820px) {
-      body { padding: 18px 0 26px; }
-      .login-shell { grid-template-columns: 1fr; width: min(520px, calc(100% - 32px)); gap: 28px; }
-      .login-brand { padding: 24px 22px; }
-      .login-brand h1 { font-size: 42px; }
-      .login-brand p { font-size: 15px; }
-      .login-panel { padding: 26px; }
-      .login-action { min-width: 120px; flex: 1 1 40%; }
-      .notice-box { margin-top: 24px; font-size: 13px; }
+    .media-toggle:focus-visible {
+      outline: 3px solid rgba(101, 217, 182, 0.54);
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 900px) {
+      .auth-shell {
+        grid-template-columns: 1fr;
+        width: min(560px, calc(100% - 32px));
+        gap: 24px;
+        padding: 24px 0;
+      }
+
+      .brand-panel {
+        max-width: none;
+      }
+
+      .brand-title {
+        font-size: clamp(40px, 11vw, 58px);
+      }
+    }
+
+    @media (max-width: 520px) {
+      .auth-shell {
+        width: min(100% - 24px, 520px);
+        padding: 12px 0 20px;
+      }
+
+      .brand-panel,
+      .auth-panel {
+        padding: 22px 20px;
+        border-radius: 17px;
+      }
+
+      .brand-title {
+        font-size: clamp(38px, 13vw, 52px);
+      }
+
+      .brand-description {
+        margin-top: 18px;
+      }
+
+      .auth-actions {
+        grid-template-columns: 1fr;
+      }
+
+      .action-link.admin-link {
+        grid-column: auto;
+      }
+
+      .service-notice {
+        width: calc(100% - 24px);
+        margin-bottom: 16px;
+        padding: 13px 15px;
+        font-size: 12px;
+      }
+
+      .media-toggle {
+        right: 14px;
+        bottom: 14px;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .login-media { display: none; }
-      .media-toggle { display: none; }
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      .background-media,
+      .media-toggle {
+        display: none;
+      }
     }
   </style>
 </head>
+
 <body>
-  <video class="login-media" id="login-media" autoplay muted loop playsinline preload="metadata" poster="{% static 'lightone/studio/studio_exterior.png' %}">
-    <source src="{% static 'lightone/studio/studio_walkthrough.mp4' %}" type="video/mp4">
+  <video
+    class="background-media"
+    id="background-media"
+    autoplay
+    muted
+    loop
+    playsinline
+    preload="metadata"
+    poster="{% static 'lightone/studio/studio_exterior.png' %}"
+    aria-hidden="true"
+  >
+    <source
+      src="{% static 'lightone/studio/studio_walkthrough.mp4' %}"
+      type="video/mp4"
+    >
   </video>
-  <div class="login-shade" aria-hidden="true"></div>
 
-  <main class="login-shell">
-    <section class="login-brand">
-      <span class="login-eyebrow">LIGHT ONE · TRAINER REPORT SYSTEM</span>
-      <h1>LIGHT ONE PT V1<br>REPORT SYSTEM</h1>
-      <p>트레이너 회원관리 SaaS 서비스<br>AI 기반 비의료적 컨디셔닝 케어</p>
-      <small>비의료 운동상담 참고 서비스이며 최종 판단과 회원 안내는 트레이너가 수행합니다.</small>
-    </section>
+  <div class="background-overlay" aria-hidden="true"></div>
 
-    <section class="login-panel" aria-labelledby="signup-title">
-      <h2 id="signup-title">새 계정 만들기</h2>
-      <p>트레이너 계정으로 LIGHT ONE 운영 콘솔에 접속합니다.</p>
-      {% if form.errors %}<p class="login-error">입력값을 확인한 후 다시 시도해주세요.</p>{% endif %}
-      <form method="post">
-        {% csrf_token %}
-        <div class="login-field">
-          <label for="id_username">아이디</label>
-          <input type="text" name="username" id="id_username" autocomplete="username" required autofocus>
-        </div>
-        <div class="login-field">
-          <label for="id_name">이름</label>
-          <input type="text" name="name" id="id_name" autocomplete="name" required>
-        </div>
-        <div class="login-field">
-          <label for="id_password1">비밀번호</label>
-          <input type="password" name="password1" id="id_password1" autocomplete="new-password" required>
-        </div>
-        <div class="login-field">
-          <label for="id_password2">비밀번호 확인</label>
-          <input type="password" name="password2" id="id_password2" autocomplete="new-password" required>
-        </div>
-        <button class="login-submit" type="submit">회원가입</button>
-      </form>
-      <div class="login-actions">
-        <a href="{% url 'accounts:signup' %}" class="login-action login-action--active">회원가입</a>
-        <a href="{% url 'accounts:login' %}" class="login-action">트레이너 로그인</a>
-        <a href="/admin/login/" class="login-action">작업자 로그인</a>
-      </div>
-    </section>
-  </main>
+  <div class="auth-page">
+    <main class="auth-shell">
+      <section class="brand-panel" aria-labelledby="brand-title">
+        <span class="brand-eyebrow">
+          LIGHT ONE · TRAINER REPORT SYSTEM
+        </span>
 
-  <div class="notice-box">
-    본 웹사이트는 개발 및 시연을 위한 데모로 정식 상용화된 서비스가 아닙니다. 화면에 표시되는 정보는 비의료적 운동상담 참고자료이며 의료 진단·치료·처방을 목적으로 하지 않습니다.
+        <h2 class="brand-title" id="brand-title">
+          LIGHT ONE PT <span class="accent">V1</span><br>
+          REPORT SYSTEM
+        </h2>
+
+        <p class="brand-description">
+          트레이너 회원관리 SaaS 서비스<br>
+          AI 기반 비의료적 컨디셔닝 케어
+        </p>
+
+        <small class="brand-safety">
+          AI는 트레이너의 판단을 대체하지 않으며, 회원 상담과 운동 지도를
+          지원하는 참고자료를 제공합니다.
+        </small>
+      </section>
+
+      <section class="auth-panel" aria-labelledby="signup-title">
+        <h1 id="signup-title">회원가입</h1>
+
+        <p class="auth-description">
+          LIGHT ONE 서비스를 이용할 회원 계정을 만듭니다.
+        </p>
+
+        <div class="account-notice">
+          공개 회원가입으로 생성되는 계정은 일반 회원 계정입니다.
+          트레이너 및 작업자 권한은 관리자의 별도 승인이 필요합니다.
+        </div>
+
+        {% if form.non_field_errors %}
+          <div
+            class="error-summary"
+            role="alert"
+            aria-live="polite"
+          >
+            {% for error in form.non_field_errors %}
+              {{ error }}{% if not forloop.last %}<br>{% endif %}
+            {% endfor %}
+          </div>
+        {% elif form.errors %}
+          <div
+            class="error-summary"
+            role="alert"
+            aria-live="polite"
+          >
+            입력 내용을 확인한 후 다시 시도해 주세요.
+          </div>
+        {% endif %}
+
+        <form method="post" action="{% url 'accounts:signup' %}">
+          {% csrf_token %}
+
+          <div class="field-group">
+            <label class="field-label" for="id_username">
+              아이디
+            </label>
+
+            <input
+              class="field-input{% if form.username.errors %} is-invalid{% endif %}"
+              type="text"
+              name="username"
+              id="id_username"
+              value="{{ form.username.value|default_if_none:'' }}"
+              maxlength="150"
+              autocomplete="username"
+              autocapitalize="none"
+              spellcheck="false"
+              required
+              autofocus
+              {% if form.username.errors %}
+                aria-invalid="true"
+                aria-describedby="username-error"
+              {% endif %}
+            >
+
+            <p class="field-help">
+              영문자, 숫자와 일부 특수문자(@, ., +, -, _)를 사용할 수 있습니다.
+            </p>
+
+            {% if form.username.errors %}
+              <div class="field-error" id="username-error" role="alert">
+                {% for error in form.username.errors %}
+                  {{ error }}{% if not forloop.last %}<br>{% endif %}
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="id_name">
+              이름
+            </label>
+
+            <input
+              class="field-input{% if form.name.errors %} is-invalid{% endif %}"
+              type="text"
+              name="name"
+              id="id_name"
+              value="{{ form.name.value|default_if_none:'' }}"
+              maxlength="50"
+              autocomplete="name"
+              required
+              {% if form.name.errors %}
+                aria-invalid="true"
+                aria-describedby="name-error"
+              {% endif %}
+            >
+
+            {% if form.name.errors %}
+              <div class="field-error" id="name-error" role="alert">
+                {% for error in form.name.errors %}
+                  {{ error }}{% if not forloop.last %}<br>{% endif %}
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="id_password1">
+              비밀번호
+            </label>
+
+            <input
+              class="field-input{% if form.password1.errors %} is-invalid{% endif %}"
+              type="password"
+              name="password1"
+              id="id_password1"
+              autocomplete="new-password"
+              required
+              {% if form.password1.errors %}
+                aria-invalid="true"
+                aria-describedby="password1-help password1-error"
+              {% else %}
+                aria-describedby="password1-help"
+              {% endif %}
+            >
+
+            <p class="field-help" id="password1-help">
+              다른 개인정보와 유사하지 않은 충분히 긴 비밀번호를 사용해 주세요.
+            </p>
+
+            {% if form.password1.errors %}
+              <div class="field-error" id="password1-error" role="alert">
+                {% for error in form.password1.errors %}
+                  {{ error }}{% if not forloop.last %}<br>{% endif %}
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="id_password2">
+              비밀번호 확인
+            </label>
+
+            <input
+              class="field-input{% if form.password2.errors %} is-invalid{% endif %}"
+              type="password"
+              name="password2"
+              id="id_password2"
+              autocomplete="new-password"
+              required
+              {% if form.password2.errors %}
+                aria-invalid="true"
+                aria-describedby="password2-error"
+              {% endif %}
+            >
+
+            {% if form.password2.errors %}
+              <div class="field-error" id="password2-error" role="alert">
+                {% for error in form.password2.errors %}
+                  {{ error }}{% if not forloop.last %}<br>{% endif %}
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+
+          <button class="submit-button" type="submit">
+            회원가입
+          </button>
+        </form>
+
+        <nav class="auth-actions" aria-label="계정 관련 메뉴">
+          <a
+            class="action-link active"
+            href="{% url 'accounts:signup' %}"
+            aria-current="page"
+          >
+            회원가입
+          </a>
+
+          <a
+            class="action-link"
+            href="{% url 'accounts:login' %}"
+          >
+            트레이너 로그인
+          </a>
+
+          <a
+            class="action-link admin-link"
+            href="{% url 'admin:login' %}"
+          >
+            작업자 로그인
+          </a>
+        </nav>
+      </section>
+    </main>
+
+    <aside class="service-notice" aria-label="서비스 이용 안내">
+      본 웹사이트는 개발 및 시연을 위한 데모로 정식 상용화된 서비스가
+      아닙니다. 화면의 정보는 비의료적 운동상담 참고자료이며 의료
+      진단·치료·처방을 목적으로 하지 않습니다.
+    </aside>
   </div>
 
-  <button class="media-toggle" id="media-toggle" type="button" aria-label="배경 영상 일시정지" title="배경 영상 일시정지">Ⅱ</button>
+  <button
+    class="media-toggle"
+    id="media-toggle"
+    type="button"
+    aria-label="배경 영상 일시정지"
+    aria-pressed="false"
+    title="배경 영상 일시정지"
+  >
+    Ⅱ
+  </button>
+
   <script>
     (() => {
-      const video = document.querySelector('#login-media');
-      const button = document.querySelector('#media-toggle');
-      if (!video || !button) return;
-      button.addEventListener('click', () => {
+      const video = document.getElementById("background-media");
+      const button = document.getElementById("media-toggle");
+      const reduceMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      );
+
+      if (!video || !button) {
+        return;
+      }
+
+      const updateButton = () => {
+        const isPaused = video.paused;
+
+        button.textContent = isPaused ? "▶" : "Ⅱ";
+        button.setAttribute(
+          "aria-label",
+          isPaused ? "배경 영상 재생" : "배경 영상 일시정지"
+        );
+        button.setAttribute("aria-pressed", String(isPaused));
+        button.title = isPaused
+          ? "배경 영상 재생"
+          : "배경 영상 일시정지";
+      };
+
+      if (reduceMotion.matches) {
+        video.pause();
+        button.hidden = true;
+        return;
+      }
+
+      button.addEventListener("click", async () => {
         if (video.paused) {
-          video.play();
-          button.textContent = 'Ⅱ';
-          button.setAttribute('aria-label', '배경 영상 일시정지');
-          button.title = '배경 영상 일시정지';
+          try {
+            await video.play();
+          } catch (error) {
+            button.hidden = true;
+          }
         } else {
           video.pause();
-          button.textContent = '▶';
-          button.setAttribute('aria-label', '배경 영상 재생');
-          button.title = '배경 영상 재생';
         }
+
+        updateButton();
       });
+
+      video.addEventListener("play", updateButton);
+      video.addEventListener("pause", updateButton);
+
+      video.addEventListener("error", () => {
+        button.hidden = true;
+      });
+
+      updateButton();
     })();
   </script>
 </body>
