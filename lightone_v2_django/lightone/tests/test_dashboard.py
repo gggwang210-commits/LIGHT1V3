@@ -107,10 +107,13 @@ class DashboardRoutingBadgeTests(TestCase):
 
         self.assertEqual([session.route for session in context['review_queue']], ['BLOCK', 'REVIEW'])
 
-    def test_login_uses_premium_report_system_showcase(self):
+    def test_login_uses_walkthrough_video_and_canonical_report_system_copy(self):
         response = self.client.get(reverse('accounts:login'))
 
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'studio_walkthrough.mp4')
         self.assertContains(response, 'report_system_showcase.png')
-        self.assertContains(response, 'LIGHT ONE PT V1')
+        self.assertContains(response, 'LIGHT ONE PT')
+        self.assertContains(response, 'REPORT SYSTEM')
+        self.assertContains(response, '트레이너 회원관리 SaaS 서비스')
         self.assertContains(response, 'AI 기반 비의료적 컨디셔닝 케어')
