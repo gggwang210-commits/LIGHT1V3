@@ -56,6 +56,8 @@ class DashboardRoutingBadgeTests(TestCase):
         self.assertContains(response, 'badge-red')
         self.assertContains(response, 'report_system_showcase.png')
         self.assertContains(response, 'studio_interior_day.png')
+        self.assertContains(response, 'studio_walkthrough.mp4')
+        self.assertContains(response, 'studio_exterior.png')
         self.assertContains(response, 'LIGHT ONE PT V1 REPORT SYSTEM')
         self.assertContains(response, 'AI 기반 비의료적 컨디셔닝 케어')
 
@@ -105,11 +107,10 @@ class DashboardRoutingBadgeTests(TestCase):
 
         self.assertEqual([session.route for session in context['review_queue']], ['BLOCK', 'REVIEW'])
 
-    def test_login_uses_premium_studio_media(self):
+    def test_login_uses_premium_report_system_showcase(self):
         response = self.client.get(reverse('accounts:login'))
 
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'studio_walkthrough.mp4')
-        self.assertContains(response, 'studio_exterior.png')
+        self.assertContains(response, 'report_system_showcase.png')
         self.assertContains(response, 'LIGHT ONE PT V1')
         self.assertContains(response, 'AI 기반 비의료적 컨디셔닝 케어')

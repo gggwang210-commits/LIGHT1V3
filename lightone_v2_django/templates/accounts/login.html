@@ -4,143 +4,152 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>로그인 - LIGHT ONE</title>
-  <meta name="description" content="LIGHT ONE 트레이너 운영 콘솔 로그인">
+  <title>LIGHT ONE PT V1 REPORT SYSTEM</title>
+  <meta name="description" content="트레이너 회원관리 SaaS 서비스, AI 기반 비의료적 컨디셔닝 케어">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800;900&family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; }
+
     body {
-      margin: 0;
       min-height: 100vh;
-      display: grid;
-      place-items: center;
+      margin: 0;
       overflow: hidden;
-      font-family: "Noto Sans KR", Inter, sans-serif;
-      color: #f7fbff;
-      background: #07131e url("{% static 'lightone/studio/studio_exterior.png' %}") center / cover no-repeat;
+      color: #112849;
+      font-family: Inter, "Noto Sans KR", sans-serif;
+      background: #eef5fb;
       letter-spacing: 0;
     }
 
-    .login-media,
-    .login-shade {
-      position: fixed;
-      inset: 0;
+    .login-demo {
+      position: relative;
+      min-height: 100vh;
+      isolation: isolate;
+      background: #eef5fb;
     }
 
-    .login-media {
+    .login-showcase {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center;
     }
 
-    .login-shade {
-      background:
-        linear-gradient(90deg, rgba(4, 15, 24, 0.94) 0%, rgba(4, 19, 31, 0.74) 48%, rgba(4, 19, 31, 0.38) 100%),
-        linear-gradient(180deg, rgba(5, 16, 25, 0.12), rgba(5, 16, 25, 0.66));
+    .login-showcase::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.08), transparent 55%);
+      pointer-events: none;
     }
 
-    .login-shell {
-      position: relative;
-      z-index: 2;
-      width: min(1180px, calc(100% - 48px));
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 390px;
-      gap: 56px;
-      align-items: center;
-    }
-
-    .login-brand { max-width: 660px; }
-    .login-eyebrow { color: #65d9b6; font-size: 12px; font-weight: 900; letter-spacing: 0.1em; }
-    .login-brand h1 { margin: 16px 0; font-size: clamp(44px, 6vw, 78px); line-height: 1.04; }
-    .login-brand p { max-width: 570px; margin: 0; color: #d4e2e8; font-size: 17px; line-height: 1.75; }
-    .login-brand small { display: block; margin-top: 22px; color: #9fb4bc; line-height: 1.6; }
-
-    .login-panel {
-      padding: 30px;
-      border: 1px solid rgba(255, 255, 255, 0.22);
+    .login-access {
+      position: absolute;
+      top: clamp(16px, 2.4vh, 28px);
+      left: clamp(26px, 4.3vw, 76px);
+      width: min(300px, calc(100% - 52px));
+      padding: 14px;
+      border: 1px solid rgba(198, 215, 231, 0.86);
       border-radius: 8px;
-      background: rgba(250, 253, 255, 0.94);
-      color: #12251f;
-      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.34);
-      backdrop-filter: blur(18px);
+      background: rgba(255, 255, 255, 0.84);
+      box-shadow: 0 18px 46px rgba(41, 78, 117, 0.15);
+      backdrop-filter: blur(14px);
     }
 
-    .login-panel h2 { margin: 0 0 6px; font-size: 24px; }
-    .login-panel > p { margin: 0 0 24px; color: #66766f; font-size: 13px; }
-    .login-field { margin-bottom: 16px; }
-    .login-field label { display: block; margin-bottom: 7px; font-size: 13px; font-weight: 800; }
+    .login-access h1,
+    .login-access > p {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+    }
+
+    .login-label {
+      display: block;
+      margin-bottom: 8px;
+      color: #2d67f6;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.11em;
+    }
+
+    .login-field { margin-bottom: 8px; }
+    .login-field label { display: block; margin-bottom: 4px; color: #304767; font-size: 12px; font-weight: 800; }
     .login-field input {
       width: 100%;
-      min-height: 46px;
-      border: 1px solid #cad8d3;
+      min-height: 36px;
+      border: 1px solid #ccdaea;
       border-radius: 6px;
-      padding: 10px 12px;
-      color: #12251f;
-      background: #fff;
+      padding: 6px 9px;
+      color: #112849;
+      background: rgba(255, 255, 255, 0.96);
       font: inherit;
+      font-size: 13px;
     }
 
-    .login-field input:focus { outline: 3px solid rgba(31, 111, 255, 0.2); border-color: #1f6fff; }
+    .login-field input:focus { outline: 3px solid rgba(31, 111, 255, 0.16); border-color: #2d67f6; }
     .login-submit {
       width: 100%;
-      min-height: 48px;
-      margin-top: 4px;
+      min-height: 36px;
+      margin-top: 3px;
       border: 0;
       border-radius: 6px;
       color: #fff;
-      background: #176b55;
+      background: linear-gradient(135deg, #2d67f6, #1735a6);
+      box-shadow: 0 10px 22px rgba(45, 103, 246, 0.23);
       font: inherit;
+      font-size: 13px;
       font-weight: 900;
       cursor: pointer;
     }
 
-    .login-submit:hover { background: #105541; }
-    .login-error { margin: 0 0 16px; padding: 11px 12px; border-radius: 6px; color: #9d2137; background: #fff0f2; font-size: 13px; }
-    .media-toggle {
-      position: fixed;
-      right: 22px;
-      bottom: 22px;
-      z-index: 3;
-      width: 44px;
-      height: 44px;
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      border-radius: 50%;
-      color: #fff;
-      background: rgba(6, 22, 34, 0.62);
-      cursor: pointer;
-    }
+    .login-submit:hover { background: linear-gradient(135deg, #2458df, #122c8c); }
+    .login-error { margin: 0 0 10px; padding: 8px 9px; border-radius: 6px; color: #a6213b; background: #fff0f2; font-size: 12px; }
 
-    @media (max-width: 820px) {
-      .login-shell { grid-template-columns: 1fr; width: min(520px, calc(100% - 32px)); gap: 26px; }
-      .login-brand h1 { font-size: 42px; }
-      .login-brand p { font-size: 15px; }
-    }
+    @media (max-width: 760px) {
+      body { overflow: auto; }
+      .login-demo {
+        display: grid;
+        grid-template-rows: 270px auto;
+        min-height: 100vh;
+        padding: 0 18px 24px;
+        background: linear-gradient(180deg, #eff6fb, #fff);
+      }
 
-    @media (prefers-reduced-motion: reduce) {
-      .login-media { display: none; }
-      .media-toggle { display: none; }
+      .login-showcase {
+        position: relative;
+        width: calc(100% + 36px);
+        height: 270px;
+        margin-left: -18px;
+        object-position: left center;
+      }
+
+      .login-access {
+        position: relative;
+        top: auto;
+        left: auto;
+        width: min(420px, 100%);
+        margin: -8px auto 0;
+        align-self: start;
+      }
     }
   </style>
 </head>
 <body>
-  <video class="login-media" id="login-media" autoplay muted loop playsinline preload="metadata" poster="{% static 'lightone/studio/studio_exterior.png' %}">
-    <source src="{% static 'lightone/studio/studio_walkthrough.mp4' %}" type="video/mp4">
-  </video>
-  <div class="login-shade" aria-hidden="true"></div>
+  <main class="login-demo">
+    <img class="login-showcase" src="{% static 'lightone/studio/report_system_showcase.png' %}" alt="LIGHT ONE PT V1 REPORT SYSTEM 트레이너 회원관리 SaaS 서비스와 AI 기반 비의료적 컨디셔닝 케어">
 
-  <main class="login-shell">
-    <section class="login-brand">
-      <span class="login-eyebrow">LIGHT ONE · TRAINER REPORT SYSTEM</span>
-      <h1>LIGHT ONE PT V1<br>REPORT SYSTEM</h1>
-      <p>트레이너 회원관리 SaaS 서비스<br>AI 기반 비의료적 컨디셔닝 케어</p>
-      <small>비의료 운동상담 참고 서비스이며 최종 판단과 회원 안내는 트레이너가 수행합니다.</small>
-    </section>
-
-    <section class="login-panel" aria-labelledby="login-title">
-      <h2 id="login-title">트레이너 로그인</h2>
-      <p>LIGHT ONE 운영 콘솔에 접속합니다.</p>
+    <section class="login-access" aria-label="LIGHT ONE 데모 로그인">
+      <h1>LIGHT ONE PT V1 REPORT SYSTEM</h1>
+      <p>트레이너 회원관리 SaaS 서비스. AI 기반 비의료적 컨디셔닝 케어.</p>
+      <span class="login-label">DEMO ACCESS</span>
       {% if form.errors %}<p class="login-error">아이디 또는 비밀번호를 다시 확인해주세요.</p>{% endif %}
       <form method="post">
         {% csrf_token %}
@@ -153,31 +162,9 @@
           <label for="id_password">비밀번호</label>
           <input type="password" name="password" id="id_password" autocomplete="current-password" required>
         </div>
-        <button class="login-submit" type="submit">로그인</button>
+        <button class="login-submit" type="submit">데모 콘솔 열기</button>
       </form>
     </section>
   </main>
-
-  <button class="media-toggle" id="media-toggle" type="button" aria-label="배경 영상 일시정지" title="배경 영상 일시정지">Ⅱ</button>
-  <script>
-    (() => {
-      const video = document.querySelector('#login-media');
-      const button = document.querySelector('#media-toggle');
-      if (!video || !button) return;
-      button.addEventListener('click', () => {
-        if (video.paused) {
-          video.play();
-          button.textContent = 'Ⅱ';
-          button.setAttribute('aria-label', '배경 영상 일시정지');
-          button.title = '배경 영상 일시정지';
-        } else {
-          video.pause();
-          button.textContent = '▶';
-          button.setAttribute('aria-label', '배경 영상 재생');
-          button.title = '배경 영상 재생';
-        }
-      });
-    })();
-  </script>
 </body>
 </html>
