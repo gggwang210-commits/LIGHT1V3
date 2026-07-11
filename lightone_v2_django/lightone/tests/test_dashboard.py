@@ -54,6 +54,10 @@ class DashboardRoutingBadgeTests(TestCase):
         self.assertContains(response, 'badge-green')
         self.assertContains(response, 'badge-yellow')
         self.assertContains(response, 'badge-red')
+        self.assertContains(response, 'report_system_showcase.png')
+        self.assertContains(response, 'studio_interior_day.png')
+        self.assertContains(response, 'LIGHT ONE PT V1 REPORT SYSTEM')
+        self.assertContains(response, 'AI 기반 비의료적 컨디셔닝 케어')
 
     def test_trainer_dashboard_prioritizes_review_and_block_sessions(self):
         self.create_session('AUTO', 1)
@@ -80,7 +84,32 @@ class DashboardRoutingBadgeTests(TestCase):
         response = self.client.get(reverse('lightone:trainer_dashboard'))
 
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, '검토 우선순위 큐')
+        self.assertContains(response, 'Session Workflow')
+        self.assertContains(response, 'Today Sessions')
+        self.assertContains(response, 'Member Search / List')
+        self.assertContains(response, 'Review Queue')
+        self.assertContains(response, 'Report Drafts')
+        self.assertContains(response, 'Next Session Plan')
+        self.assertContains(response, 'studio_interior_evening.png')
+        self.assertContains(response, 'LIGHT ONE PT V1 REPORT SYSTEM')
+        self.assertContains(response, '트레이너 회원관리 SaaS 서비스')
         self.assertContains(response, '비의료 웰니스 참고 정보')
         self.assertContains(response, 'badge-yellow')
         self.assertContains(response, 'badge-red')
+
+    def test_trainer_dashboard_orders_block_before_review(self):
+        self.create_session('REVIEW', 4)
+        self.create_session('BLOCK', 8)
+
+        context = trainer_dashboard_context()
+
+        self.assertEqual([session.route for session in context['review_queue']], ['BLOCK', 'REVIEW'])
+
+    def test_login_uses_premium_studio_media(self):
+        response = self.client.get(reverse('accounts:login'))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'studio_walkthrough.mp4')
+        self.assertContains(response, 'studio_exterior.png')
+        self.assertContains(response, 'LIGHT ONE PT V1')
+        self.assertContains(response, 'AI 기반 비의료적 컨디셔닝 케어')

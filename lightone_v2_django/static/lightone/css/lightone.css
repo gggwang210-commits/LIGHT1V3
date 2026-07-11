@@ -1018,10 +1018,44 @@ body::before {
 }
 
 @media (max-width: 1180px) {
+  .ambient {
+    display: none;
+  }
+
   .sidebar {
     position: relative;
-    width: auto;
+    inset: auto;
+    width: 100%;
     height: auto;
+    padding: 18px 22px;
+    overflow: visible;
+  }
+
+  .brand {
+    margin-bottom: 14px;
+  }
+
+  .nav {
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 5px;
+    scrollbar-width: thin;
+  }
+
+  .nav p,
+  .sidebar-status,
+  .side-footer {
+    display: none;
+  }
+
+  .nav a {
+    flex: 0 0 auto;
+    min-height: 44px;
+    margin: 0;
+    padding: 11px 13px;
   }
 
   .main-shell {

@@ -139,6 +139,14 @@ def trainer_dashboard_context():
         session for session in sessions
         if session.route in {'REVIEW', 'BLOCK'} or session.qc_status != 'PASS'
     ]
+    route_priority = {'BLOCK': 0, 'REVIEW': 1, 'AUTO': 2}
+    review_queue.sort(
+        key=lambda session: (
+            route_priority.get(session.route, 3),
+            session.qc_status == 'PASS',
+            -session.pain_response,
+        )
+    )
     today_sessions = sessions[:6]
     report_drafts = [session for session in sessions if session.route == 'AUTO'][:4]
     avg_qs = round(sum(session.qs_score for session in sessions) / len(sessions), 1) if sessions else 0
@@ -152,6 +160,34 @@ def trainer_dashboard_context():
         'counts': counts,
         'avg_qs': avg_qs,
         'pending_confirmations': pending_confirmations,
+        'workflow_steps': [
+            {
+                'number': '01',
+                'title': '세션 전 확인',
+                'description': '최근 기록, QS/JATC 참고값, REVIEW/BLOCK 사유를 확인합니다.',
+            },
+            {
+                'number': '02',
+                'title': '수행 기록',
+                'description': '난이도, 동작 범위, RPE와 특이 반응을 사실 중심으로 남깁니다.',
+            },
+            {
+                'number': '03',
+                'title': '리포트 검토',
+                'description': 'AI 초안의 표현과 회복 안내를 트레이너가 최종 확인합니다.',
+            },
+            {
+                'number': '04',
+                'title': '다음 계획',
+                'description': '주간 변화와 다음 세션 조정안을 트레이너 노트에 반영합니다.',
+            },
+        ],
+        'next_session_actions': [
+            '불편감 반응이 있는 동작은 편안한 범위에서 진행',
+            '주관적 피로도에 따라 강도와 휴식 시간을 조정',
+            '세션 후 수분 섭취와 가벼운 회복 루틴 안내',
+            '호흡, 가동성, 저강도 코어 안정화 과제 검토',
+        ],
         'safety_notice': (
             '비의료 웰니스 참고 정보입니다. 진단·치료·통증 원인 확정이 아니며, '
             '트레이너 확인 후 회원에게 안내합니다.'

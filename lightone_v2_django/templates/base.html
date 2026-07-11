@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="{% static 'lightone/css/lightone.css' %}">
+  <link rel="stylesheet" href="{% static 'lightone/css/lightone.css' %}?v=20260711">
 </head>
 
 <body>
@@ -32,11 +32,11 @@
 
     <nav class="nav">
       <p>MAIN</p>
-      <a class="active" href="{% url 'lightone:dashboard' %}" aria-label="대시보드 페이지로 이동" aria-current="page">
+      <a class="{% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}" href="{% url 'lightone:dashboard' %}" aria-label="대시보드 페이지로 이동"{% if request.resolver_match.url_name == 'dashboard' %} aria-current="page"{% endif %}>
         <span class="nav-ico">⌂</span>
         대시보드
       </a>
-      <a href="{% url 'lightone:trainer_dashboard' %}" aria-label="트레이너 콘솔 페이지로 이동">
+      <a class="{% if request.resolver_match.url_name == 'trainer_dashboard' %}active{% endif %}" href="{% url 'lightone:trainer_dashboard' %}" aria-label="트레이너 콘솔 페이지로 이동"{% if request.resolver_match.url_name == 'trainer_dashboard' %} aria-current="page"{% endif %}>
         <span class="nav-ico">▣</span>
         트레이너 콘솔
       </a>
@@ -94,16 +94,16 @@
     <header class="topbar">
       <div class="topbar-left">
         <small>KDT AI 바이오헬스케어</small>
-        <strong>Trainer Report SaaS · LIGHT ONE</strong>
+        <strong>LIGHT ONE PT V1 REPORT SYSTEM</strong>
       </div>
 
       <div class="topbar-actions">
         <button type="button" aria-label="테마 설정 전환">☼</button>
         <button type="button" aria-label="알림 3개 확인">🔔<span>3</span></button>
         <div class="user-chip">
-          <div class="avatar">송</div>
+          <div class="avatar">{{ request.user.username|first|upper }}</div>
           <div>
-            <strong>송광일</strong>
+            <strong>{{ request.user.name|default:request.user.username }}</strong>
             <small>Founder · Trainer</small>
           </div>
         </div>
