@@ -15,6 +15,8 @@
 | [`docs/validation/pilot-validation-plan.md`](validation/pilot-validation-plan.md) | 파일럿 검증 목표, 지표, 절차 | 대표, PM, 파일럿 센터 담당 |
 | [`docs/submission/modu-startup-summary.md`](submission/modu-startup-summary.md) | 모두의창업 2기 제출용 요약 | 심사 대응, 제안서 작성자 |
 | [`docs/execution-guide/windows-run-guide.md`](execution-guide/windows-run-guide.md) | 루트 기준 Windows 실행 안내 | 비개발자, Windows 사용자 |
+| [`.github/workflows/python-app.yml`](../.github/workflows/python-app.yml) | `Main-ONE`과 PR에서 실행하는 유일한 활성 CI 워크플로 | 개발자, 리뷰어 |
+| [`pytest.ini`](../pytest.ini) | 활성 Django·저장소 테스트의 수집 범위 | 개발자, 리뷰어 |
 
 ## 2. Canonical documents
 
@@ -43,6 +45,7 @@
 | [`lightone_v2_django/docs/`](../lightone_v2_django/docs/) | reference / legacy | Django MVP 구현·운영 참고 자료로 사용 |
 | [`2/repo_lightoneV2/`](../2/repo_lightoneV2/) | reference / legacy | 이전 V2 자산과 작업물 확인용으로 보존 |
 | [`아이디어-구상/`](../아이디어-구상/) | reference / legacy | 초기 아이디어와 문제 정의 히스토리 확인용으로 보존 |
+| [`docs/archive/github-workflows/`](archive/github-workflows/) | archive | 과거 루트·배포 워크플로를 실행하지 않고 참고용으로 보존 |
 
 ## 4. Django MVP 영역
 
@@ -62,7 +65,14 @@
 4. 센터 파일럿을 시작하기 전에 [심사 리스크 검토](judge_risk_review.md)와 [파일럿 검증 계획](validation/pilot-validation-plan.md)의 동의, 지표, 중단 기준을 확정합니다.
 5. Windows에서 MVP를 실행할 때는 [Windows 실행 가이드](execution-guide/windows-run-guide.md)를 사용하고, 세부 앱 설명은 [Django README](../lightone_v2_django/README.md)를 참조합니다.
 
-## 6. 문서 관리 원칙
+## 6. 테스트와 CI 기준
+
+- 활성 GitHub Actions는 `.github/workflows/python-app.yml` 한 개를 기준으로 합니다.
+- 저장소 루트의 `python -m pytest`는 `pytest.ini`에 정의된 활성 테스트만 수집합니다.
+- Django 단독 검증은 `lightone_v2_django/`에서 `python manage.py test`로 실행합니다.
+- `docs/archive/github-workflows/`의 YAML은 과거 설정 보존용이며 GitHub Actions가 실행하지 않습니다.
+
+## 7. 문서 관리 원칙
 
 - 최신 사업/제품 포지셔닝은 루트 `docs/`의 canonical documents를 기준으로 합니다.
 - 루트 `README.md`는 사업 전략의 입문 문서입니다.

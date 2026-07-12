@@ -224,12 +224,21 @@ http://127.0.0.1:8000/admin/
 
 ## Validation
 
-다음 명령으로 기본 상태를 확인합니다.
+저장소 루트에서 다음 명령으로 전체 기본 상태를 확인합니다. 루트의
+`pytest.ini`가 활성 Django 테스트와 저장소 검증 테스트만 수집하고,
+`legacy/`와 보존용 소스는 실행 대상에서 제외합니다.
 
 ```bash
+python -m pytest
+```
+
+Django 관리 명령을 개별 실행하려면 다음처럼 앱 디렉터리에서 실행합니다.
+
+```bash
+cd lightone_v2_django
 python manage.py check
+python manage.py makemigrations --check --dry-run
 python manage.py test
-pytest
 ```
 
 운영 배포 전에는 운영 설정을 적용한 상태에서 다음 검사를 수행해야 합니다.
@@ -251,8 +260,8 @@ python manage.py check --deploy
 | 합성 데모 데이터 | 포함 |
 | 실제 고객 데이터 사용 | 금지 |
 | QS·JATC 임계값 검증 | `[검증필요]` |
-| 전체 Django 테스트 | 로컬 15건 통과 |
-| 저장소 문서 테스트 | 로컬 8건 통과 |
+| 전체 Django 테스트 | 로컬 19건 통과 |
+| 저장소 검증 테스트 | 로컬 10건 통과 |
 | GitHub Actions | `Main-ONE` 대상 검증 워크플로 구성 |
 | 운영 배포 | 준비 전 |
 | 개인정보·법률 검토 | `[검증필요]` |
