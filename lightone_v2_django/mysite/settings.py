@@ -36,10 +36,12 @@ LOGIN_REDIRECT_URL = 'lightone:dashboard'
 
 LOGIN_EXEMPT_URL_NAMES = [
     'accounts:login',
+    'accounts:signup',
 ]
 
 GUEST_ONLY_URL_NAMES = [
     'accounts:login',
+    'accounts:signup',
 ]
 
 ROOT_URLCONF = 'mysite.urls'
