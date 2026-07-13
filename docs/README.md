@@ -22,6 +22,8 @@
 | [`docs/pitch_summary.md`](pitch_summary.md) | 발표·피치 요약 기준 문서 |
 | [`docs/judge_risk_review.md`](judge_risk_review.md) | 공공기관·투자자·대기업 심사 관점의 리스크와 단계별 통과 기준 |
 
+**Google Drive 동기화본:** [LIGHT ONE V3 사업·제품 최신화 보고서_2026-07-14](https://docs.google.com/document/d/1GGB1264rKkj27jPGRmJuRqggKom2IIbuT53q_xLlNEg)
+
 합성 라우팅 평가 자산은 [`huggingface/synthetic-routing-eval/`](../huggingface/synthetic-routing-eval/)에 보관합니다. 이 경로는 Hugging Face 업로드용 후보일 뿐이며, G0 통과와 명시적 승인 전에는 업로드하지 않습니다.
 
 > 일부 canonical 문서는 작성 예정이거나 별도 브랜치에서 준비 중일 수 있습니다. 문서가 아직 없으면 새로 작성할 때 위 경로와 파일명을 유지합니다.
