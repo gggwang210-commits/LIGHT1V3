@@ -1,0 +1,82 @@
+name: Deploy LIGHT ONE overview to GitHub Pages
+
+on:
+  push:
+    branches: ["Main-ONE"]
+    paths:
+      - "prototype/light_one_premium_overview/**"
+      - ".github/workflows/deploy-lightone-pages.yml"
+  pull_request:
+    branches: ["Main-ONE"]
+    paths:
+      - "prototype/light_one_premium_overview/**"
+      - ".github/workflows/deploy-lightone-pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: "lightone-pages"
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    name: Validate standalone static page
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Verify a standalone, dependency-free page
+        run: |
+          node <<'NODE'
+          const fs = require("fs");
+          const path = "prototype/light_one_premium_overview/index.html";
+          const html = fs.readFileSync(path, "utf8");
+
+          const required = ["overview", "problem", "workflow", "live-demo", "pilot", "roadmap"];
+          const missing = required.filter((id) => !html.includes('id="' + id + '"'));
+
+          if (missing.length) {
+            throw new Error("Missing required sections: " + missing.join(", "));
+          }
+          if (/<script[^>]+src=|<link[^>]+href=/i.test(html)) {
+            throw new Error("External CSS or JavaScript dependency detected.");
+          }
+          if (!html.includes("SYNTHETIC DATA ONLY")) {
+            throw new Error("Synthetic data disclosure is missing.");
+          }
+          if (!html.includes("의료 진단·치료·처방·재활 판정 또는 질병 예측")) {
+            throw new Error("Non-medical safety disclosure is missing.");
+          }
+
+          console.log("Static page validation passed.");
+          NODE
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: validate
+    if: github.ref == 'refs/heads/Main-ONE' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v6
+
+      - name: Upload static site artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./prototype/light_one_premium_overview
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
