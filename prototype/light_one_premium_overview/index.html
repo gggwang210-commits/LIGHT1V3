@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="LIGHT ONE V3 — 프리미엄 PT센터를 위한 비의료 상담 운영 Pilot MVP">
+  <title>LIGHT ONE V3 | Pilot MVP</title>
+  <style>
+    :root{
+      --navy:#10243f;--navy-2:#173455;--forest:#123c35;--ink:#1e2723;--muted:#66706c;
+      --ivory:#f7f3ea;--paper:#fffdf8;--beige:#eae2d2;--mint:#8bd8bd;--mint-deep:#238466;
+      --amber:#e6a23c;--orange:#df8033;--red:#c94c4c;--wood:#9a7655;--line:#e5ddcf;
+      --shadow:0 18px 45px rgba(22,47,41,.10);--radius:22px;--sidebar:260px;
+    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    body{margin:0;background:var(--ivory);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans KR",sans-serif;line-height:1.55}
+    button,a{font:inherit} button{cursor:pointer} a{color:inherit}
+    .skip-link{position:absolute;left:16px;top:-64px;background:#fff;padding:10px 14px;border-radius:10px;z-index:100;color:var(--navy);font-weight:800}.skip-link:focus{top:16px}
+    .sidebar{position:fixed;inset:0 auto 0 0;width:var(--sidebar);background:linear-gradient(160deg,var(--navy),#0a1729);color:#f8fafc;padding:28px 20px 22px;display:flex;flex-direction:column;z-index:20;border-right:1px solid rgba(255,255,255,.08)}
+    .brand{display:flex;align-items:center;gap:11px;font-size:19px;font-weight:900;letter-spacing:.06em;text-decoration:none}.brand-mark{width:31px;height:31px;border:1px solid rgba(139,216,189,.62);border-radius:10px;display:grid;place-items:center;background:rgba(139,216,189,.12);color:var(--mint)}.brand-mark svg{width:18px;height:18px}
+    .side-status{margin:30px 0 24px;padding:13px;border:1px solid rgba(139,216,189,.24);border-radius:15px;background:rgba(255,255,255,.06);font-size:12px;color:#d6e7e4;line-height:1.6}.status-dot{display:inline-block;width:7px;height:7px;margin-right:7px;border-radius:50%;background:var(--mint);box-shadow:0 0 0 4px rgba(139,216,189,.12)}
+    .side-nav{display:grid;gap:4px}.side-nav a{display:flex;align-items:center;gap:11px;padding:11px 12px;border-radius:11px;text-decoration:none;color:#b9c8d7;font-size:14px;font-weight:700;transition:.2s}.side-nav a:hover,.side-nav a.active{background:rgba(255,255,255,.10);color:#fff}.nav-num{font-size:10px;color:#7f98b0;width:16px}
+    .side-bottom{margin-top:auto;padding:14px 12px;border-radius:14px;background:rgba(255,255,255,.055);color:#a9bacb;font-size:11px}.side-bottom strong{display:block;color:#d7f3e8;font-size:11px;letter-spacing:.06em;margin-bottom:4px}
+    .mobile-bar{display:none}.page{margin-left:var(--sidebar);overflow:hidden}.section{position:relative;max-width:1440px;margin:0 auto;padding:104px clamp(26px,5vw,74px);scroll-margin-top:12px}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:7px 10px;border:1px solid #cfe4d8;background:#e9f6ef;color:#17634d;border-radius:999px;font-size:11px;font-weight:900;letter-spacing:.09em}.eyebrow.dark{color:#d8f4e8;background:rgba(139,216,189,.10);border-color:rgba(139,216,189,.34)}
+    h1,h2,h3,p{margin-top:0}h1{font-size:clamp(38px,5vw,72px);line-height:1.08;letter-spacing:-.055em;margin:19px 0 22px;color:var(--navy)}h2{font-size:clamp(28px,3.4vw,46px);line-height:1.18;letter-spacing:-.045em;margin-bottom:14px;color:var(--navy)}h3{font-size:18px;line-height:1.3;margin-bottom:8px}.lead{max-width:625px;color:#4e5c57;font-size:17px}.section-head{max-width:720px;margin-bottom:40px}.section-head p{color:var(--muted);font-size:16px}.text-gradient{background:linear-gradient(100deg,var(--forest),var(--mint-deep));background-clip:text;-webkit-background-clip:text;color:transparent}
+    .hero{min-height:740px;display:grid;grid-template-columns:minmax(0,1.03fr) minmax(430px,.97fr);align-items:center;gap:50px;padding-top:74px}.hero:before{content:"";position:absolute;width:700px;height:700px;right:-260px;top:-180px;background:radial-gradient(circle,rgba(139,216,189,.42),rgba(139,216,189,0) 66%);pointer-events:none}.hero-copy{position:relative;z-index:1}.hero .lead{font-size:18px}.hero-actions{display:flex;flex-wrap:wrap;gap:11px;margin-top:29px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 17px;border-radius:13px;border:1px solid transparent;background:var(--navy);color:white;text-decoration:none;font-weight:800;font-size:14px;transition:.2s}.btn:hover{transform:translateY(-2px);background:#183b62;box-shadow:0 9px 20px rgba(16,36,63,.2)}.btn.ghost{background:rgba(255,253,248,.7);border-color:#d5dcd5;color:var(--navy)}.btn.ghost:hover{background:#fff}.hero-note{display:flex;align-items:center;gap:7px;margin:22px 0 0;color:var(--muted);font-size:12px}.hero-note svg{width:15px;height:15px;color:var(--mint-deep)}
+    .dash-stage{position:relative;min-height:500px;perspective:1200px}.dash-backdrop{position:absolute;inset:23px 7px 15px 20px;border-radius:32px;transform:rotateY(-4deg) rotateX(2deg);background:linear-gradient(145deg,#e4d9c6,#c7e7d8);box-shadow:inset 0 1px rgba(255,255,255,.7)}.dashboard-preview{position:absolute;inset:0 0 0 0;border:1px solid rgba(255,255,255,.8);border-radius:28px;background:rgba(255,253,248,.82);backdrop-filter:blur(16px);box-shadow:0 35px 55px rgba(18,60,53,.18);padding:20px;transform:rotateY(-3deg) rotateX(1deg);overflow:hidden}.preview-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}.preview-title{font-weight:900;font-size:14px;color:var(--navy)}.demo-chip{border:1px solid #cae2d7;color:#226d55;background:#eff9f3;border-radius:999px;padding:4px 7px;font-size:9px;letter-spacing:.05em;font-weight:900}.mini-nav{display:flex;gap:5px;margin-bottom:16px}.mini-nav i{width:31px;height:5px;border-radius:10px;background:#e1ddd1}.mini-nav i:first-child{background:var(--forest);width:50px}.preview-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.preview-stat{padding:11px 9px;border:1px solid #e8e2d7;border-radius:13px;background:rgba(255,255,255,.7)}.preview-stat span{display:block;font-size:9px;color:#71807a}.preview-stat b{display:block;color:var(--navy);font-size:21px;margin:4px 0 1px}.preview-stat em{font-size:9px;font-style:normal;color:#779187}.preview-content{display:grid;grid-template-columns:1.4fr .8fr;gap:12px;margin-top:12px}.preview-card{border:1px solid #e7e0d3;border-radius:15px;padding:13px;background:#fffdf8}.preview-card h4{font-size:11px;margin:0 0 11px;color:var(--navy)}.queue-item{display:grid;grid-template-columns:7px 1fr auto;gap:8px;align-items:center;padding:9px 0;border-bottom:1px solid #eee8dd;font-size:10px}.queue-item:last-child{border:0}.dot{width:7px;height:7px;border-radius:50%}.dot.auto{background:var(--mint-deep)}.dot.review{background:var(--orange)}.dot.block{background:var(--red)}.queue-item small{display:block;color:#7c8882}.queue-item b{font-size:9px;border-radius:99px;padding:3px 5px}.queue-item .review-b{background:#fff1d8;color:#86510c}.queue-item .block-b{background:#ffe4e4;color:#8d2020}.progress-row{display:grid;gap:6px;margin:14px 0}.progress-row span{display:flex;justify-content:space-between;font-size:10px;color:#52635d}.bar{height:7px;border-radius:99px;background:#edf0ea;overflow:hidden}.bar i{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--mint-deep),var(--mint))}
+    .problem{background:#f0ebe0}.problem-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}.problem-card{padding:22px 20px;border:1px solid #e1d8c8;border-radius:var(--radius);background:rgba(255,253,248,.72);box-shadow:0 8px 20px rgba(65,56,44,.03)}.icon-box{width:43px;height:43px;display:grid;place-items:center;border-radius:13px;background:#eaf5ee;color:var(--forest);margin-bottom:17px}.icon-box svg{width:22px;height:22px}.problem-card p{font-size:14px;color:var(--muted);margin-bottom:0}.bridge{margin-top:21px;padding:16px 19px;border-left:4px solid var(--wood);border-radius:0 14px 14px 0;background:rgba(255,253,248,.68);color:#46514c;font-size:14px}.bridge b{color:var(--navy)}
+    .workflow{background:linear-gradient(180deg,#fffdf8 0%,#f6f0e5 100%)}.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.flow-card{position:relative;min-height:220px;text-align:left;padding:20px 17px;border:1px solid #e5ddcf;border-radius:19px;background:#fffdf8;transition:.2s;cursor:pointer}.flow-card:hover,.flow-card.selected{transform:translateY(-5px);border-color:#9fcfba;box-shadow:var(--shadow)}.flow-card:not(:last-child):after{content:"→";position:absolute;right:-13px;top:48%;z-index:2;width:22px;height:22px;display:grid;place-items:center;border-radius:50%;background:var(--beige);color:var(--wood);font-weight:900}.flow-number{display:block;color:var(--wood);font-size:12px;font-weight:900;letter-spacing:.08em}.actor{display:inline-block;margin-top:8px;font-size:10px;letter-spacing:.08em;color:#52655d;font-weight:900}.flow-card p{color:var(--muted);font-size:13px;margin-bottom:0}.workflow-detail{min-height:76px;margin-top:19px;padding:17px 20px;border:1px solid #cce5d9;border-radius:16px;background:#ebf7ef;color:#355649;font-size:14px}.workflow-detail b{color:var(--forest)}
+    .demo{background:var(--navy);color:#eff6f6}.demo h2{color:#fff}.demo .section-head p{color:#b7c7cd}.tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:17px}.tab{border:1px solid rgba(255,255,255,.18);border-radius:11px;padding:10px 13px;color:#c4d3d9;background:rgba(255,255,255,.055);font-weight:800;font-size:13px}.tab[aria-selected="true"]{background:var(--mint);color:#123c35;border-color:var(--mint)}.demo-layout{display:grid;grid-template-columns:1.33fr .67fr;gap:16px}.demo-panel,.demo-aside{border:1px solid rgba(255,255,255,.13);border-radius:23px;background:rgba(255,255,255,.055);padding:20px}.demo-topline{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:17px}.demo-topline h3{color:#fff;margin:0}.data-disclaimer{font-size:10px;letter-spacing:.06em;color:#d4fae8;border:1px solid rgba(139,216,189,.33);background:rgba(139,216,189,.08);border-radius:99px;padding:5px 7px;white-space:nowrap}.metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.metric-card{padding:14px;border-radius:14px;background:rgba(255,255,255,.075);border:1px solid rgba(255,255,255,.08)}.metric-card span{color:#aebfc6;font-size:11px}.metric-card b{display:block;font-size:25px;margin:4px 0 0;color:#fff}.metric-card small{color:#8bd8bd;font-size:10px}.demo-table{width:100%;border-collapse:collapse;margin-top:14px;font-size:12px}.demo-table th{text-align:left;color:#9bb0b8;font-weight:700;padding:10px;border-bottom:1px solid rgba(255,255,255,.12)}.demo-table td{padding:12px 10px;border-bottom:1px solid rgba(255,255,255,.08);color:#edf3f4}.filter-row{display:flex;gap:6px;flex-wrap:wrap;margin:13px 0 0}.filter{border:1px solid rgba(255,255,255,.18);background:transparent;color:#c4d3d9;border-radius:99px;padding:6px 9px;font-size:11px}.filter.active{background:#fff;color:var(--navy);border-color:#fff}.route-pill{font-size:10px;font-weight:900;padding:4px 7px;border-radius:99px}.route-pill.auto{background:#dff6ec;color:#0d5a45}.route-pill.review{background:#fff1d8;color:#7c4b00}.route-pill.block{background:#ffe1e1;color:#8d2020}.aside-label{color:#97abb4;font-size:11px;letter-spacing:.09em;font-weight:900}.demo-aside h3{color:#fff;margin-top:8px}.timeline-item{position:relative;padding:0 0 20px 21px;font-size:13px;color:#d9e6e8}.timeline-item:before{content:"";position:absolute;left:0;top:5px;width:8px;height:8px;background:var(--mint);border-radius:50%}.timeline-item:not(:last-child):after{content:"";position:absolute;left:3px;top:16px;width:2px;height:calc(100% - 8px);background:rgba(139,216,189,.3)}.timeline-item small{display:block;color:#97abb4;margin-top:3px}
+    .priority{background:#f5eee2}.priority-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.priority-card{border:1px solid #e3d9c9;border-radius:22px;background:var(--paper);overflow:hidden}.priority-top{padding:19px 19px 14px;border-bottom:1px solid #eee4d4}.priority-top .route-pill{font-size:11px}.priority-top p{margin:10px 0 0;color:#5d6862;font-size:14px}.priority-toggle{width:100%;padding:12px 18px;border:0;background:#fffaf0;color:var(--navy);display:flex;justify-content:space-between;align-items:center;font-weight:800;font-size:13px}.priority-detail{display:none;padding:15px 19px 19px;border-top:1px solid #eee4d4;color:#52615a;font-size:13px}.priority-card.open .priority-detail{display:block}.priority-card.open .chev{transform:rotate(180deg)}.priority-note{margin-top:22px;padding:16px 19px;border-radius:16px;background:#fff8e8;border:1px solid #f0d49a;color:#78541c;font-size:14px}
+    .pilot{background:#fffdf8}.pilot-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:22px}.pilot-plan{padding:25px;border-radius:23px;background:linear-gradient(150deg,var(--forest),#1b5d51);color:white;box-shadow:var(--shadow)}.pilot-plan h3{font-size:25px;margin:13px 0}.pilot-plan p{color:#d7ebe2}.pilot-spec{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:22px}.pilot-spec div{padding:12px;border:1px solid rgba(255,255,255,.17);border-radius:12px;background:rgba(255,255,255,.08)}.pilot-spec b{display:block;font-size:20px}.pilot-spec span{font-size:11px;color:#c8dfd5}.check-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.check-item{display:flex;align-items:flex-start;gap:11px;text-align:left;padding:14px;border-radius:16px;border:1px solid #e5dccb;background:#fffdf8;color:var(--ink);transition:.2s}.check-item:hover{border-color:#9fcfba}.check-item.checked{background:#ecf8f0;border-color:#8bd8bd}.fake-check{flex:0 0 20px;width:20px;height:20px;border:1.5px solid #bfc9c1;border-radius:7px;display:grid;place-items:center;margin-top:1px;color:white}.check-item.checked .fake-check{border-color:var(--mint-deep);background:var(--mint-deep)}.fake-check svg{width:14px;height:14px;opacity:0}.check-item.checked .fake-check svg{opacity:1}.check-copy b{display:block;font-size:13px}.check-copy span{display:block;font-size:11px;color:var(--muted);margin-top:2px}.pilot-caption{font-size:12px;color:var(--muted);margin:15px 0 0}
+    .roadmap{background:#f0ebe0}.roadmap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.road-card{padding:22px;border-radius:20px;border:1px solid #e2d7c6;background:rgba(255,253,248,.75)}.road-card.current{border-top:4px solid var(--mint-deep)}.road-card.action{border-top:4px solid var(--orange)}.road-card.verify{border-top:4px solid var(--wood)}.road-card h3{margin-top:10px}.road-card ul{padding:0;margin:15px 0 0;list-style:none}.road-card li{position:relative;padding:9px 0 9px 17px;border-bottom:1px solid #ece3d6;font-size:13px;color:#58635d}.road-card li:last-child{border-bottom:0}.road-card li:before{content:"";position:absolute;left:1px;top:15px;width:6px;height:6px;border-radius:50%;background:currentColor}.road-card.current li{color:#287157}.road-card.action li{color:#8d551b}.road-card.verify li{color:#755d47}.next-30{margin-top:21px;padding:21px 23px;border-radius:18px;border:1px solid #ded3c3;background:rgba(255,253,248,.72)}.next-30 h3{color:var(--navy);margin-bottom:15px}.steps{display:flex;align-items:stretch;gap:8px}.step-chip{flex:1;position:relative;padding:10px 12px 10px 31px;border-radius:12px;background:#f2ede3;color:#4e5b55;font-size:12px;font-weight:800}.step-chip i{position:absolute;left:10px;top:10px;color:var(--wood);font-style:normal}
+    footer{margin-left:var(--sidebar);padding:28px clamp(26px,5vw,74px);background:#0b192b;color:#b6c7cf;font-size:12px}footer strong{display:block;color:#fff;margin-bottom:8px;font-size:13px}footer p{max-width:990px;margin:0}.focus-ring:focus-visible,.btn:focus-visible,.tab:focus-visible,.filter:focus-visible,.flow-card:focus-visible,.priority-toggle:focus-visible,.check-item:focus-visible,.side-nav a:focus-visible{outline:3px solid #f0b35c;outline-offset:3px}
+    @media(max-width:1120px){.hero{grid-template-columns:1fr;gap:35px;padding-top:70px}.dash-stage{max-width:650px;width:100%;margin:0 auto}.problem-grid{grid-template-columns:repeat(2,1fr)}.flow{grid-template-columns:repeat(5, minmax(160px,1fr));overflow:auto;padding-bottom:8px}.flow-card{min-width:160px}.flow-card:not(:last-child):after{display:none}.metric-grid{grid-template-columns:repeat(2,1fr)}.demo-layout{grid-template-columns:1fr}.pilot-grid{grid-template-columns:1fr}}
+    @media(max-width:780px){:root{--sidebar:0px}.sidebar{display:none}.mobile-bar{position:sticky;top:0;z-index:25;display:flex;align-items:center;justify-content:space-between;height:60px;padding:0 18px;background:rgba(11,25,43,.96);color:white;backdrop-filter:blur(10px)}.mobile-brand{font-weight:900;letter-spacing:.06em;font-size:15px}.menu-toggle{border:1px solid rgba(255,255,255,.25);color:white;border-radius:9px;background:transparent;padding:7px 10px;font-size:12px;font-weight:800}.mobile-nav{display:none;position:absolute;top:60px;left:0;right:0;padding:10px;background:#10243f;border-top:1px solid rgba(255,255,255,.1)}.mobile-nav.open{display:grid}.mobile-nav a{padding:10px;color:#d6e2e9;text-decoration:none;font-weight:700;font-size:13px}.page,footer{margin-left:0}.section{padding:76px 20px}.hero{min-height:auto}.dash-stage{min-height:430px}.dashboard-preview{padding:14px}.preview-stats{gap:5px}.preview-stat{padding:8px 6px}.preview-stat b{font-size:17px}.preview-content{grid-template-columns:1fr}.preview-content .preview-card:last-child{display:none}.problem-grid,.priority-grid,.roadmap-grid{grid-template-columns:1fr}.pilot-spec{grid-template-columns:repeat(3,1fr)}.check-grid{grid-template-columns:1fr}.steps{display:grid;grid-template-columns:1fr 1fr}.demo-table th:nth-child(3),.demo-table td:nth-child(3){display:none}.section-head{margin-bottom:25px}.lead{font-size:16px}.hero .lead{font-size:16px}h1{font-size:42px}.data-disclaimer{white-space:normal}.demo-topline{align-items:flex-start;flex-direction:column;gap:7px}}
+    @media(max-width:430px){.hero-actions{display:grid}.btn{width:100%}.preview-stats{grid-template-columns:repeat(2,1fr)}.pilot-spec{grid-template-columns:1fr}.steps{grid-template-columns:1fr}.dash-stage{min-height:500px}}
+    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#overview">본문으로 건너뛰기</a>
+  <aside class="sidebar" aria-label="주요 탐색">
+    <a class="brand" href="#overview"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 19V5h5v14M14 19V9h5v10"/></svg></span>LIGHT ONE</a>
+    <div class="side-status"><span class="status-dot"></span><strong>PILOT MVP</strong><br>SYNTHETIC DEMO · NON-MEDICAL</div>
+    <nav class="side-nav">
+      <a class="active" href="#overview"><span class="nav-num">01</span>Overview</a>
+      <a href="#problem"><span class="nav-num">02</span>Problem</a>
+      <a href="#workflow"><span class="nav-num">03</span>Workflow</a>
+      <a href="#live-demo"><span class="nav-num">04</span>Live Demo</a>
+      <a href="#pilot"><span class="nav-num">05</span>Pilot</a>
+      <a href="#roadmap"><span class="nav-num">06</span>Roadmap</a>
+    </nav>
+    <div class="side-bottom"><strong>DEMO DATA ONLY</strong>실제 회원정보·사진·건강기록을 포함하지 않습니다.</div>
+  </aside>
+  <div class="mobile-bar">
+    <span class="mobile-brand">LIGHT ONE <small style="color:#8bd8bd">V3</small></span>
+    <button class="menu-toggle" aria-expanded="false" aria-controls="mobile-nav">메뉴</button>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="모바일 탐색">
+      <a href="#overview">Overview</a><a href="#problem">Problem</a><a href="#workflow">Workflow</a><a href="#live-demo">Live Demo</a><a href="#pilot">Pilot</a><a href="#roadmap">Roadmap</a>
+    </nav>
+  </div>
+  <main class="page">
+    <section class="section hero" id="overview">
+      <div class="hero-copy">
+        <span class="eyebrow"><span class="status-dot"></span>PILOT MVP · NON-MEDICAL</span>
+        <h1>기록부터 상담 리포트까지,<br><span class="text-gradient">프리미엄 PT센터의</span><br>상담 운영을 하나로.</h1>
+        <p class="lead">분산된 운동·컨디션·상담 기록을 구조화하고, 트레이너 검토를 거친 변화 요약과 다음 행동을 연결하는 비의료 PT 운영 도구입니다.</p>
+        <div class="hero-actions"><a class="btn" href="#workflow">운영 흐름 보기 <span aria-hidden="true">↓</span></a><a class="btn ghost" href="#live-demo">데모 화면 살펴보기 <span aria-hidden="true">→</span></a></div>
+        <p class="hero-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>모든 상태와 초안은 담당 트레이너 검토를 전제로 합니다.</p>
+      </div>
+      <div class="dash-stage" aria-label="합성 데이터 기반 트레이너 운영 화면 미리보기">
+        <div class="dash-backdrop" aria-hidden="true"></div>
+        <div class="dashboard-preview">
+          <div class="preview-top"><span class="preview-title">Trainer Console</span><span class="demo-chip">SYNTHETIC DEMO</span></div>
+          <div class="mini-nav" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+          <div class="preview-stats">
+            <div class="preview-stat"><span>오늘 세션</span><b>6</b><em>demo only</em></div>
+            <div class="preview-stat"><span>검토 대기</span><b>3</b><em>demo only</em></div>
+            <div class="preview-stat"><span>초안</span><b>4</b><em>demo only</em></div>
+            <div class="preview-stat"><span>QC 확인</span><b>2</b><em>demo only</em></div>
+          </div>
+          <div class="preview-content">
+            <div class="preview-card"><h4>REVIEW QUEUE</h4>
+              <div class="queue-item"><i class="dot auto"></i><span>회원 A<small>기본 확인</small></span><b class="review-b">AUTO</b></div>
+              <div class="queue-item"><i class="dot review"></i><span>회원 B<small>QC 추가 확인</small></span><b class="review-b">REVIEW</b></div>
+              <div class="queue-item"><i class="dot block"></i><span>회원 C<small>트레이너 확인 대기</small></span><b class="block-b">BLOCK</b></div>
+            </div>
+            <div class="preview-card"><h4>RECORD COMPLETION</h4>
+              <div class="progress-row"><span><b>세션 기록</b><b>demo</b></span><div class="bar"><i style="width:78%"></i></div></div>
+              <div class="progress-row"><span><b>리포트 검토</b><b>demo</b></span><div class="bar"><i style="width:64%"></i></div></div>
+              <div class="progress-row"><span><b>다음 계획</b><b>demo</b></span><div class="bar"><i style="width:82%"></i></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section problem" id="problem">
+      <div class="section-head"><span class="eyebrow">FIELD PROBLEM</span><h2>상담 품질은 개인 역량이 아니라<br><span class="text-gradient">운영 구조</span>에서 시작됩니다.</h2><p>LIGHT ONE은 기록의 양을 늘리는 도구가 아니라, 상담 전에 필요한 정보를 같은 흐름 안에서 확인하도록 돕는 Pilot MVP입니다.</p></div>
+      <div class="problem-grid">
+        <article class="problem-card"><div class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h5M8 16h8"/></svg></div><h3>기록 분산</h3><p>운동·컨디션·상담 메모가 메신저, 노트, 문서에 나뉘어 있습니다.</p></article>
+        <article class="problem-card"><div class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/></svg></div><h3>상담 준비 부담</h3><p>세션 전 과거 기록을 찾아 정리하는 일이 매번 반복됩니다.</p></article>
+        <article class="problem-card"><div class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 19V5h14v14z"/><path d="M8 15l3-3 2 2 3-4"/></svg></div><h3>설명 품질 편차</h3><p>트레이너별 기록 방식과 변화 설명의 깊이가 달라질 수 있습니다.</p></article>
+        <article class="problem-card"><div class="icon-box" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5M4 19h16"/><path d="m7 15 4-4 3 2 4-6"/></svg></div><h3>변화 설명의 어려움</h3><p>회원의 변화와 다음 행동을 일관된 자료로 보여주기 어렵습니다.</p></article>
+      </div>
+      <div class="bridge"><b>운영 표준화가 필요한 이유</b> · LIGHT ONE은 기록을 트레이너의 판단을 대신하는 점수로 바꾸지 않습니다. 대신 상담에 필요한 맥락을 빠르게 확인하고, 검토된 설명을 다음 행동과 연결하도록 설계합니다.</div>
+    </section>
+
+    <section class="section workflow" id="workflow">
+      <div class="section-head"><span class="eyebrow">HUMAN-IN-THE-LOOP</span><h2>시스템은 초안을 만들고,<br>트레이너가 <span class="text-gradient">최종 확인합니다.</span></h2><p>각 단계를 선택하면 운영상 역할과 결과를 확인할 수 있습니다.</p></div>
+      <div class="flow" role="list">
+        <button class="flow-card selected" type="button" data-flow="0" role="listitem"><span class="flow-number">01</span><span class="actor">MEMBER</span><h3>회원·세션 기록</h3><p>운동 수행, RPE, 컨디션, 생활패턴, 불편 반응을 사실 중심으로 정리합니다.</p></button>
+        <button class="flow-card" type="button" data-flow="1" role="listitem"><span class="flow-number">02</span><span class="actor">SYSTEM</span><h3>QC·검토 우선순위</h3><p>입력과 촬영 조건을 확인하고 운영상 검토 상태를 표시합니다.</p></button>
+        <button class="flow-card" type="button" data-flow="2" role="listitem"><span class="flow-number">03</span><span class="actor">TRAINER</span><h3>트레이너 검토</h3><p>원본 기록과 상태를 확인하고 설명·다음 행동을 수정합니다.</p></button>
+        <button class="flow-card" type="button" data-flow="3" role="listitem"><span class="flow-number">04</span><span class="actor">TRAINER</span><h3>리포트 승인</h3><p>검토된 비의료 상담 리포트 초안만 공유 준비 상태가 됩니다.</p></button>
+        <button class="flow-card" type="button" data-flow="4" role="listitem"><span class="flow-number">05</span><span class="actor">MEMBER</span><h3>피드백·다음 행동</h3><p>회원이 쉽게 이해할 변화 요약과 다음 세션 준비사항을 확인합니다.</p></button>
+      </div>
+      <div class="workflow-detail" id="workflow-detail"><b>01 · 회원·세션 기록</b> — 회원은 자신의 상태를 기록하고, 트레이너는 상담에 필요한 수행 맥락을 정리합니다. 의료적 원인 판단이나 확정 표현은 사용하지 않습니다.</div>
+    </section>
+
+    <section class="section demo" id="live-demo">
+      <div class="section-head"><span class="eyebrow dark">LIVE DEMO · SYNTHETIC DATA</span><h2>역할은 다르게,<br>운영 흐름은 <span style="color:var(--mint)">하나로.</span></h2><p>아래의 모든 이름·수치·상태는 인터랙션을 보여주기 위한 합성 데이터입니다.</p></div>
+      <div class="tabs" role="tablist" aria-label="데모 역할 전환">
+        <button class="tab" role="tab" aria-selected="true" aria-controls="demo-content" id="tab-trainer" data-tab="trainer">트레이너 콘솔</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="demo-content" id="tab-member" data-tab="member">회원 요약</button>
+        <button class="tab" role="tab" aria-selected="false" aria-controls="demo-content" id="tab-admin" data-tab="admin">센터 운영</button>
+      </div>
+      <div class="demo-layout">
+        <div class="demo-panel" id="demo-content" role="tabpanel" aria-labelledby="tab-trainer"></div>
+        <aside class="demo-aside"><div class="aside-label">OPERATING PRINCIPLE</div><h3>승인 전에는<br>회원에게 전달하지 않습니다.</h3><div class="timeline-item">입력과 QC 확인<small>기록 누락·촬영 조건을 운영 기준으로 점검</small></div><div class="timeline-item">검토 우선순위 표시<small>AUTO · REVIEW · BLOCK은 의료 판단이 아님</small></div><div class="timeline-item">트레이너 검토·수정<small>회원 전달 문구와 다음 행동을 최종 확인</small></div><div class="timeline-item">승인된 안내만 공유<small>자동 발송을 전제로 하지 않는 Pilot MVP 흐름</small></div></aside>
+      </div>
+    </section>
+
+    <section class="section priority" id="priority">
+      <div class="section-head"><span class="eyebrow">REVIEW PRIORITY</span><h2>상태는 진단이 아니라,<br><span class="text-gradient">다음 확인의 순서</span>입니다.</h2><p>카드를 열어 운영상 의미와 회원 공개 원칙을 확인하세요.</p></div>
+      <div class="priority-grid">
+        <article class="priority-card"><div class="priority-top"><span class="route-pill auto">AUTO</span><h3>기본 검토 절차</h3><p>일반적인 트레이너 확인 흐름으로 진행 가능한 상태입니다.</p></div><button class="priority-toggle" aria-expanded="false">운영 기준 보기 <span class="chev">⌄</span></button><div class="priority-detail"><b>다음 행동:</b> 트레이너가 기록과 초안을 확인합니다.<br><b>회원 공개:</b> 검토·승인 전 자동 공개하지 않습니다.</div></article>
+        <article class="priority-card"><div class="priority-top"><span class="route-pill review">REVIEW</span><h3>추가 확인 필요</h3><p>입력, QC 또는 불편 반응 기록을 추가로 확인하는 상태입니다.</p></div><button class="priority-toggle" aria-expanded="false">운영 기준 보기 <span class="chev">⌄</span></button><div class="priority-detail"><b>다음 행동:</b> 동작 범위, 피로도, 휴식, 기록 누락과 안내 문구를 검토합니다.<br><b>회원 공개:</b> 담당 트레이너 확인 후에만 안내합니다.</div></article>
+        <article class="priority-card"><div class="priority-top"><span class="route-pill block">BLOCK</span><h3>진행 보류·확인 대기</h3><p>트레이너 확인 전 리포트 또는 자동 안내를 보류하는 상태입니다.</p></div><button class="priority-toggle" aria-expanded="false">운영 기준 보기 <span class="chev">⌄</span></button><div class="priority-detail"><b>다음 행동:</b> 담당 트레이너가 원본 기록과 적절한 안내 방식을 확인합니다.<br><b>회원 공개:</b> 승인 전에는 자동 전달하지 않습니다.</div></article>
+      </div>
+      <div class="priority-note"><b>안내:</b> AUTO / REVIEW / BLOCK은 의료 위험도나 진단 결과가 아닌, 트레이너 검토를 위한 운영 우선순위입니다.</div>
+    </section>
+
+    <section class="section pilot" id="pilot">
+      <div class="section-head"><span class="eyebrow">PILOT VALIDATION</span><h2>기능 확장보다 먼저,<br><span class="text-gradient">반복 사용의 증거</span>를 만듭니다.</h2><p>성과를 주장하기 전, 실제 현장에서 어떤 문제를 줄이고 어떤 흐름이 반복 사용되는지 검증합니다.</p></div>
+      <div class="pilot-grid">
+        <article class="pilot-plan"><span class="eyebrow dark">PILOT HYPOTHESIS</span><h3>작게 시작하고,<br>운영 증거를 남깁니다.</h3><p>센터의 실제 상담 장면에서 “기록 → 검토 → 설명 → 다음 행동” 흐름이 반복 사용되는지를 확인하는 단계입니다.</p><div class="pilot-spec"><div><b>2–3</b><span>파일럿 센터</span></div><div><b>6–8주</b><span>검증 기간</span></div><div><b>1–3명</b><span>센터당 트레이너</span></div></div></article>
+        <div><div class="check-grid" id="pilot-checks">
+          <button class="check-item" type="button" aria-pressed="false"><span class="fake-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m5 12 4 4 10-10"/></svg></span><span class="check-copy"><b>세션 기록 완료율</b><span>[검증 필요] 입력 부담 확인</span></span></button>
+          <button class="check-item" type="button" aria-pressed="false"><span class="fake-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m5 12 4 4 10-10"/></svg></span><span class="check-copy"><b>리포트 생성·수정</b><span>[검증 필요] 수정 이유 기록</span></span></button>
+          <button class="check-item" type="button" aria-pressed="false"><span class="fake-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m5 12 4 4 10-10"/></svg></span><span class="check-copy"><b>상담에서의 사용률</b><span>[검증 필요] 실제 활용 관찰</span></span></button>
+          <button class="check-item" type="button" aria-pressed="false"><span class="fake-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m5 12 4 4 10-10"/></svg></span><span class="check-copy"><b>반복 사용 의향</b><span>[검증 필요] 2주·4주 반응</span></span></button>
+          <button class="check-item" type="button" aria-pressed="false"><span class="fake-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m5 12 4 4 10-10"/></svg></span><span class="check-copy"><b>지불의사</b><span>[검증 필요] 파일럿 후 논의</span></span></button>
+          <button class="check-item" type="button" aria-pressed="false"><span class="fake-check" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="m5 12 4 4 10-10"/></svg></span><span class="check-copy"><b>회원 이해도</b><span>[검증 필요] 변화·다음 행동 이해</span></span></button>
+        </div><p class="pilot-caption">체크는 데모 인터랙션이며, 검증 완료 또는 성과 달성을 의미하지 않습니다.</p></div>
+      </div>
+    </section>
+
+    <section class="section roadmap" id="roadmap">
+      <div class="section-head"><span class="eyebrow">SCOPE CLARITY</span><h2>구현 현황과 다음 과제를<br><span class="text-gradient">분리해서</span> 보여줍니다.</h2><p>현재 가능한 것, 먼저 보완할 것, 고객 증거가 필요한 것을 한 화면에서 구분합니다.</p></div>
+      <div class="roadmap-grid">
+        <article class="road-card current"><span class="eyebrow">CURRENTLY VALID</span><h3>현재유효</h3><ul><li>합성 데이터 기반의 역할별 데모</li><li>트레이너 검토 중심 운영 흐름</li><li>규칙 기반 라우팅 구조</li><li>상담 리포트 초안·피드백 구조</li></ul></article>
+        <article class="road-card action"><span class="eyebrow" style="background:#fff1df;border-color:#f1d3a2;color:#895115">ACTION REQUIRED</span><h3>조치필요</h3><ul><li>역할별 접근 제어의 엔드투엔드 검증</li><li>담당 회원 접근 범위 강제</li><li>승인 전 회원 공개 차단</li><li>동의·삭제·보안 운영 체계</li></ul></article>
+        <article class="road-card verify"><span class="eyebrow" style="background:#f5ede4;border-color:#ded0bd;color:#755c43">EVIDENCE NEEDED</span><h3>검증필요</h3><ul><li>반복 사용과 입력 부담</li><li>지불의사와 파일럿 전환</li><li>운영 효율에 대한 현장 증거</li><li>재등록 설명 기여도</li></ul></article>
+      </div>
+      <div class="next-30"><h3>향후 30일 우선순위</h3><div class="steps"><div class="step-chip"><i>01</i>인증·인가 경계</div><div class="step-chip"><i>02</i>고객 인터뷰</div><div class="step-chip"><i>03</i>파일럿 후보 확보</div><div class="step-chip"><i>04</i>핵심 리포트 고정</div><div class="step-chip"><i>05</i>개인정보·운영 정책</div></div></div>
+    </section>
+  </main>
+  <footer>
+    <strong>LIGHT ONE V3 · Non-medical Pilot MVP</strong>
+    <p>LIGHT ONE은 의료 진단·치료·처방·재활 판정 또는 질병 예측을 제공하지 않습니다. 본 페이지의 정보와 화면은 합성 데이터 기반의 비의료 운동상담 참고용 데모이며, 모든 결과는 담당 트레이너 검토를 전제로 합니다. 실제 데이터는 권한, 동의, 삭제, 보안 체계가 검증되기 전까지 사용하지 않습니다.</p>
+  </footer>
+  <script>
+    (function(){
+      var demoData={
+        trainer:{title:"트레이너 콘솔",stats:[["오늘 세션","6","합성 데모"],["검토 대기","3","합성 데모"],["리포트 초안","4","합성 데모"],["요청","5","합성 데모"]],rows:[["회원 A","AUTO","세션 전 기록 확인","PASS"],["회원 B","REVIEW","QC와 피로도 확인","CHECK"],["회원 C","BLOCK","트레이너 확인 대기","FAIL"],["회원 D","REVIEW","안내 문구 검토","PASS"]],note:"세션 전 확인 → 수행 기록 → 리포트 검토 → 다음 계획의 흐름을 한 화면에서 정리합니다."},
+        member:{title:"회원 요약",stats:[["오늘 상태","Check","합성 데모"],["다음 세션","1","합성 데모"],["남은 횟수","4","합성 데모"],["피드백","1","합성 데모"]],rows:[["오늘 컨디션","CHECK","짧은 기록 남기기","—"],["이번 주 변화","AUTO","변화 요약 보기","—"],["트레이너 피드백","REVIEW","검토된 안내 확인","—"],["다음 세션 준비","AUTO","5분 가벼운 걷기","—"]],note:"회원에게는 전문 점수보다 무엇이 달라졌는지와 다음 행동을 쉬운 말로 먼저 보여줍니다."},
+        admin:{title:"센터 운영",stats:[["활성 흐름","42","합성 데모"],["기록 확인","18","합성 데모"],["검토 큐","5","합성 데모"],["안내 대기","2","합성 데모"]],rows:[["세션 기록 흐름","AUTO","운영 현황 확인","DEMO"],["트레이너 검토","REVIEW","후속 확인 필요","DEMO"],["리포트 승인","BLOCK","승인 전 보류","DEMO"],["파일럿 관찰","REVIEW","사용성 메모","DEMO"]],note:"센터 운영 관점에서는 성과 수치가 아니라 기록·검토·안내 흐름의 누락을 먼저 점검합니다."}
+      };
+      var activeFilter="ALL", activeRole="trainer";
+      var content=document.getElementById("demo-content");
+      function routeClass(value){return String(value).toLowerCase();}
+      function renderDemo(){
+        var d=demoData[activeRole], rows=d.rows.filter(function(row){return activeFilter==="ALL"||row[1]===activeFilter});
+        var statHtml=d.stats.map(function(x){return '<div class="metric-card"><span>'+x[0]+'</span><b>'+x[1]+'</b><small>'+x[2]+'</small></div>'}).join("");
+        var rowHtml=rows.map(function(r){return '<tr><td>'+r[0]+'</td><td><span class="route-pill '+routeClass(r[1])+'">'+r[1]+'</span></td><td>'+r[2]+'</td><td>'+r[3]+'</td></tr>'}).join("")||'<tr><td colspan="4" style="color:#aebfc6;padding:22px 10px">선택한 상태의 합성 데모 항목이 없습니다.</td></tr>';
+        content.innerHTML='<div class="demo-topline"><h3>'+d.title+'</h3><span class="data-disclaimer">SYNTHETIC DATA ONLY</span></div><div class="metric-grid">'+statHtml+'</div><div class="filter-row" aria-label="데모 큐 필터"><button class="filter '+(activeFilter==="ALL"?"active":"")+'" data-filter="ALL">전체</button><button class="filter '+(activeFilter==="AUTO"?"active":"")+'" data-filter="AUTO">AUTO</button><button class="filter '+(activeFilter==="REVIEW"?"active":"")+'" data-filter="REVIEW">REVIEW</button><button class="filter '+(activeFilter==="BLOCK"?"active":"")+'" data-filter="BLOCK">BLOCK</button></div><table class="demo-table"><thead><tr><th>항목</th><th>상태</th><th>다음 행동</th><th>QC / 구분</th></tr></thead><tbody>'+rowHtml+'</tbody></table><p style="font-size:12px;color:#aebfc6;margin:16px 0 0">'+d.note+'</p>';
+        content.querySelectorAll(".filter").forEach(function(btn){btn.addEventListener("click",function(){activeFilter=this.dataset.filter;renderDemo()})});
+      }
+      document.querySelectorAll(".tab").forEach(function(tab){tab.addEventListener("click",function(){activeRole=this.dataset.tab;activeFilter="ALL";document.querySelectorAll(".tab").forEach(function(t){t.setAttribute("aria-selected","false")});this.setAttribute("aria-selected","true");content.setAttribute("aria-labelledby",this.id);renderDemo()})});
+      renderDemo();
+      var flowDetails=[
+        "<b>01 · 회원·세션 기록</b> — 회원은 자신의 상태를 기록하고, 트레이너는 상담에 필요한 수행 맥락을 정리합니다. 의료적 원인 판단이나 확정 표현은 사용하지 않습니다.",
+        "<b>02 · QC·검토 우선순위</b> — 시스템은 입력값과 촬영 조건을 확인해 다음 검토 순서를 보조합니다. 이 상태는 의료적 판단이 아닙니다.",
+        "<b>03 · 트레이너 검토</b> — 담당 트레이너는 원본 기록을 확인하고, 운동 범위·휴식·상담 문구를 적절한 수준으로 수정합니다.",
+        "<b>04 · 리포트 승인</b> — AI 보조 초안은 승인 이전에 회원에게 자동으로 공개되지 않습니다. 검토된 비의료 상담 자료만 공유 준비 상태가 됩니다.",
+        "<b>05 · 회원 피드백·다음 행동</b> — 회원은 복잡한 점수보다 이해하기 쉬운 변화 요약과 다음 세션 전 준비사항을 확인합니다."
+      ];
+      document.querySelectorAll(".flow-card").forEach(function(card){card.addEventListener("click",function(){document.querySelectorAll(".flow-card").forEach(function(c){c.classList.remove("selected")});this.classList.add("selected");document.getElementById("workflow-detail").innerHTML=flowDetails[Number(this.dataset.flow)]})});
+      document.querySelectorAll(".priority-toggle").forEach(function(btn){btn.addEventListener("click",function(){var card=this.closest(".priority-card"),open=card.classList.toggle("open");this.setAttribute("aria-expanded",String(open))})});
+      document.querySelectorAll(".check-item").forEach(function(item){item.addEventListener("click",function(){var checked=this.classList.toggle("checked");this.setAttribute("aria-pressed",String(checked))})});
+      var toggle=document.querySelector(".menu-toggle"), mobile=document.getElementById("mobile-nav");
+      toggle.addEventListener("click",function(){var open=mobile.classList.toggle("open");this.setAttribute("aria-expanded",String(open))});
+      mobile.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(){mobile.classList.remove("open");toggle.setAttribute("aria-expanded","false")})});
+      var navLinks=[].slice.call(document.querySelectorAll(".side-nav a")), ids=navLinks.map(function(a){return document.querySelector(a.getAttribute("href"))}).filter(Boolean);
+      if("IntersectionObserver" in window){new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){navLinks.forEach(function(a){a.classList.toggle("active",a.getAttribute("href")==="#"+entry.target.id)})}})},{rootMargin:"-38% 0px -54% 0px",threshold:0}).observe;var observer=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){navLinks.forEach(function(a){a.classList.toggle("active",a.getAttribute("href")==="#"+entry.target.id)})}})},{rootMargin:"-38% 0px -54% 0px",threshold:0});ids.forEach(function(s){observer.observe(s)})}
+    })();
+  </script>
+</body>
+</html>
