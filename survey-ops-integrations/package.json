@@ -1,0 +1,14 @@
+{
+  "name": "light-one-survey-ops-integrations",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Validation assets for the LIGHT ONE survey operations integration pack",
+  "type": "module",
+  "scripts": {
+    "validate": "node scripts/validate.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
+

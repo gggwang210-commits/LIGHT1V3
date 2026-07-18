@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lightone.example/schemas/public-export.schema.json",
+  "title": "LIGHT ONE De-identified Survey Export",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "anonymous_id",
+    "received_month",
+    "role",
+    "answers",
+    "source_version",
+    "deidentified"
+  ],
+  "properties": {
+    "anonymous_id": {
+      "type": "string",
+      "pattern": "^ANON-[A-F0-9]{12}$"
+    },
+    "received_month": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}$"
+    },
+    "role": {
+      "enum": ["owner", "coach", "member"]
+    },
+    "answers": {
+      "type": "object",
+      "minProperties": 15,
+      "maxProperties": 15,
+      "propertyNames": {
+        "pattern": "^(owner|coach|member)_(0[1-9]|1[0-5])$"
+      },
+      "additionalProperties": {"type": "integer", "minimum": 1, "maximum": 5}
+    },
+    "source_version": {"type": "string"},
+    "deidentified": {"const": true}
+  }
+}
+

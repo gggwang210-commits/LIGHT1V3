@@ -1,0 +1,38 @@
+{
+  "response_id": "LO-20260719-120000-DEMO01",
+  "client_request_id": "demo-client-request-0001",
+  "received_at": "2026-07-19T12:00:00+09:00",
+  "survey_title": "AI 기반 PT 시스템 연구 설문지",
+  "source_version": "2026-07",
+  "role": "coach",
+  "consent": true,
+  "answers": {
+    "coach_01": "보통",
+    "coach_02": "그렇다",
+    "coach_03": "매우 그렇다",
+    "coach_04": "그렇다",
+    "coach_05": "매우 그렇다",
+    "coach_06": "그렇다",
+    "coach_07": "매우 그렇다",
+    "coach_08": "매우 그렇다",
+    "coach_09": "매우 그렇다",
+    "coach_10": "그렇다",
+    "coach_11": "매우 그렇다",
+    "coach_12": "매우 그렇다",
+    "coach_13": "그렇다",
+    "coach_14": "매우 그렇다",
+    "coach_15": "보통"
+  },
+  "answer_summary": "합성 검증 데이터입니다. 실제 응답자 정보가 아닙니다.",
+  "pdf": {
+    "file_id": "demo-file-id",
+    "file_name": "LIGHT_ONE_PT_설문결과_트레이너_DEMO.pdf",
+    "url": "https://drive.google.com/example-demo-only"
+  },
+  "email_status": "SENT",
+  "process_status": "COMPLETED",
+  "error_message": "",
+  "retry_count": 0,
+  "updated_at": "2026-07-19T12:00:05+09:00"
+}
+
