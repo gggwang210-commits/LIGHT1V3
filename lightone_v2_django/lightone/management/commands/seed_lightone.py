@@ -1,45 +1,111 @@
-from django.core.management.base import BaseCommand
+import os
+import secrets
+
+from django.conf import settings
+from django.core.management.base import BaseCommand, CommandError
+from django.db import transaction
 
 from accounts.models import MemberProfile, TrainerProfile, User
 from lightone.models import MemberSession, StrategyItem
 
 
-class Command(BaseCommand):
-    help = 'Create LIGHT ONE premium dashboard demo data and login accounts.'
+PASSWORD_ENV_NAMES = {
+    'syn-admin': 'LIGHTONE_DEMO_ADMIN_PASSWORD',
+    'syn-001': 'LIGHTONE_DEMO_MEMBER_A_PASSWORD',
+    'syn-002': 'LIGHTONE_DEMO_MEMBER_B_PASSWORD',
+}
+DISALLOWED_DEMO_PASSWORDS = {'password', 'password123', 'qwerty1234'}
 
+
+class Command(BaseCommand):
+    help = 'Create local-only synthetic LIGHT ONE demo data and accounts.'
+
+    def add_arguments(self, parser):
+        parser.add_argument(
+            '--generate-passwords',
+            action='store_true',
+            help='Generate one-time demo passwords and print them to this terminal.',
+        )
+
+    def _passwords(self, generate):
+        passwords = {}
+        missing = []
+
+        for username, env_name in PASSWORD_ENV_NAMES.items():
+            value = os.environ.get(env_name, '').strip()
+            if not value and generate:
+                value = secrets.token_urlsafe(18)
+            if not value:
+                missing.append(env_name)
+                continue
+            if len(value) < 12 or value.lower() in DISALLOWED_DEMO_PASSWORDS:
+                raise CommandError(
+                    f'{env_name} must be at least 12 characters and not a common password.'
+                )
+            passwords[username] = value
+
+        if missing:
+            raise CommandError(
+                'Set all demo password environment variables or rerun with '
+                f'--generate-passwords. Missing: {", ".join(missing)}'
+            )
+        return passwords
+
+    @transaction.atomic
     def handle(self, *args, **options):
+        if not settings.DEBUG:
+            raise CommandError(
+                'seed_lightone is disabled when DEBUG=False. '
+                'Use mysite.settings_local and explicitly set DEBUG=True.'
+            )
+
+        generated = options['generate_passwords']
+        passwords = self._passwords(generated)
+
         trainer_user, _ = User.objects.get_or_create(
-            username='admin',
+            username='syn-admin',
             defaults={
-                'email': 'admin@example.com',
-                'name': '김라이트(관리자)',
+                'email': 'syn-admin@example.invalid',
+                'name': '데모관리자',
                 'role': 'trainer',
                 'is_staff': True,
                 'is_superuser': True,
             },
         )
-        trainer_user.email = 'admin@example.com'
-        trainer_user.name = '김라이트(관리자)'
+        trainer_user.email = 'syn-admin@example.invalid'
+        trainer_user.name = '데모관리자'
         trainer_user.role = 'trainer'
         trainer_user.is_staff = True
         trainer_user.is_superuser = True
-        trainer_user.set_password('admin')
+        trainer_user.set_password(passwords['syn-admin'])
         trainer_user.save()
 
         trainer_profile, _ = TrainerProfile.objects.get_or_create(
             user=trainer_user,
             defaults={
-                'certification_no': 'TR-2026-001',
-                'center_name': 'LIGHT ONE 랩스',
+                'certification_no': 'SYN-TR-001',
+                'center_name': '데모센터-A',
             },
         )
-        trainer_profile.certification_no = 'TR-2026-001'
-        trainer_profile.center_name = 'LIGHT ONE 랩스'
+        trainer_profile.certification_no = 'SYN-TR-001'
+        trainer_profile.center_name = '데모센터-A'
         trainer_profile.save()
 
         member_specs = [
-            ('member1', 'm1@example.com', '이슬비', 'F', '라운드숄더 개선 및 체력 증진'),
-            ('member2', 'm2@example.com', '허병철', 'M', '허리 통증 완화 및 근력 강화'),
+            (
+                'syn-001',
+                'syn-001@example.invalid',
+                '데모회원-A',
+                'F',
+                '상체 움직임 기록 및 체력 증진',
+            ),
+            (
+                'syn-002',
+                'syn-002@example.invalid',
+                '데모회원-B',
+                'M',
+                '하체 움직임 기록 및 근력 강화',
+            ),
         ]
         member_profiles = {}
         for username, email, name, sex, goals in member_specs:
@@ -52,7 +118,7 @@ class Command(BaseCommand):
             user.role = 'member'
             user.is_staff = False
             user.is_superuser = False
-            user.set_password('1234')
+            user.set_password(passwords[username])
             user.save()
             profile, _ = MemberProfile.objects.get_or_create(user=user)
             profile.sex = sex
@@ -64,14 +130,14 @@ class Command(BaseCommand):
         StrategyItem.objects.all().delete()
 
         sessions = [
-            {'member_name': '김도윤', 'goal': '체형 변화 기록 및 재등록 상담', 'discomfort_area': '목·어깨', 'qs_score': 72.4, 'jatc_score': 68.0, 'form_accuracy': 79, 'pain_response': 2, 'rpe': 6, 'route': 'AUTO', 'qc_status': 'PASS', 'memo': '상담 리포트 자동 생성 가능. 촬영 조건 양호.'},
-            {'member_name': '이서연', 'goal': '하체 근력 컨디셔닝 및 운동 지속', 'discomfort_area': '무릎', 'qs_score': 63.2, 'jatc_score': 61.5, 'form_accuracy': 70, 'pain_response': 4, 'rpe': 7, 'route': 'REVIEW', 'qc_status': 'CHECK', 'memo': '통증 반응 기록이 있어 트레이너 검토 권장.'},
-            {'member_name': '박민준', 'goal': '러닝 자세 개선', 'discomfort_area': '허리', 'qs_score': 81.5, 'jatc_score': 74.3, 'form_accuracy': 86, 'pain_response': 1, 'rpe': 5, 'route': 'AUTO', 'qc_status': 'PASS', 'memo': '전후 비교 리포트에 적합.'},
-            {'member_name': '최하린', 'goal': '상체 안정화 루틴', 'discomfort_area': '손목', 'qs_score': 49.0, 'jatc_score': 44.6, 'form_accuracy': 50, 'pain_response': 7, 'rpe': 8, 'route': 'BLOCK', 'qc_status': 'FAIL', 'memo': '통증 반응이 높아 운동 중단 및 전문가 상담 권고 문구 필요.'},
-            {'member_name': '정유찬', 'goal': '바디프로필 준비 관리', 'discomfort_area': '없음', 'qs_score': 67.5, 'jatc_score': 66.1, 'form_accuracy': 74, 'pain_response': 2, 'rpe': 7, 'route': 'AUTO', 'qc_status': 'PASS', 'memo': '상담 자료로 사용 가능.'},
-            {'member_name': '오지민', 'goal': '운동 습관 형성', 'discomfort_area': '어깨', 'qs_score': 58.2, 'jatc_score': 55.9, 'form_accuracy': 63, 'pain_response': 5, 'rpe': 8, 'route': 'REVIEW', 'qc_status': 'CHECK', 'memo': 'RPE와 통증 반응 확인 필요.'},
-            {'member_name': '이슬비', 'goal': '상체 후면 근력 강화', 'discomfort_area': '오른쪽 어깨', 'qs_score': 83.0, 'jatc_score': 72.0, 'form_accuracy': 80, 'pain_response': 3, 'rpe': 6, 'route': 'AUTO', 'qc_status': 'PASS', 'memo': '견갑골 안정화 양호. 회원 계정 member1과 연결된 샘플.'},
-            {'member_name': '허병철', 'goal': '하체 근력 및 허리 안정화', 'discomfort_area': '허리 하단', 'qs_score': 52.0, 'jatc_score': 50.0, 'form_accuracy': 55, 'pain_response': 6, 'rpe': 8, 'route': 'REVIEW', 'qc_status': 'CHECK', 'memo': '가동범위 제한 및 코어 안정화 우선. 회원 계정 member2와 연결된 샘플.'},
+            {'member_name': 'SYN-101', 'goal': '체형 변화 기록', 'discomfort_area': '목·어깨', 'qs_score': 72.4, 'jatc_score': 68.0, 'form_accuracy': 79, 'pain_response': 2, 'rpe': 6, 'route': 'AUTO', 'qc_status': 'PASS', 'memo': '합성 기록. 촬영 조건 양호.'},
+            {'member_name': 'SYN-102', 'goal': '하체 컨디셔닝 기록', 'discomfort_area': '무릎', 'qs_score': 63.2, 'jatc_score': 61.5, 'form_accuracy': 70, 'pain_response': 4, 'rpe': 7, 'route': 'REVIEW', 'qc_status': 'CHECK', 'memo': '합성 기록. 담당 트레이너 재확인 필요.'},
+            {'member_name': 'SYN-103', 'goal': '러닝 동작 기록', 'discomfort_area': '허리', 'qs_score': 81.5, 'jatc_score': 74.3, 'form_accuracy': 86, 'pain_response': 1, 'rpe': 5, 'route': 'AUTO', 'qc_status': 'PASS', 'memo': '합성 기록. 전후 비교 예시.'},
+            {'member_name': 'SYN-104', 'goal': '상체 안정화 기록', 'discomfort_area': '손목', 'qs_score': 49.0, 'jatc_score': 44.6, 'form_accuracy': 50, 'pain_response': 7, 'rpe': 8, 'route': 'BLOCK', 'qc_status': 'FAIL', 'memo': '합성 기록. 운동을 보류하고 담당 트레이너가 재확인.'},
+            {'member_name': 'SYN-105', 'goal': '운동 지속 기록', 'discomfort_area': '없음', 'qs_score': 67.5, 'jatc_score': 66.1, 'form_accuracy': 74, 'pain_response': 2, 'rpe': 7, 'route': 'AUTO', 'qc_status': 'PASS', 'memo': '합성 기록. 상담 화면 예시.'},
+            {'member_name': 'SYN-106', 'goal': '운동 습관 기록', 'discomfort_area': '어깨', 'qs_score': 58.2, 'jatc_score': 55.9, 'form_accuracy': 63, 'pain_response': 5, 'rpe': 8, 'route': 'REVIEW', 'qc_status': 'CHECK', 'memo': '합성 기록. RPE와 불편 반응 재확인.'},
+            {'member_name': '데모회원-A', 'goal': '상체 후면 움직임 기록', 'discomfort_area': '오른쪽 어깨', 'qs_score': 83.0, 'jatc_score': 72.0, 'form_accuracy': 80, 'pain_response': 3, 'rpe': 6, 'route': 'AUTO', 'qc_status': 'PASS', 'memo': 'SYN-001 계정에 연결된 합성 예시.'},
+            {'member_name': '데모회원-B', 'goal': '하체 움직임 기록', 'discomfort_area': '허리 하단', 'qs_score': 52.0, 'jatc_score': 50.0, 'form_accuracy': 55, 'pain_response': 6, 'rpe': 8, 'route': 'REVIEW', 'qc_status': 'CHECK', 'memo': 'SYN-002 계정에 연결된 합성 예시.'},
         ]
         for item in sessions:
             MemberSession.objects.create(
@@ -82,14 +148,17 @@ class Command(BaseCommand):
             )
 
         strategies = [
-            {'title': '고객 인터뷰 질문지 작성', 'category': '고객검증', 'priority': '높음', 'status': '대기', 'output': 'PT샵 대표, 헬스장 대표, 트레이너 대상 인터뷰 질문지', 'risk': '지인 중심 인터뷰는 편향 가능'},
-            {'title': 'PT샵 파일럿 제안서 작성', 'category': '고객검증', 'priority': '높음', 'status': '대기', 'output': '1~2개 센터 대상 파일럿 제안서', 'risk': '실제 회원 이미지·민감정보 수집 금지'},
-            {'title': '수익모델 가설표 작성', 'category': '사업계획서', 'priority': '보통', 'status': '대기', 'output': '센터 월 구독, 트레이너 계정 추가, 리포트 저장 옵션별 가격 가설표', 'risk': '미검증 가격을 확정처럼 쓰면 감점'},
-            {'title': '촬영 QC 기술 재배치', 'category': 'GitHub / 사업계획서', 'priority': '높음', 'status': '완료', 'output': '촬영 QC·카메라 보정·조명 정규화를 리포트 신뢰도 보조 기술로 재정의', 'risk': '기술이 서비스 주인공처럼 보이지 않게 유지'},
-            {'title': 'GitHub 첫 화면 정체성 강화', 'category': 'GitHub', 'priority': '높음', 'status': '진행 필요', 'output': 'PT 트레이너를 위한 회원 변화 기록·상담 리포트 SaaS MVP 설명', 'risk': '저장소 메타데이터 수정 권한 확인 필요'},
+            {'title': '고객 인터뷰 질문지 작성', 'category': '고객검증', 'priority': '높음', 'status': '대기', 'output': '센터 운영자와 트레이너 대상 인터뷰 질문지', 'risk': '지인 중심 인터뷰는 편향 가능'},
+            {'title': '센터 파일럿 제안서 작성', 'category': '고객검증', 'priority': '높음', 'status': '대기', 'output': '1~2개 센터 대상 파일럿 제안서', 'risk': '실제 회원 이미지·민감정보 수집 금지'},
+            {'title': '수익모델 가설표 작성', 'category': '사업계획서', 'priority': '보통', 'status': '대기', 'output': '월 구독과 옵션별 가격 가설표', 'risk': '미검증 가격을 확정처럼 쓰면 감점'},
         ]
         for item in strategies:
             StrategyItem.objects.create(**item)
 
-        self.stdout.write(self.style.SUCCESS('LIGHT ONE demo data and login accounts created.'))
-        self.stdout.write('Login accounts: admin/admin, member1/1234, member2/1234')
+        self.stdout.write(self.style.SUCCESS('Synthetic local demo data created.'))
+        if generated:
+            self.stdout.write('One-time local credentials (do not commit or share):')
+            for username, password in passwords.items():
+                self.stdout.write(f'  {username}: {password}')
+        else:
+            self.stdout.write('Passwords were read from environment variables and not printed.')

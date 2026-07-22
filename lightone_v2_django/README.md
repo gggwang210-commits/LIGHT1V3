@@ -30,7 +30,7 @@ Python 설치부터 서버 실행까지 따라할 수 있도록 Windows 기준�
 | Django 프로젝트 폴더 | `lightone_v2_django` |
 | 패키지 목록 | `requirements.txt` |
 | 실행 파일 | `manage.py` |
-| 더미 데이터 명령 | `python manage.py seed_lightone` |
+| 합성 데이터 명령 | `python manage.py seed_lightone --generate-passwords` |
 | 접속 URL | `http://127.0.0.1:8000/lightone/` |
 
 > 구버전 안내: 예전 문서의 `lightone_django`, `lightone_django_complete.zip`, `LIGHTONE_V2_Complete.zip`, `python setup_dummy.py`, `http://127.0.0.1:8000` 안내는 현재 기준으로는 위 표를 따르세요.
@@ -52,14 +52,20 @@ source .venv/bin/activate   # Windows PowerShell: .\.venv\Scripts\Activate.ps1
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
 
-# 3. DB 세팅 및 더미 데이터 입력
+# 3. 로컬 환경 설정
+cp .env.example .env   # Windows: copy .env.example .env
+# .env의 SECRET_KEY를 무작위 값으로 채우고, 로컬 데모에 한해 DEBUG=True로 변경
+python -c "import secrets; print(secrets.token_urlsafe(50))"
+export DJANGO_SETTINGS_MODULE=mysite.settings_local  # Windows PowerShell: $env:DJANGO_SETTINGS_MODULE="mysite.settings_local"
+
+# 4. DB 세팅 및 합성 데이터 입력
 python manage.py migrate
-python manage.py seed_lightone
+python manage.py seed_lightone --generate-passwords
 
 # 선택: 비식별 합성 fixture 로드
 python manage.py loaddata synthetic_step1
 
-# 4. 서버 실행
+# 5. 서버 실행
 python manage.py runserver
 ```
 
@@ -91,13 +97,9 @@ python manage.py loaddata synthetic_step1
 
 ---
 
-## 기본 계정 (`seed_lightone` 기준)
+## 로컬 데모 계정 (`seed_lightone` 기준)
 
-| 역할 | 아이디 | 비밀번호 |
-|------|--------|----------|
-| 관리자/트레이너 | `admin` | `admin` |
-| 회원 | `member1` | `1234` |
-| 회원 | `member2` | `1234` |
+고정 비밀번호는 제공하지 않습니다. `--generate-passwords` 사용 시 `syn-admin`, `syn-001`, `syn-002` 계정의 무작위 비밀번호가 현재 터미널에 한 번만 표시됩니다. 대안으로 `.env`의 `LIGHTONE_DEMO_*_PASSWORD` 변수에 12자 이상의 값을 직접 설정할 수 있습니다. 이 계정은 `DEBUG=True` 로컬 데모 전용입니다.
 
 ---
 
@@ -105,7 +107,7 @@ python manage.py loaddata synthetic_step1
 ## MVP 개발 체크리스트 진행 로그 (2026-07-06)
 
 - Step 0: 프로젝트 구조를 확인했고 Django 앱 경로는 `lightone_v2_django`입니다. `python manage.py check` 통과 상태입니다.
-- Synthetic 데이터만 사용합니다. `seed_lightone` 명령은 데모 계정과 가상 회원 세션만 생성하며 실제 회원 정보 입력을 금지합니다.
+- Synthetic 데이터만 사용합니다. `seed_lightone` 명령은 `SYN-*`, `데모회원-*` 식별자의 합성 세션만 생성하며 실제 회원 정보 입력을 금지합니다.
 - Step 1: `MemberSession`에 QS/JATC breakdown, QC 점수, 안전 문구 필드를 추가했습니다. 개인정보는 이름/목표/불편감 메모 수준의 MVP 데모 필드로 제한하고 운영 전 익명 식별자 전환이 필요합니다.
 - Step 2: QS 0.4/0.3/0.2/0.1 가중 평균, JATC 종합 점수, AUTO/REVIEW/BLOCK 라우팅 함수를 구현하고 테스트를 추가했습니다.
 - Step 3: 대시보드에 QS 추이 선 그래프, QS breakdown 바 차트, 라우팅 색상, 최근 세션 테이블을 추가했습니다.
@@ -161,10 +163,10 @@ python manage.py loaddata synthetic_step1
 ## 기술 스택
 
 - **Backend:** Python 3.11 + Django 4.2
-- **Database:** SQLite (개발용) / PostgreSQL (배포용)
+- **Database:** SQLite (`settings_local`, 개발용) / PostgreSQL (`settings_production`, 운영 구성용)
 - **Frontend:** HTML/CSS/JavaScript + Chart.js
 - **인증:** Django 커스텀 유저 모델 + 로그인 미들웨어
-- **배포:** GCP + Nginx + Gunicorn (`deploy.sh` 참고)
+- **배포:** 운영 배포는 미검증 상태이며 `settings_production`과 별도 비밀관리·HTTPS 검증이 필요합니다.
 
 ---
 

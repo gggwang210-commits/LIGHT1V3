@@ -48,16 +48,24 @@ Anaconda Python이 정상 동작한다면 가상환경 없이도 빠른 실행 �
 
 ```powershell
 python -m pip install -r requirements.txt
+copy .env.example .env
+# .env의 SECRET_KEY를 무작위 값으로 채우고 DEBUG=True로 변경
+python -c "import secrets; print(secrets.token_urlsafe(50))"
+$env:DJANGO_SETTINGS_MODULE="mysite.settings_local"
 python manage.py migrate
-python manage.py seed_lightone
+python manage.py seed_lightone --generate-passwords
 python manage.py runserver
 ```
 
 ## 5. 일반 Python 가상환경 실행
 
 ```powershell
+copy .env.example .env
+# .env의 SECRET_KEY를 무작위 값으로 채우고 DEBUG=True로 변경
+python -c "import secrets; print(secrets.token_urlsafe(50))"
+$env:DJANGO_SETTINGS_MODULE="mysite.settings_local"
 python manage.py migrate
-python manage.py seed_lightone
+python manage.py seed_lightone --generate-passwords
 python manage.py runserver
 ```
 
@@ -67,7 +75,7 @@ python manage.py runserver
 http://127.0.0.1:8000/lightone/
 ```
 
-기본 계정은 [Django README의 기본 계정 표](../../lightone_v2_django/README.md#기본-계정-더미-데이터-기준)를 확인합니다.
+합성 계정의 무작위 비밀번호는 시드 명령 실행 시 현재 터미널에 한 번 표시됩니다. 고정 계정정보는 저장소에 포함하지 않습니다.
 
 ## 6. 실행 확인 체크리스트
 

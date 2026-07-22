@@ -194,14 +194,20 @@ python -m pip install -r requirements.txt
 
 ```bash
 cd lightone_v2_django
+
+# 안전한 로컬 설정 파일 준비
+cp .env.example .env
+# .env의 SECRET_KEY를 아래 명령 결과로 채우고, 로컬 데모에 한해 DEBUG=True로 변경
+python -c "import secrets; print(secrets.token_urlsafe(50))"
+export DJANGO_SETTINGS_MODULE=mysite.settings_local
+
 python manage.py migrate
-python manage.py seed_lightone
+python manage.py seed_lightone --generate-passwords
 ```
 
-`seed_lightone`은 로컬 데모 데이터와 테스트 계정을 생성합니다.
+`seed_lightone`은 `DEBUG=True`인 로컬 설정에서만 합성 데이터와 임시 계정을 생성합니다. 비밀번호는 실행 시 무작위로 생성되어 터미널에 한 번 표시되며 저장소에는 고정 계정정보가 없습니다.
 
-> 생성되는 계정은 로컬 개발 전용입니다.  
-> 외부 배포 전 반드시 삭제하거나 환경변수 기반으로 변경해야 합니다.
+> 생성되는 계정과 SQLite DB는 로컬 개발 전용입니다. 외부에 공개하거나 운영 데이터로 전환하지 마세요.
 
 ### 5. 개발 서버 실행
 
@@ -249,18 +255,18 @@ python manage.py check --deploy
 | 제품 포지셔닝 | 비의료 PT 상담 리포트 SaaS |
 | Django MVP 코드 | 핵심 라우팅·대시보드 흐름 로컬 검증 완료 |
 | 합성 데모 데이터 | 포함 |
-| 실제 고객 데이터 사용 | 금지 |
+| 실제 고객 데이터 사용 | 금지, 추적 DB 미포함 |
 | QS·JATC 임계값 검증 | `[검증필요]` |
-| 전체 Django 테스트 | 로컬 15건 통과 |
-| 저장소 문서 테스트 | 로컬 8건 통과 |
+| 전체 Django 테스트 | 보안 브랜치에서 재검증 |
+| 저장소 문서 테스트 | 보안 브랜치에서 재검증 |
 | GitHub Actions | `Main-ONE` 대상 검증 워크플로 구성 |
 | 운영 배포 | 준비 전 |
 | 개인정보·법률 검토 | `[검증필요]` |
 
 ### 다음 우선 항목
 
-- 데모 계정과 비밀번호의 환경변수화
-- 운영용 `SECRET_KEY`, HTTPS, 보안 쿠키, 허용 호스트 설정
+- 운영 비밀관리자와 키 순환 절차 연결
+- 운영용 HTTPS, 보안 쿠키, 허용 호스트의 배포 환경 검증
 - 역할 기반 접근 제어와 삭제 요청 처리의 실제 운영 검증
 - 프리미엄 PT센터 파일럿의 사용성·지불의사 검증
 

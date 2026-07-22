@@ -1,10 +1,21 @@
 from pathlib import Path
-import os
+
+from decouple import Csv, UndefinedValueError, config
+from django.core.exceptions import ImproperlyConfigured
 
 BASE_DIR = Path(__file__).resolve().parent.parent
-SECRET_KEY = os.environ.get('SECRET_KEY', 'lightone-local-dev-key')
-DEBUG = os.environ.get('DEBUG', 'True') == 'True'
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'testserver']
+
+try:
+    SECRET_KEY = config('SECRET_KEY').strip()
+except UndefinedValueError as exc:
+    raise ImproperlyConfigured(
+        'SECRET_KEY is required. Copy .env.example to .env and set a unique value.'
+    ) from exc
+if len(SECRET_KEY) < 32:
+    raise ImproperlyConfigured('SECRET_KEY must be at least 32 characters.')
+
+DEBUG = config('DEBUG', default=False, cast=bool)
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='', cast=Csv())
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -68,6 +79,14 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# Shared secure defaults. Local-only exceptions belong in settings_local.py;
+# production requirements belong in settings_production.py.
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = 'DENY'
+SECURE_REFERRER_POLICY = 'same-origin'
+SESSION_COOKIE_HTTPONLY = True
+CSRF_COOKIE_HTTPONLY = True
 
 LANGUAGE_CODE = 'ko-kr'
 TIME_ZONE = 'Asia/Seoul'

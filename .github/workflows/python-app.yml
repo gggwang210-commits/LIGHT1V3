@@ -24,6 +24,17 @@ jobs:
       with:
         python-version: "3.11"
 
+    - name: Create ephemeral test configuration
+      shell: python
+      run: |
+        import os
+        import secrets
+
+        with open(os.environ['GITHUB_ENV'], 'a', encoding='utf-8') as env_file:
+            env_file.write(f"SECRET_KEY={secrets.token_urlsafe(50)}\n")
+            env_file.write("DEBUG=False\n")
+            env_file.write("ALLOWED_HOSTS=127.0.0.1,localhost,testserver\n")
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip

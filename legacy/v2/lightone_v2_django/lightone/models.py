@@ -55,7 +55,7 @@ class MemberSession(models.Model):
     trainer = models.ForeignKey(TrainerProfile, on_delete=models.SET_NULL, null=True, blank=True, related_name='conducted_sessions')
 
     member_name = models.CharField(max_length=80)
-    trainer_name = models.CharField(max_length=80, default='김라이트')
+    trainer_name = models.CharField(max_length=80, default='데모트레이너')
     goal = models.CharField(max_length=120)
     discomfort_area = models.CharField(max_length=120, blank=True)
     qs_score = models.FloatField(default=0)
