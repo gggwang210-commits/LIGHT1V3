@@ -22,8 +22,15 @@ secrets/
 # Test / build caches
 .pytest_cache/
 .mypy_cache/
+.ruff_cache/
 .coverage
+.coverage.*
+coverage.xml
 htmlcov/
+build/
+dist/
+*.egg-info/
+*.log
 
 # OS / editor
 .DS_Store

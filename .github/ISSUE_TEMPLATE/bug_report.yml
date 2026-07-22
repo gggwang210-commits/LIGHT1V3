@@ -1,0 +1,52 @@
+name: Bug report
+description: 합성 데이터로 재현 가능한 오류를 보고합니다.
+title: "[Bug] "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        공개 이슈에 실제 회원정보, 건강정보, 인증정보 또는 비밀값을 올리지 마세요. 보안 문제는 SECURITY.md를 따르세요.
+  - type: textarea
+    id: summary
+    attributes:
+      label: 오류 요약
+      description: 기대한 동작과 실제 동작을 적어주세요.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: 재현 절차
+      description: SYN-* 형식의 합성 데이터만 사용해 재현 절차를 적어주세요.
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: 영향 영역
+      options:
+        - Django 앱
+        - 테스트·CI
+        - 문서
+        - 정적 자산
+        - 기타
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: 실행 환경
+      placeholder: Python 3.12, Windows 11 등
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: 공개 안전성 확인
+      options:
+        - label: 실제 개인정보·건강정보·비밀정보를 포함하지 않았습니다.
+          required: true

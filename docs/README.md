@@ -1,6 +1,6 @@
-# LIGHTONE V2 Docs
+# LIGHT ONE V3 Docs
 
-이 디렉터리는 LIGHTONE V2의 사업, 제품, 운영, 검증 문서를 보관하는 문서 허브입니다.
+이 디렉터리는 LIGHT ONE V3의 사업, 제품, 운영, 검증 문서를 보관하는 문서 허브입니다.
 
 ## Canonical documents
 
@@ -8,6 +8,8 @@
 
 | 문서 | 역할 |
 |------|------|
+| [`docs/architecture.md`](architecture.md) | 활성 코드, 데이터 흐름, 신뢰 경계와 운영 전 과제 |
+| [`docs/repository-map.md`](repository-map.md) | 저장소의 기준 경로와 문서 우선순위 |
 | [`docs/business_direction.md`](business_direction.md) | LIGHT ONE의 첫 번째 사업 목표와 제품 방향 기준 문서 |
 | [`docs/LIGHT_ONE_final_business_plan_v1_2026-07-07.md`](LIGHT_ONE_final_business_plan_v1_2026-07-07.md) | 최종 사업계획서 기준본 |
 | [`docs/product_positioning.md`](product_positioning.md) | 제품 포지셔닝 기준 문서 |
@@ -20,6 +22,7 @@
 | [`docs/pilot_interview_checklist.md`](pilot_interview_checklist.md) | PT센터 파일럿 데모 인터뷰 진행표와 통과/보류 기준 |
 | [`docs/pitch_summary.md`](pitch_summary.md) | 발표·피치 요약 기준 문서 |
 | [`docs/judge_risk_review.md`](judge_risk_review.md) | 공공기관·투자자·대기업 심사 관점의 리스크와 단계별 통과 기준 |
+| [`docs/release-checklist.md`](release-checklist.md) | 로컬 데모·제한 파일럿·운영 배포의 검증 게이트 |
 
 합성 라우팅 평가 자산은 [`huggingface/synthetic-routing-eval/`](../huggingface/synthetic-routing-eval/)에 보관한다. 이 경로는 Hugging Face 업로드용 후보일 뿐이며, G0 통과와 명시적 승인 전에는 업로드하지 않는다.
 
@@ -34,9 +37,13 @@
 | [`lightone_v2_django/docs/`](../lightone_v2_django/docs/) | Django MVP 구현·운영 과정에서 작성된 참고 문서 |
 | [`2/repo_lightoneV2/`](../2/repo_lightoneV2/) | V2 관련 자산 정리본 또는 이전 작업물 보관 영역 |
 | [`아이디어-구상/`](../아이디어-구상/) | 초기 아이디어, 문제 정의, 사업 방향성 메모 보관 영역 |
+| [`legacy/`](../legacy/) | 이전 구현과 복제 자산의 archive 영역 |
+| [`lightone-main/`](../lightone-main/) | 이전 저장소 스냅샷 성격의 참고 영역 |
+| [`lightone_django/`](../lightone_django/) | 이전 Django 구현 참고 영역 |
 
 ## 문서 운영 원칙
 
 - canonical documents와 reference / legacy materials의 내용이 충돌하면 canonical documents를 우선합니다.
 - 오래된 문서는 현재 포지셔닝과 다를 수 있음을 명시하고, 히스토리 추적을 위해 삭제하지 않습니다.
 - 문서 위치나 우선순위가 바뀌면 [`docs/repository-map.md`](repository-map.md)를 함께 업데이트합니다.
+- 활성 앱·아키텍처·검증 절차가 바뀌면 [`docs/architecture.md`](architecture.md), [`CONTRIBUTING.md`](../CONTRIBUTING.md), CI를 함께 업데이트합니다.

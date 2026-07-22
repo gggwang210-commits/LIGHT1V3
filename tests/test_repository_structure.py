@@ -1,19 +1,42 @@
 from pathlib import Path
+import subprocess
 
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 
 
+def tracked_repository_paths():
+    result = subprocess.run(
+        ["git", "ls-files", "-z"],
+        cwd=REPO_ROOT,
+        check=True,
+        capture_output=True,
+    )
+    return {
+        Path(raw.decode("utf-8"))
+        for raw in result.stdout.split(b"\0")
+        if raw
+    }
+
+
 def test_required_repository_documents_exist():
     required_paths = [
         REPO_ROOT / "README.md",
+        REPO_ROOT / "CHANGELOG.md",
+        REPO_ROOT / "CONTRIBUTING.md",
+        REPO_ROOT / "SECURITY.md",
+        REPO_ROOT / "requirements-dev.txt",
         REPO_ROOT / "docs",
+        REPO_ROOT / "docs" / "architecture.md",
         REPO_ROOT / "docs" / "business_direction.md",
         REPO_ROOT / "docs" / "LIGHT_ONE_final_business_plan_v1_2026-07-07.md",
         REPO_ROOT / "docs" / "safety_and_privacy_policy.md",
         REPO_ROOT / "docs" / "judge_risk_review.md",
         REPO_ROOT / "docs" / "trainer_dashboard_validation.md",
         REPO_ROOT / "docs" / "pilot_interview_checklist.md",
+        REPO_ROOT / "docs" / "release-checklist.md",
+        REPO_ROOT / ".github" / "pull_request_template.md",
+        REPO_ROOT / ".github" / "workflows" / "python-app.yml",
     ]
 
     missing = [str(path.relative_to(REPO_ROOT)) for path in required_paths if not path.exists()]
@@ -96,3 +119,47 @@ def test_canonical_app_has_no_public_demo_secrets_or_tracked_database():
         assert not hits, f"Public demo secret in {path.relative_to(REPO_ROOT)}: {hits}"
 
     assert not (REPO_ROOT / "lightone_django" / "db.sqlite3").exists()
+
+
+def test_tracked_files_exclude_generated_data_and_secrets():
+    tracked = tracked_repository_paths()
+    forbidden_suffixes = {".sqlite3", ".db", ".pem", ".key", ".zip"}
+    unsafe = sorted(
+        path.as_posix()
+        for path in tracked
+        if path.suffix.lower() in forbidden_suffixes
+        or (
+            path.name.startswith(".env")
+            and path.name != ".env.example"
+        )
+        or "__pycache__" in path.parts
+        or path.suffix.lower() in {".pyc", ".pyo"}
+    )
+
+    assert not unsafe, "Generated or sensitive files are tracked: " + ", ".join(unsafe)
+
+
+def test_only_supported_github_workflow_is_active():
+    workflow_dir = REPO_ROOT / ".github" / "workflows"
+    workflows = sorted(path.name for path in workflow_dir.glob("*.yml"))
+
+    assert workflows == ["python-app.yml"]
+    assert not (REPO_ROOT / "python-app.yml").exists()
+    assert not (REPO_ROOT / "github-workflows" / "python-publish.yml").exists()
+
+
+def test_runtime_baseline_is_consistent():
+    app_requirements = (
+        REPO_ROOT / "lightone_v2_django" / "requirements.txt"
+    ).read_text(encoding="utf-8")
+    app_readme = (
+        REPO_ROOT / "lightone_v2_django" / "README.md"
+    ).read_text(encoding="utf-8")
+    workflow = (
+        REPO_ROOT / ".github" / "workflows" / "python-app.yml"
+    ).read_text(encoding="utf-8")
+
+    assert "Django>=6.0.7,<6.1" in app_requirements
+    assert "Python 3.12+ + Django 6.0" in app_readme
+    assert '"3.12"' in workflow
+    assert '"3.13"' in workflow

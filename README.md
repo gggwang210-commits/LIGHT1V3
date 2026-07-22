@@ -2,9 +2,26 @@
 
 > PT 센터 및 트레이너 대상 비의료 운동상담 리포트 SaaS MVP
 
-**Status:** Pilot MVP · Development  
-**Default branch:** `Main-ONE`  
-**Primary app:** `lightone_v2_django/`
+- **Status:** Pilot MVP · Development
+- **Default branch:** `Main-ONE`
+- **Primary app:** `lightone_v2_django/`
+- **Runtime baseline:** Python 3.12+ · Django 6.0
+
+---
+
+## Start Here
+
+| 목적 | 기준 문서·경로 |
+|---|---|
+| 제품과 공개 범위 파악 | 이 README |
+| 5분 내 로컬 실행 | [`lightone_v2_django/README.md`](lightone_v2_django/README.md) |
+| 구조와 신뢰 경계 확인 | [`docs/architecture.md`](docs/architecture.md) |
+| 문서 우선순위 확인 | [`docs/repository-map.md`](docs/repository-map.md) |
+| 개발·검증 참여 | [`CONTRIBUTING.md`](CONTRIBUTING.md) |
+| 보안·공개 원칙 | [`SECURITY.md`](SECURITY.md) |
+| 운영 전 게이트 | [`docs/release-checklist.md`](docs/release-checklist.md) |
+
+활성 개발 대상은 `lightone_v2_django/`와 루트 `docs/`, `tests/`입니다. `legacy/`, `legacy-docs/`, `lightone-main/`, `lightone_django/` 등은 과거 구현·자료를 보존한 참고 영역이며 현재 실행 또는 제품 주장의 기준이 아닙니다.
 
 ---
 
@@ -99,7 +116,7 @@ LIGHT ONE의 결과 처리 원칙은 다음과 같습니다.
 
 | 영역 | 기술 |
 |---|---|
-| Backend | Python, Django |
+| Backend | Python 3.12+, Django 6.0 |
 | Database | SQLite — 개발·파일럿 기준 |
 | Frontend | Django Templates, HTML, CSS, JavaScript |
 | Configuration | python-decouple |
@@ -110,13 +127,13 @@ LIGHT ONE의 결과 처리 원칙은 다음과 같습니다.
 ### 주요 의존성
 
 ```text
-Django>=5.0,<7.0
-python-decouple>=3.8
-pytest>=8.0
-pytest-django>=4.8
+Django>=6.0.7,<6.1
+python-decouple==3.8
+pytest>=9.0,<10.0
+pytest-django>=4.12,<5.0
 ```
 
-Python 3.11 환경을 권장합니다.
+Python 3.12 또는 3.13 환경을 권장합니다. Django 6.0은 Python 3.12 이상을 요구합니다.
 
 ---
 
@@ -124,8 +141,12 @@ Python 3.11 환경을 권장합니다.
 
 ```text
 LIGHT1V3/
+├── CHANGELOG.md
+├── CONTRIBUTING.md
 ├── README.md
+├── SECURITY.md
 ├── requirements.txt
+├── requirements-dev.txt
 ├── docs/
 ├── tests/
 ├── sample_data/
@@ -140,13 +161,15 @@ LIGHT1V3/
 │   ├── static/
 │   └── templates/
 └── .github/
+    ├── ISSUE_TEMPLATE/
+    ├── pull_request_template.md
     └── workflows/
 ```
 
 저장소 버전은 V3이지만 기존 코드와 경로 호환성을 위해 
 Django 디렉터리명은 `lightone_v2_django`를 유지하고 있습니다.
 
-상세 기술·사업·검증 문서는 [`docs/`](docs/)에서 관리합니다. 첫 번째 사업 방향은 [`docs/business_direction.md`](docs/business_direction.md), 대시보드 제품 전략은 [`docs/dashboard_strategy.md`](docs/dashboard_strategy.md), 회원 화면 기준은 [`docs/member_dashboard_spec.md`](docs/member_dashboard_spec.md)를 우선 참고합니다. 정적 프로토타입은 [`prototype/dashboards/member_dashboard.html`](prototype/dashboards/member_dashboard.html)에서 확인합니다.
+상세 기술·사업·검증 문서는 [`docs/`](docs/)에서 관리합니다. 기술 구조는 [`docs/architecture.md`](docs/architecture.md), 첫 번째 사업 방향은 [`docs/business_direction.md`](docs/business_direction.md), 대시보드 제품 전략은 [`docs/dashboard_strategy.md`](docs/dashboard_strategy.md), 회원 화면 기준은 [`docs/member_dashboard_spec.md`](docs/member_dashboard_spec.md)를 우선 참고합니다. 정적 프로토타입은 [`prototype/dashboards/member_dashboard.html`](prototype/dashboards/member_dashboard.html)에서 확인합니다.
 
 ---
 
@@ -230,12 +253,19 @@ http://127.0.0.1:8000/admin/
 
 ## Validation
 
-다음 명령으로 기본 상태를 확인합니다.
+저장소 루트에서 개발 검증 의존성을 설치한 뒤 다음 명령으로 기본 상태를 확인합니다.
 
 ```bash
+python -m pip install -r requirements-dev.txt
+
+cd lightone_v2_django
 python manage.py check
+python manage.py makemigrations --check --dry-run
 python manage.py test
-pytest
+
+cd ..
+python -m pytest tests -q
+python -m flake8 lightone_v2_django --select=E9,F63,F7,F82
 ```
 
 운영 배포 전에는 운영 설정을 적용한 상태에서 다음 검사를 수행해야 합니다.
@@ -244,7 +274,7 @@ pytest
 python manage.py check --deploy
 ```
 
-2026-07-10 기준 로컬 가상환경에서 핵심 Django 및 저장소 문서 검증을 통과했다. 운영 배포, 실제 회원 데이터 처리, 법률 검토는 별도 준비가 필요하다.
+2026-07-22 기준 Python 3.12·Django 6.0 환경에서 핵심 Django 검사와 저장소 테스트를 재검증했습니다. 운영 배포, 실제 회원 데이터 처리, 법률 검토는 별도 준비가 필요합니다.
 
 ---
 
@@ -257,9 +287,9 @@ python manage.py check --deploy
 | 합성 데모 데이터 | 포함 |
 | 실제 고객 데이터 사용 | 금지, 추적 DB 미포함 |
 | QS·JATC 임계값 검증 | `[검증필요]` |
-| 전체 Django 테스트 | 보안 브랜치에서 재검증 |
-| 저장소 문서 테스트 | 보안 브랜치에서 재검증 |
-| GitHub Actions | `Main-ONE` 대상 검증 워크플로 구성 |
+| 전체 Django 테스트 | 로컬 검증 통과, 브랜치 CI 재확인 필요 |
+| 저장소 문서 테스트 | 로컬 검증 통과, 브랜치 CI 재확인 필요 |
+| GitHub Actions | Python 3.12·3.13 검증 워크플로 구성 |
 | 운영 배포 | 준비 전 |
 | 개인정보·법률 검토 | `[검증필요]` |
 
@@ -417,14 +447,10 @@ LIGHT ONE은 다음 기능을 제공하지 않습니다.
 
 ## License and Assets
 
-프로젝트 코드, 디자인 자산, 폰트, 이미지 및 
-외부 라이브러리의 배포 조건은 `[검증필요]`입니다.
-공개 또는 상용 배포 전 다음 문서 추가를 권장합니다.
+프로젝트 코드, 디자인 자산, 폰트, 이미지 및 외부 라이브러리의 배포 조건은 `[검증필요]`입니다. 현재 저장소에는 프로젝트 라이선스가 확정되어 있지 않으므로 재사용 권한을 추정하지 마세요. 공개 또는 상용 배포 전 다음 항목을 확정해야 합니다.
 
 ```text
 LICENSE
-SECURITY.md
-CONTRIBUTING.md
 THIRD_PARTY_NOTICES.md
 ASSET_LICENSE.md
 ```

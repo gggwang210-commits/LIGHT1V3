@@ -1,4 +1,4 @@
-# LIGHT ONE V2 — PT 상담 판단 보조 서비스 Django MVP
+# LIGHT ONE V3 — 비의료 PT 상담 보조 Django MVP
 
 > **프로의 기준, 이제는 데이터입니다.**  
 > Data-Driven, Evidence-Based Personal Training
@@ -11,7 +11,7 @@ LIGHT ONE은 PT(퍼스널 트레이닝) 현장에서 회원의 운동 기록, �
 
 - AI가 트레이너를 대체하는 것이 아니라, **트레이너의 판단을 보조**합니다.
 - 의료적 진단·치료·처방을 대체하지 않습니다.
-- 현재 버전은 **가상 데이터(더미 데이터)** 기반의 MVP입니다.
+- 현재 버전은 **합성 데이터** 기반의 로컬 파일럿 MVP입니다.
 
 ---
 
@@ -135,11 +135,11 @@ python manage.py loaddata synthetic_step1
 |--------|------|------|
 | **AUTO** (초록) | 불편감 반응 < 4 & QS ≥ 70 | 일반 진행 가능 |
 | **REVIEW** (노랑) | 불편감 반응 4–6 또는 QS 40–70 | 트레이너 검토 필요 |
-| **BLOCK** (빨강) | 불편감 반응 ≥ 7 또는 QS < 40 | 안전상 중단 권고 신호 (의료 진단 아님) |
+| **BLOCK** (빨강) | 불편감 반응 ≥ 7 또는 QS < 40 | 트레이너 확인 전 리포트 처리 보류 (의료 판단 아님) |
 
-> 현재 QS/JATC 및 AUTO/REVIEW/BLOCK 임계값은 MVP 데모용 내부 초안이며 의료 판단 기준이 아닙니다. 파일럿 데이터와 전문가 검토 후 조정이 필요하고, BLOCK은 진단이 아니라 운동 세션 중단 및 전문가 상담 권고 신호입니다.
+> 현재 QS/JATC 및 AUTO/REVIEW/BLOCK 임계값은 MVP 데모용 내부 초안이며 의료 판단 기준이 아닙니다. 파일럿 데이터와 전문가 검토 후 조정이 필요하고, BLOCK은 진단이나 운동 금기 판정이 아닌 운영상 검토 보류 상태입니다.
 >
-> BLOCK은 의료적 진단이 아니라 안전 신호입니다. 최종 판단은 트레이너가 합니다.
+> BLOCK은 의료적 진단이 아니라 트레이너의 추가 확인을 요구하는 운영 상태입니다. 최종 판단은 트레이너가 합니다.
 
 ---
 
@@ -162,7 +162,7 @@ python manage.py loaddata synthetic_step1
 
 ## 기술 스택
 
-- **Backend:** Python 3.11 + Django 4.2
+- **Backend:** Python 3.12+ + Django 6.0
 - **Database:** SQLite (`settings_local`, 개발용) / PostgreSQL (`settings_production`, 운영 구성용)
 - **Frontend:** HTML/CSS/JavaScript + Chart.js
 - **인증:** Django 커스텀 유저 모델 + 로그인 미들웨어
@@ -180,4 +180,4 @@ python manage.py loaddata synthetic_step1
 
 추가로, 전체 사업 방향은 [루트 README](../README.md), Windows 간단 실행은 [RUN_WINDOWS.md](RUN_WINDOWS.md)를 참고하세요.
 
-**LIGHT ONE V2 · Rev.05 · 2026.07.01**
+**LIGHT ONE V3 · Repository baseline · 2026.07.22**

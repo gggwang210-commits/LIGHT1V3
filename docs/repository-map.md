@@ -7,8 +7,12 @@
 | 경로 | 역할 | 먼저 볼 사람 |
 |------|------|--------------|
 | [`README.md`](../README.md) | LIGHT ONE V3의 사업 전략, 제품 포지셔닝, 비의료 경계, 시장 진출 계획 | 심사자, 사업 검토자, 신규 기여자 |
+| [`CONTRIBUTING.md`](../CONTRIBUTING.md) | 개발 절차, 검증 명령, 데이터·표현 규칙 | 개발자, 리뷰어 |
+| [`CHANGELOG.md`](../CHANGELOG.md) | 주요 저장소 변경 이력과 미출시 변경 | 개발자, 채용 검토자 |
 | [`docs/README.md`](README.md) | 루트 `docs/`의 canonical documents와 reference / legacy materials를 구분하는 문서 허브 | 모든 신규 참여자 |
 | [`docs/repository-map.md`](repository-map.md) | 문서와 코드 위치를 연결하는 저장소 지도 | 모든 신규 참여자 |
+| [`docs/architecture.md`](architecture.md) | 활성 컴포넌트, 데이터 흐름, 설정·신뢰 경계 | 기술 검토자, 개발자 |
+| [`docs/release-checklist.md`](release-checklist.md) | 로컬 데모와 운영 준비 상태를 구분하는 게이트 | 보안, 운영, PM |
 | [`docs/business_direction.md`](business_direction.md) | 트레이너·회원 컨디셔닝 대시보드 SaaS라는 첫 번째 사업 목표 | 대표, PM, 기획, 개발, 디자인 |
 | [`docs/governance/non-medical-boundary.md`](governance/non-medical-boundary.md) | 의료 오인 방지를 위한 표현·기능 경계 | 기획, 디자인, 개발, 영업 |
 | [`docs/governance/privacy-checklist.md`](governance/privacy-checklist.md) | 개인정보·민감정보 취급 점검표 | 운영, 개발, 파일럿 담당 |
@@ -43,6 +47,10 @@
 | [`lightone_v2_django/docs/`](../lightone_v2_django/docs/) | reference / legacy | Django MVP 구현·운영 참고 자료로 사용 |
 | [`2/repo_lightoneV2/`](../2/repo_lightoneV2/) | reference / legacy | 이전 V2 자산과 작업물 확인용으로 보존 |
 | [`아이디어-구상/`](../아이디어-구상/) | reference / legacy | 초기 아이디어와 문제 정의 히스토리 확인용으로 보존 |
+| [`legacy/`](../legacy/) | archive | 이전 구현·복제 자산을 회귀 조사 목적으로만 보존 |
+| [`legacy-docs/`](../legacy-docs/) | archive | 이전 기준 문서의 히스토리 보존 |
+| [`lightone-main/`](../lightone-main/) | archive | 과거 저장소 스냅샷 참고 |
+| [`lightone_django/`](../lightone_django/) | archive | 이전 Django 구현 참고 |
 
 ## 4. Django MVP 영역
 
@@ -71,3 +79,4 @@
 - `docs/submission/`은 외부 제출용 요약 문서를 보관하는 영역입니다.
 - reference / legacy materials는 현재 포지셔닝과 다를 수 있음을 표시하고, 히스토리 보존을 위해 삭제하지 않습니다.
 - 실행 방법이 바뀌면 `lightone_v2_django/README.md`, `lightone_v2_django/RUN_WINDOWS.md`, `docs/execution-guide/windows-run-guide.md`를 함께 갱신합니다.
+- 과거 구현은 `legacy/README.md`의 원칙을 따르며 새 기능을 복제하지 않습니다.
