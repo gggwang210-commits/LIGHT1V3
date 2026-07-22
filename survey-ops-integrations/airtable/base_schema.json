@@ -1,0 +1,63 @@
+{
+  "name": "LIGHT ONE Survey Operations",
+  "tables": [
+    {
+      "name": "Responses",
+      "description": "PII를 제외한 설문 처리 상태와 운영 메타데이터",
+      "fields": [
+        {"name": "Response ID", "type": "singleLineText"},
+        {"name": "Role", "type": "singleSelect", "options": {"choices": [{"name": "센터장·원장"}, {"name": "트레이너"}, {"name": "회원"}]}},
+        {"name": "Received At", "type": "dateTime", "options": {"timeZone": "Asia/Seoul", "dateFormat": {"name": "iso"}, "timeFormat": {"name": "24hour"}}},
+        {"name": "Consent", "type": "checkbox", "options": {"color": "greenBright", "icon": "check"}},
+        {"name": "Answer Summary", "type": "multilineText"},
+        {"name": "PDF URL", "type": "url"},
+        {"name": "Email Status", "type": "singleSelect", "options": {"choices": [{"name": "PENDING"}, {"name": "SENT"}, {"name": "FAILED"}, {"name": "SKIPPED"}]}},
+        {"name": "Process Status", "type": "singleSelect", "options": {"choices": [{"name": "RECEIVED"}, {"name": "PROCESSING"}, {"name": "COMPLETED"}, {"name": "PARTIAL"}, {"name": "FAILED"}]}},
+        {"name": "Retry Count", "type": "number", "options": {"precision": 0}},
+        {"name": "Has Contact", "type": "checkbox", "options": {"color": "yellowBright", "icon": "check"}},
+        {"name": "Error Message", "type": "multilineText"},
+        {"name": "Updated At", "type": "dateTime", "options": {"timeZone": "Asia/Seoul", "dateFormat": {"name": "iso"}, "timeFormat": {"name": "24hour"}}},
+        {"name": "Source Version", "type": "singleLineText"}
+      ]
+    },
+    {
+      "name": "Question Catalog",
+      "description": "역할별 문항과 척도 기준",
+      "fields": [
+        {"name": "Question Key", "type": "singleLineText"},
+        {"name": "Role", "type": "singleSelect", "options": {"choices": [{"name": "센터장·원장"}, {"name": "트레이너"}, {"name": "회원"}]}},
+        {"name": "Step Number", "type": "number", "options": {"precision": 0}},
+        {"name": "Step Name", "type": "singleLineText"},
+        {"name": "Question Number", "type": "number", "options": {"precision": 0}},
+        {"name": "Question Text", "type": "multilineText"},
+        {"name": "Scale Type", "type": "singleSelect", "options": {"choices": [{"name": "agreement_5"}, {"name": "need_5"}]}},
+        {"name": "Required", "type": "checkbox", "options": {"color": "greenBright", "icon": "check"}},
+        {"name": "Version", "type": "singleLineText"}
+      ]
+    },
+    {
+      "name": "Integration Log",
+      "description": "외부 목적지별 처리 결과와 재시도 기록",
+      "fields": [
+        {"name": "Event ID", "type": "singleLineText"},
+        {"name": "Response ID", "type": "singleLineText"},
+        {"name": "Destination", "type": "singleSelect", "options": {"choices": [{"name": "Drive"}, {"name": "Email"}, {"name": "Airtable"}, {"name": "Slack"}]}},
+        {"name": "Status", "type": "singleSelect", "options": {"choices": [{"name": "SUCCESS"}, {"name": "FAILED"}, {"name": "SKIPPED"}]}},
+        {"name": "Attempt", "type": "number", "options": {"precision": 0}},
+        {"name": "Event At", "type": "dateTime", "options": {"timeZone": "Asia/Seoul", "dateFormat": {"name": "iso"}, "timeFormat": {"name": "24hour"}}},
+        {"name": "Error Summary", "type": "multilineText"}
+      ]
+    },
+    {
+      "name": "Config",
+      "description": "운영 설정의 의미만 관리하며 실제 비밀값은 저장하지 않음",
+      "fields": [
+        {"name": "Key", "type": "singleLineText"},
+        {"name": "Description", "type": "multilineText"},
+        {"name": "Secret", "type": "checkbox", "options": {"color": "redBright", "icon": "check"}},
+        {"name": "Default or Example", "type": "singleLineText"},
+        {"name": "Required", "type": "checkbox", "options": {"color": "greenBright", "icon": "check"}}
+      ]
+    }
+  ]
+}

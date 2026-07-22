@@ -1,0 +1,12 @@
+.env
+.env.*
+!.env.example
+*.log
+*.zip
+*.xlsx
+node_modules/
+coverage/
+actual_responses/
+exports/private/
+secrets/
+

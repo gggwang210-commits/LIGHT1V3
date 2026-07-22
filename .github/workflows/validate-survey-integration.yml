@@ -1,0 +1,27 @@
+name: Validate survey integration assets
+
+on:
+  pull_request:
+    paths:
+      - "survey-ops-integrations/**"
+  push:
+    branches:
+      - Main-ONE
+    paths:
+      - "survey-ops-integrations/**"
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Validate schemas, catalog, and secret patterns
+        working-directory: survey-ops-integrations
+        run: npm run validate
+

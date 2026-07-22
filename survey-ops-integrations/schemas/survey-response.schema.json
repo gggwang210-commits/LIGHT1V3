@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lightone.example/schemas/survey-response.schema.json",
+  "title": "LIGHT ONE Survey Response",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "response_id",
+    "client_request_id",
+    "received_at",
+    "survey_title",
+    "role",
+    "consent",
+    "answers",
+    "email_status",
+    "process_status",
+    "retry_count",
+    "updated_at"
+  ],
+  "properties": {
+    "response_id": {
+      "type": "string",
+      "pattern": "^LO-[0-9]{8}-[0-9]{6}-[A-Z0-9]{6}$"
+    },
+    "client_request_id": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 100
+    },
+    "received_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "survey_title": {
+      "const": "AI 기반 PT 시스템 연구 설문지"
+    },
+    "source_version": {
+      "type": "string",
+      "default": "2026-07"
+    },
+    "role": {
+      "enum": ["owner", "coach", "member"]
+    },
+    "contact": {
+      "type": "object",
+      "additionalProperties": false,
+      "x-sensitive": true,
+      "properties": {
+        "name": {"type": "string", "maxLength": 80},
+        "organization": {"type": "string", "maxLength": 120},
+        "reply_email": {"type": "string", "format": "email", "maxLength": 254},
+        "phone": {"type": "string", "maxLength": 30}
+      }
+    },
+    "comment": {
+      "type": "string",
+      "maxLength": 2000,
+      "x-sensitive": true
+    },
+    "consent": {
+      "const": true
+    },
+    "answers": {
+      "type": "object",
+      "minProperties": 15,
+      "maxProperties": 15,
+      "propertyNames": {
+        "pattern": "^(owner|coach|member)_(0[1-9]|1[0-5])$"
+      },
+      "additionalProperties": {
+        "type": "string",
+        "enum": [
+          "전혀 그렇지 않음",
+          "그렇지 않음",
+          "보통",
+          "그렇다",
+          "매우 그렇다",
+          "매우 낮음",
+          "낮음",
+          "높음",
+          "매우 높음"
+        ]
+      }
+    },
+    "answer_summary": {
+      "type": "string",
+      "maxLength": 12000
+    },
+    "pdf": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "file_id": {"type": "string"},
+        "file_name": {"type": "string"},
+        "url": {"type": "string", "format": "uri"}
+      }
+    },
+    "email_status": {
+      "enum": ["PENDING", "SENT", "FAILED", "SKIPPED"]
+    },
+    "process_status": {
+      "enum": ["RECEIVED", "PROCESSING", "COMPLETED", "PARTIAL", "FAILED"]
+    },
+    "error_message": {
+      "type": "string",
+      "maxLength": 1000
+    },
+    "retry_count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 10
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}
+

@@ -1,0 +1,4 @@
+{
+  "text": ":white_check_mark: *LIGHT ONE 설문 처리 상태*\n• 응답 ID: `{{response_id}}`\n• 역할: {{role_label}}\n• 처리: `{{process_status}}`\n• 이메일: `{{email_status}}`\n• 업데이트: {{updated_at}}"
+}
+
