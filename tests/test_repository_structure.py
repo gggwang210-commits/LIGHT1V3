@@ -72,3 +72,27 @@ def test_public_repository_does_not_include_sensitive_data_directories():
 
     assert not bad_names, "Forbidden sensitive-data directory names found: " + ", ".join(bad_names)
     assert not bad_fragments, "Forbidden sensitive-data directory paths found: " + ", ".join(bad_fragments)
+
+
+def test_canonical_app_has_no_public_demo_secrets_or_tracked_database():
+    canonical_root = REPO_ROOT / "lightone_v2_django"
+    inspected_paths = [
+        canonical_root / "mysite" / "settings.py",
+        canonical_root / "lightone" / "management" / "commands" / "seed_lightone.py",
+        canonical_root / "setup_dummy.py",
+        canonical_root / "README.md",
+        canonical_root / "RUN_WINDOWS.md",
+    ]
+    forbidden = {
+        "lightone-local-" + "dev-key",
+        "admin/" + "admin",
+        "member1/" + "1234",
+        "member2/" + "1234",
+    }
+
+    for path in inspected_paths:
+        content = path.read_text(encoding="utf-8")
+        hits = sorted(value for value in forbidden if value in content)
+        assert not hits, f"Public demo secret in {path.relative_to(REPO_ROOT)}: {hits}"
+
+    assert not (REPO_ROOT / "lightone_django" / "db.sqlite3").exists()

@@ -38,8 +38,12 @@ PowerShell 보안 오류가 나면 CMD에서 아래처럼 실행하세요.
 ```powershell
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
+copy .env.example .env
+# .env의 SECRET_KEY를 무작위 값으로 채우고 DEBUG=True로 변경
+python -c "import secrets; print(secrets.token_urlsafe(50))"
+$env:DJANGO_SETTINGS_MODULE="mysite.settings_local"
 python manage.py migrate
-python manage.py seed_lightone
+python manage.py seed_lightone --generate-passwords
 ```
 
 ## 4단계: 서버 실행
@@ -56,8 +60,4 @@ http://127.0.0.1:8000/lightone/
 
 ## 로그인 정보
 
-| 역할 | 아이디 | 비밀번호 |
-|---|---|---|
-| 관리자/트레이너 | `admin` | `admin` |
-| 회원 | `member1` | `1234` |
-| 회원 | `member2` | `1234` |
+고정 비밀번호는 저장소에 포함하지 않습니다. `seed_lightone --generate-passwords` 실행 시 합성 계정의 무작위 비밀번호가 현재 터미널에 한 번 표시됩니다. 계정과 로컬 SQLite 파일을 외부에 공개하지 마세요.

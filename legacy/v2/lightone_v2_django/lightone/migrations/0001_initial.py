@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('member_name', models.CharField(max_length=80)),
-                ('trainer_name', models.CharField(default='김라이트', max_length=80)),
+                ('trainer_name', models.CharField(default='데모트레이너', max_length=80)),
                 ('goal', models.CharField(max_length=120)),
                 ('discomfort_area', models.CharField(blank=True, max_length=120)),
                 ('qs_score', models.FloatField(default=0)),

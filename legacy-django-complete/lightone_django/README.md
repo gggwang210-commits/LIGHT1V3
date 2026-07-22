@@ -53,8 +53,7 @@ python manage.py runserver
 
 **접속 정보:**
 - 🌐 URL: `http://127.0.0.1:8000/`
-- 👨‍💼 트레이너: `trainer01` / `lightone2026`
-- 🔐 관리자: `admin` / `admin1234`
+- 이 경로는 보관용이며 기존 고정 계정 시드는 비활성화되었습니다. 현재 실행 기준은 루트의 `lightone_v2_django`입니다.
 
 ---
 

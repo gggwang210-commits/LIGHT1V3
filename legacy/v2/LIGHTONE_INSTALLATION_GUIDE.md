@@ -98,13 +98,7 @@ http://127.0.0.1:8000/lightone/
 
 ## 로그인 정보
 
-`python manage.py seed_lightone` 실행 후 사용할 수 있는 계정입니다.
-
-| 역할 | 아이디 | 비밀번호 | URL |
-|---|---|---|---|
-| 관리자/트레이너 | `admin` | `admin` | `/accounts/login/`, `/admin/` |
-| 회원 | `member1` | `1234` | `/accounts/login/` |
-| 회원 | `member2` | `1234` | `/accounts/login/` |
+이 보관본의 고정 계정 시드는 비활성화되었습니다. 저장소 루트의 최신 실행 가이드를 사용하세요.
 
 ---
 

@@ -272,7 +272,7 @@
     <div>
       <span class="trainer-kicker">LIGHT ONE · TRAINER OPERATIONS</span>
       <h1>LIGHT ONE PT V1 REPORT SYSTEM</h1>
-      <p>트레이너 회원관리 SaaS 서비스 · AI 기반 비의료적 컨디셔닝 케어</p>
+      <p>트레이너 회원관리 SaaS 서비스 · AI 기반 비의료 운동상담 기록 지원</p>
     </div>
     <div class="hitl-seal" aria-label="트레이너 최종 검토">
       <strong>HITL</strong>
@@ -393,7 +393,7 @@
       <ul class="draft-list">
         {% for session in report_drafts %}
         <li class="draft-item">
-          <div><strong>{{ session.member_name }}</strong><small>의료 표현·회복 안내·다음 과제 확인</small></div>
+          <div><strong>{{ session.member_name }}</strong><small>비의료 경계·불편 반응 안내·다음 과제 확인</small></div>
           <span class="route-chip {{ session.routing_badge_class }}">검토 대기</span>
         </li>
         {% empty %}

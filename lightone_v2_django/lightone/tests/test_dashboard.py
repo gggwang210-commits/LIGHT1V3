@@ -57,7 +57,7 @@ class DashboardRoutingBadgeTests(TestCase):
         self.assertContains(response, 'report_system_showcase.png')
         self.assertContains(response, 'studio_interior_day.png')
         self.assertContains(response, 'LIGHT ONE PT V1 REPORT SYSTEM')
-        self.assertContains(response, 'AI 기반 비의료적 컨디셔닝 케어')
+        self.assertContains(response, 'AI 기반 비의료 운동상담 기록 지원')
 
     def test_trainer_dashboard_prioritizes_review_and_block_sessions(self):
         self.create_session('AUTO', 1)
@@ -112,4 +112,4 @@ class DashboardRoutingBadgeTests(TestCase):
         self.assertContains(response, 'studio_walkthrough.mp4')
         self.assertContains(response, 'studio_exterior.png')
         self.assertContains(response, 'LIGHT ONE PT V1')
-        self.assertContains(response, 'AI 기반 비의료적 컨디셔닝 케어')
+        self.assertContains(response, 'AI 기반 비의료 운동상담 기록 지원')
