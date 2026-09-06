@@ -1,0 +1,127 @@
+{
+  "generated_at": "2026-09-04T14:29:43.451699+00:00",
+  "project": "LIGHTONE_VSCODE_STABLE_v1.2.1",
+  "overall": "PASS",
+  "summary": {
+    "pass": 23,
+    "skip": 0,
+    "fail": 0
+  },
+  "results": [
+    {
+      "check": "필수 파일",
+      "status": "PASS",
+      "detail": "모두 존재"
+    },
+    {
+      "check": "UTF-8",
+      "status": "PASS",
+      "detail": "모든 텍스트 파일 읽기 성공"
+    },
+    {
+      "check": "중복 id: index.html",
+      "status": "PASS",
+      "detail": "없음"
+    },
+    {
+      "check": "중복 id: admin.html",
+      "status": "PASS",
+      "detail": "없음"
+    },
+    {
+      "check": "meta charset: index.html",
+      "status": "PASS",
+      "detail": "존재"
+    },
+    {
+      "check": "viewport: index.html",
+      "status": "PASS",
+      "detail": "존재"
+    },
+    {
+      "check": "meta charset: admin.html",
+      "status": "PASS",
+      "detail": "존재"
+    },
+    {
+      "check": "viewport: admin.html",
+      "status": "PASS",
+      "detail": "존재"
+    },
+    {
+      "check": "index noscript",
+      "status": "PASS",
+      "detail": "JavaScript 비활성 안내"
+    },
+    {
+      "check": "FormSubmit fallback 금지",
+      "status": "PASS",
+      "detail": "외부 FormSubmit 주소 없음"
+    },
+    {
+      "check": "설문 endpoint",
+      "status": "PASS",
+      "detail": "유지"
+    },
+    {
+      "check": "설문 버전",
+      "status": "PASS",
+      "detail": "1.2.1"
+    },
+    {
+      "check": "역할 코드",
+      "status": "PASS",
+      "detail": "owner/trainer/member"
+    },
+    {
+      "check": "admin-summary endpoint",
+      "status": "PASS",
+      "detail": "유지"
+    },
+    {
+      "check": "send-report endpoint",
+      "status": "PASS",
+      "detail": "유지"
+    },
+    {
+      "check": "관리자 인증 헤더",
+      "status": "PASS",
+      "detail": "유지"
+    },
+    {
+      "check": "집계 기간",
+      "status": "PASS",
+      "detail": "7d/30d/90d/all"
+    },
+    {
+      "check": "인쇄/PDF",
+      "status": "PASS",
+      "detail": "유지"
+    },
+    {
+      "check": "설문 데이터 계약",
+      "status": "PASS",
+      "detail": "원본 name/value·폼 action·조건 필드 일치"
+    },
+    {
+      "check": "비밀값 패턴",
+      "status": "PASS",
+      "detail": "하드코딩 없음"
+    },
+    {
+      "check": "inline JavaScript 구문",
+      "status": "PASS",
+      "detail": "node --check (node.EXE)"
+    },
+    {
+      "check": "MANIFEST",
+      "status": "PASS",
+      "detail": "기록 파일 해시 일치"
+    },
+    {
+      "check": "ZIP 무결성",
+      "status": "PASS",
+      "detail": "testzip 통과, 단일 프로젝트 루트"
+    }
+  ]
+}

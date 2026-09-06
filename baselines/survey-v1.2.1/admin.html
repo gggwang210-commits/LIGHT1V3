@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>LIGHT ONE 설문 관리자 리포트</title>
+<meta name="robots" content="noindex,nofollow">
+<style>
+:root{--bg:#eef2f9;--surface:#fff;--surface2:#f6f8fc;--ink:#0b1a2e;--muted:#68778c;--line:#dfe7f2;--primary:#0e8c7e;--navy:#0b2b52;--danger:#c74343;--r:18px;--shadow:0 16px 42px rgba(10,22,38,.10)}
+*{box-sizing:border-box}html{background:var(--bg);overflow-x:hidden}body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI","Apple SD Gothic Neo","Noto Sans KR",sans-serif;color:var(--ink);background:var(--bg);line-height:1.55}
+button,input,select{font:inherit}button{cursor:pointer}.wrap{width:min(1120px,calc(100% - 32px));margin:auto}.top{background:linear-gradient(135deg,#07172f,#0b2b52);color:#fff;padding:28px 0}
+:focus-visible{outline:3px solid #20bca8;outline-offset:3px}
+.topInner{display:flex;gap:18px;justify-content:space-between;align-items:center;flex-wrap:wrap}.brand{font-weight:900;letter-spacing:-.03em;font-size:20px}.sub{font-size:13px;color:#bfd0e7;margin-top:3px}.top a{color:#d7e5f8}
+main{padding:34px 0 56px}.panel{background:var(--surface);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);padding:26px}
+.login{max-width:520px;margin:60px auto}.login h1{margin:0 0 8px;font-size:27px}.login p{margin:0 0 20px;color:var(--muted)}.field{display:grid;gap:7px}.field label{font-weight:800;font-size:14px}.field input,.toolbar select{width:100%;border:1px solid var(--line);border-radius:12px;padding:13px 14px;background:#fff;min-height:48px;font-size:16px}
+.actions,.toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.btn{border:0;border-radius:999px;min-height:46px;padding:11px 18px;font-weight:800}.btn.primary{background:linear-gradient(135deg,var(--navy),#12a594);color:#fff}.btn.ghost{background:#fff;border:1px solid var(--line);color:var(--ink)}.btn:disabled{opacity:.5;cursor:not-allowed}
+.status{min-height:22px;margin-top:12px;font-size:13px;color:var(--muted)}.status.err{color:var(--danger)}.status.warn{color:#8a5a00}
+#dashboard{display:none}.reportHead{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;flex-wrap:wrap;margin-bottom:22px}.reportHead h1{margin:0;font-size:30px;letter-spacing:-.035em}.reportHead p{margin:5px 0 0;color:var(--muted);font-size:14px}
+.toolbar select{width:auto;min-width:150px}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:18px 0 24px}.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:19px}.card b{display:block;color:var(--muted);font-size:12px;margin-bottom:7px}.card strong{font-size:29px;letter-spacing:-.04em}.card span{font-size:12px;color:var(--muted);margin-left:5px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}.section{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px;margin-bottom:16px}.section h2{font-size:18px;margin:0 0 13px}.section p.note{font-size:12px;color:var(--muted);margin:10px 0 0}
+table{width:100%;border-collapse:collapse;font-size:14px}th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}th{color:#52657d;font-size:12px}td:last-child,th:last-child{text-align:right}.rank{width:42px;color:var(--muted)}.bar{height:7px;background:#edf2f7;border-radius:999px;overflow:hidden;margin-top:6px}.fill{height:100%;background:linear-gradient(90deg,#0e8c7e,#19c6b3);border-radius:999px}.unknown{color:var(--muted);font-size:13px}.section>div{overflow-x:auto}
+.method{font-size:12px;color:var(--muted);padding-left:18px}.method li{margin:5px 0}.printOnly{display:none}.privacy{border-left:4px solid #0e8c7e;background:#effaf7;padding:14px 16px;border-radius:12px;color:#36534e;font-size:13px;margin-bottom:18px}
+@media(max-width:860px){.cards{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}}
+@media(max-width:520px){.cards{grid-template-columns:1fr}.panel{padding:18px}.reportHead h1{font-size:25px}.toolbar{align-items:stretch}.toolbar>*{width:100%!important}.btn{width:100%}}
+@media print{
+  @page{size:A4;margin:12mm}
+  body{background:#fff;font-size:10.5pt}.top,.noPrint,#loginPanel{display:none!important}.wrap{width:100%;max-width:none}.panel{box-shadow:none;border:0;padding:0}.printOnly{display:block}.reportHead{margin-bottom:10px}.reportHead h1{font-size:22pt}.cards{grid-template-columns:repeat(4,1fr);gap:6px}.card{padding:10px;border-radius:8px;break-inside:avoid}.card strong{font-size:18pt}.grid2{grid-template-columns:1fr 1fr;gap:8px}.section{padding:12px;border-radius:8px;margin-bottom:8px;break-inside:avoid}.section h2{font-size:13pt}table{font-size:9pt}thead{display:table-header-group}tr{break-inside:avoid}th,td{padding:5px 4px}.bar{height:4px}.privacy{display:none}.section>div{overflow:visible}
+}
+</style>
+</head>
+<body>
+<header class="top noPrint">
+  <div class="wrap topInner">
+    <div><div class="brand">LIGHT ONE · Survey Report</div><div class="sub">누적 설문 자동 집계 관리자 화면</div></div>
+    <a href="/">← 설문 페이지</a>
+  </div>
+</header>
+<main>
+<div class="wrap">
+  <section id="loginPanel" class="panel login">
+    <h1>관리자 리포트 로그인</h1>
+    <p>Netlify 환경변수 <b>ADMIN_REPORT_PASSWORD</b>에 설정한 비밀번호를 입력하세요. 비밀번호는 브라우저 저장소에 저장하지 않습니다.</p>
+    <div class="field"><label for="password">관리자 비밀번호</label><input id="password" type="password" autocomplete="current-password" placeholder="관리자 비밀번호"></div>
+    <div class="actions" style="margin-top:14px"><button id="loginBtn" class="btn primary" type="button">리포트 불러오기</button></div>
+    <div id="loginStatus" class="status" role="status" aria-live="polite"></div>
+  </section>
+
+  <section id="dashboard" class="panel">
+    <div class="reportHead">
+      <div>
+        <div class="printOnly">LIGHT ONE PT REPORT SYSTEM</div>
+        <h1>설문 누적 요약 리포트</h1>
+        <p id="generatedMeta">-</p>
+      </div>
+      <div class="toolbar noPrint">
+        <select id="rangeSelect" aria-label="집계 기간">
+          <option value="7d">최근 7일</option>
+          <option value="30d" selected>최근 30일</option>
+          <option value="90d">최근 90일</option>
+          <option value="all">전체 기간</option>
+        </select>
+        <button id="refreshBtn" class="btn ghost">새로고침</button>
+        <button id="pdfBtn" class="btn ghost">PDF 저장</button>
+        <button id="emailBtn" class="btn primary">요약 이메일 전송</button>
+        <button id="logoutBtn" class="btn ghost">로그아웃</button>
+      </div>
+    </div>
+    <div class="privacy">이 화면은 <b>집계 정보만 표시</b>하며 개별 응답자의 이름·전화·이메일을 반환하지 않습니다. PDF와 이메일 리포트도 기본적으로 집계 결과만 포함합니다.</div>
+    <div id="reportStatus" class="status noPrint" role="status" aria-live="polite"></div>
+
+    <div class="cards">
+      <div class="card"><b>유효 응답</b><strong id="total">확인 불가</strong><span>건</span></div>
+      <div class="card"><b>사업주/원장</b><strong id="ownerCount">확인 불가</strong><span id="ownerShare">확인 불가</span></div>
+      <div class="card"><b>트레이너</b><strong id="trainerCount">확인 불가</strong><span id="trainerShare">확인 불가</span></div>
+      <div class="card"><b>회원/고객</b><strong id="memberCount">확인 불가</strong><span id="memberShare">확인 불가</span></div>
+      <div class="card"><b>연락처 제공 동의</b><strong id="contactCount">확인 불가</strong><span id="contactShare">확인 불가</span></div>
+      <div class="card"><b>평균 완료시간</b><strong id="avgTime">확인 불가</strong><span>초</span></div>
+      <div class="card"><b>중복 제외</b><strong id="duplicateCount">확인 불가</strong><span>건</span></div>
+    </div>
+
+    <div class="grid2">
+      <section class="section"><h2>사업주/원장 기능 수요 TOP</h2><div id="ownerTopFeatures"></div><p class="note">선택률(0~100%) = 선택 응답수 ÷ 사업주/원장 유효응답수. 복수응답이므로 항목별 선택률 합계는 100%를 넘을 수 있습니다.</p></section>
+      <section class="section"><h2>트레이너 기능 수요 TOP</h2><div id="trainerTopFeatures"></div><p class="note">선택률(0~100%) = 선택 응답수 ÷ 트레이너 유효응답수. 복수응답이므로 항목별 선택률 합계는 100%를 넘을 수 있습니다.</p></section>
+      <section class="section"><h2>회원/고객 리포트 수요 TOP</h2><div id="memberTopFeatures"></div><p class="note">선택률(0~100%) = 선택 응답수 ÷ 회원/고객 유효응답수. 복수응답이므로 항목별 선택률 합계는 100%를 넘을 수 있습니다.</p></section>
+      <section class="section"><h2>Pilot / 인터뷰 의향</h2><div id="pilotInterest"></div></section>
+      <section class="section"><h2>사업주 예산 범위</h2><div id="ownerBudget"></div></section>
+      <section class="section"><h2>사업주 가격·도입 검토</h2><div id="ownerPriceIntent"></div></section>
+      <section class="section"><h2>트레이너 사용 의향</h2><div id="trainerUseIntent"></div></section>
+      <section class="section"><h2>회원 서비스 영향 인식</h2><div id="memberServiceImpact"></div></section>
+      <section class="section"><h2>회원 추천 의향</h2><div id="memberRecommend"></div></section>
+      <section class="section"><h2>유입 경로</h2><div id="sources"></div></section>
+    </div>
+    <section class="section">
+      <h2>해석 및 집계 기준</h2>
+      <ul id="methodology" class="method"></ul>
+      <p class="note">PDF 저장 버튼은 브라우저 인쇄 화면을 열며, 대상에서 “PDF로 저장”을 선택하면 한글이 포함된 리포트를 로컬 PDF 파일로 저장할 수 있습니다.</p>
+    </section>
+  </section>
+</div>
+</main>
+<script>
+(function(){
+'use strict';
+var password='';
+var summary=null;
+var emailConfigured=false;
+var requestSequence=0;
+var sessionVersion=0;
+var activeSummaryController=null;
+var activeEmailController=null;
+var emailSending=false;
+var $=function(id){return document.getElementById(id)};
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function has(obj,key){return !!obj&&Object.prototype.hasOwnProperty.call(obj,key)}
+function finite(value){return typeof value==='number'&&Number.isFinite(value)}
+function clampPercent(value){return finite(value)?Math.max(0,Math.min(100,value)):null}
+function metric(value){return finite(value)?String(value):'확인 불가'}
+function percent(value){var n=clampPercent(value);return n===null?'확인 불가':n+'%'}
+function setStatus(id,msg,type){
+  var el=$(id);el.textContent=msg||'';
+  el.classList.toggle('err',type==='error');
+  el.classList.toggle('warn',type==='warn');
+}
+function makeError(type,message,status){var e=new Error(message);e.type=type;e.status=status||0;return e}
+function errorText(err){
+  if(err&&err.type==='AUTH')return '인증에 실패했습니다. 관리자 비밀번호를 확인해주세요.';
+  if(err&&err.type==='NETWORK')return '네트워크에 연결할 수 없습니다. 연결 상태를 확인한 뒤 다시 시도해주세요.';
+  if(err&&err.type==='JSON')return '서버 응답 형식을 확인할 수 없습니다. 관리자 API 로그를 확인해주세요.';
+  if(err&&err.type==='HTTP')return '서버 요청이 실패했습니다. (HTTP '+err.status+')';
+  if(err&&err.type==='ABORTED')return '';
+  return (err&&err.message)||'요청을 처리하지 못했습니다.';
+}
+async function api(path,body,controller){
+  var options={
+    method:'POST',
+    credentials:'same-origin',
+    headers:{'Content-Type':'application/json','Accept':'application/json','X-Admin-Password':password},
+    body:JSON.stringify(body||{})
+  };
+  if(controller)options.signal=controller.signal;
+  var res;
+  try{res=await fetch(path,options)}
+  catch(err){
+    if(err&&err.name==='AbortError')throw makeError('ABORTED','요청이 취소되었습니다.');
+    throw makeError('NETWORK','네트워크 오류가 발생했습니다.');
+  }
+  var raw='';
+  try{raw=await res.text()}catch(err){throw makeError('NETWORK','서버 응답을 읽지 못했습니다.');}
+  var data;
+  try{data=raw?JSON.parse(raw):{}}
+  catch(err){throw makeError('JSON','서버가 JSON이 아닌 응답을 반환했습니다.',res.status);}
+  if(res.status===401||res.status===403)throw makeError('AUTH',data.message||'인증 실패',res.status);
+  if(!res.ok)throw makeError('HTTP',data.message||('HTTP '+res.status),res.status);
+  if(!data||data.ok!==true)throw makeError('JSON',data&&data.message?data.message:'응답의 ok 필드를 확인할 수 없습니다.',res.status);
+  return data;
+}
+function formatKST(iso){if(!iso)return '-';try{return new Intl.DateTimeFormat('ko-KR',{dateStyle:'medium',timeStyle:'short',timeZone:'Asia/Seoul'}).format(new Date(iso))}catch(e){return iso}}
+function table(items,showShare){
+  if(!Array.isArray(items))return '<p class="unknown">확인 불가 · 서버 응답에 해당 집계 필드가 없습니다.</p>';
+  if(!items.length)return '<p class="note">집계할 데이터가 없습니다.</p>';
+  var counts=items.map(function(x){return finite(x&&x.count)?x.count:0});
+  var max=Math.max.apply(null,counts)||1;
+  var lastHead=showShare?'응답수 / 선택률(0~100%)':'응답수';
+  return '<table><thead><tr><th class="rank">#</th><th>항목</th><th>'+lastHead+'</th></tr></thead><tbody>'+
+    items.map(function(x,i){
+      var count=finite(x&&x.count)?x.count:null;
+      var share=clampPercent(x&&x.share);
+      var w=count===null?0:Math.round(count/max*100);
+      var shown=showShare?(metric(count)+' / '+(share===null?'확인 불가':share+'%')):metric(count);
+      return '<tr><td class="rank">'+(i+1)+'</td><td>'+esc(x&&x.label)+'<div class="bar" aria-hidden="true"><div class="fill" style="width:'+w+'%"></div></div></td><td>'+shown+'</td></tr>';
+    }).join('')+
+    '</tbody></table>';
+}
+function render(s){
+  if(!s||typeof s!=='object')throw makeError('JSON','summary 필드를 확인할 수 없습니다.');
+  summary=s;
+  $('total').textContent=metric(has(s,'total')?s.total:null);
+  ['owner','trainer','member'].forEach(function(k){
+    var role=s.byRole&&s.byRole[k];
+    $(k+'Count').textContent=metric(role&&has(role,'count')?role.count:null);
+    $(k+'Share').textContent=percent(role&&has(role,'share')?role.share:null);
+  });
+  $('contactCount').textContent=metric(s.contactConsent&&has(s.contactConsent,'count')?s.contactConsent.count:null);
+  $('contactShare').textContent=percent(s.contactConsent&&has(s.contactConsent,'share')?s.contactConsent.share:null);
+  $('avgTime').textContent=metric(has(s,'avgCompletionSeconds')?s.avgCompletionSeconds:null);
+  $('duplicateCount').textContent=metric(has(s,'duplicateCount')?s.duplicateCount:null);
+  $('generatedMeta').textContent=(s.generatedAt?'생성 '+formatKST(s.generatedAt):'생성 시각 확인 불가')+' · 집계 범위 '+$('rangeSelect').selectedOptions[0].text+
+    (s.period&&s.period.first?' · 최초 응답 '+formatKST(s.period.first):'')+(s.period&&s.period.last?' · 최근 응답 '+formatKST(s.period.last):'');
+  var roleFeature=s.topFeaturesByRole||{};
+  $('ownerTopFeatures').innerHTML=table(roleFeature.owner&&has(roleFeature.owner,'items')?roleFeature.owner.items:null,true);
+  $('trainerTopFeatures').innerHTML=table(roleFeature.trainer&&has(roleFeature.trainer,'items')?roleFeature.trainer.items:null,true);
+  $('memberTopFeatures').innerHTML=table(roleFeature.member&&has(roleFeature.member,'items')?roleFeature.member.items:null,true);
+  ['pilotInterest','ownerBudget','ownerPriceIntent','trainerUseIntent','memberServiceImpact','memberRecommend','sources'].forEach(function(id){$(id).innerHTML=table(has(s,id)?s[id]:null,false)});
+  $('methodology').innerHTML=Array.isArray(s.methodology)&&s.methodology.length?s.methodology.map(function(x){return '<li>'+esc(x)+'</li>'}).join(''):'<li>확인 불가 · 서버 응답에 집계 기준이 없습니다.</li>';
+}
+function setSummaryBusy(busy){
+  $('loginBtn').disabled=busy;
+  $('refreshBtn').disabled=busy;
+  $('rangeSelect').disabled=busy;
+  $('emailBtn').disabled=busy||emailSending||!emailConfigured;
+  $('loginPanel').setAttribute('aria-busy',busy?'true':'false');
+  $('dashboard').setAttribute('aria-busy',busy?'true':'false');
+}
+async function load(isLogin){
+  var currentSession=sessionVersion;
+  var currentRequest=++requestSequence;
+  if(activeSummaryController)activeSummaryController.abort();
+  activeSummaryController=typeof AbortController==='function'?new AbortController():null;
+  setSummaryBusy(true);
+  setStatus(isLogin?'loginStatus':'reportStatus',isLogin?'비밀번호를 확인하고 있습니다.':'리포트를 불러오는 중입니다.');
+  try{
+    var d=await api('/.netlify/functions/admin-summary',{range:$('rangeSelect').value},activeSummaryController);
+    if(currentSession!==sessionVersion||currentRequest!==requestSequence||!password)return;
+    emailConfigured=d.emailConfigured===true;
+    $('emailBtn').title=emailConfigured?'':'RESEND_API_KEY / REPORT_FROM_EMAIL / REPORT_TO_EMAIL 환경변수를 설정하세요.';
+    render(d.summary);
+    if(isLogin){$('loginPanel').style.display='none';$('dashboard').style.display='block';$('password').value='';setStatus('loginStatus','');}
+    setStatus('reportStatus',emailConfigured?'최신 집계가 반영되었습니다.':'최신 집계가 반영되었습니다. 이메일 환경변수는 아직 설정되지 않았습니다.');
+  }catch(err){
+    if(currentSession!==sessionVersion||currentRequest!==requestSequence||err.type==='ABORTED')return;
+    if(isLogin)password='';
+    setStatus(isLogin?'loginStatus':'reportStatus',errorText(err),'error');
+  }finally{
+    if(currentSession===sessionVersion&&currentRequest===requestSequence)setSummaryBusy(false);
+  }
+}
+$('loginBtn').addEventListener('click',async function(){
+  var entered=$('password').value;
+  if(!entered){setStatus('loginStatus','비밀번호를 입력하세요.','error');$('password').focus();return}
+  sessionVersion++;
+  password=entered;
+  await load(true);
+});
+$('password').addEventListener('keydown',function(e){if(e.key==='Enter')$('loginBtn').click()});
+$('refreshBtn').addEventListener('click',function(){load(false)});
+$('rangeSelect').addEventListener('change',function(){load(false)});
+$('pdfBtn').addEventListener('click',function(){window.print()});
+$('emailBtn').addEventListener('click',async function(){
+  if(emailSending||!emailConfigured||!password)return;
+  var currentSession=sessionVersion;
+  emailSending=true;
+  activeEmailController=typeof AbortController==='function'?new AbortController():null;
+  setSummaryBusy(false);
+  setStatus('reportStatus','요약 이메일을 생성해 전송하는 중입니다.');
+  try{
+    var d=await api('/.netlify/functions/send-report',{range:$('rangeSelect').value},activeEmailController);
+    if(currentSession===sessionVersion&&password)setStatus('reportStatus',d.message||'이메일을 전송했습니다.');
+  }catch(err){
+    if(currentSession===sessionVersion&&err.type!=='ABORTED')setStatus('reportStatus',errorText(err),'error');
+  }finally{
+    if(currentSession===sessionVersion){emailSending=false;setSummaryBusy(false);}
+  }
+});
+$('logoutBtn').addEventListener('click',function(){
+  sessionVersion++;requestSequence++;
+  if(activeSummaryController)activeSummaryController.abort();
+  if(activeEmailController)activeEmailController.abort();
+  password='';summary=null;emailConfigured=false;emailSending=false;
+  $('dashboard').style.display='none';$('loginPanel').style.display='block';$('password').value='';
+  setSummaryBusy(false);setStatus('reportStatus','');setStatus('loginStatus','로그아웃되었습니다.');$('password').focus();
+});
+})();
+</script>
+</body>
+</html>

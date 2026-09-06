@@ -1,0 +1,13 @@
+{
+  "folders": [
+    {
+      "name": "LIGHT ONE 안정화 프로젝트",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "files.encoding": "utf8",
+    "files.eol": "\n",
+    "editor.formatOnSave": false
+  }
+}

@@ -35,3 +35,6 @@ Thumbs.db
 private_media/
 raw_media/
 uploads/
+# Immutable survey baseline exception
+!/baselines/survey-v1.2.1/.vscode/
+!/baselines/survey-v1.2.1/.vscode/*.json

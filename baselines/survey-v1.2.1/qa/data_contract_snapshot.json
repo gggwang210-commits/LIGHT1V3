@@ -1,0 +1,2793 @@
+{
+  "source_file": "LIGHTONE_v1.2.1_NETLIFY_DEPLOY.zip/index.html",
+  "source_sha256": "b71703d988ef91b2fc5c3ac033f749bfc64745a1529e3f6f1467d1d037e25e2b",
+  "survey_version": "1.2.1",
+  "contract": {
+    "forms": [
+      {
+        "name": "lightone-member",
+        "method": "POST",
+        "action": "/.netlify/functions/submit-survey"
+      },
+      {
+        "name": "lightone-owner",
+        "method": "POST",
+        "action": "/.netlify/functions/submit-survey"
+      },
+      {
+        "name": "lightone-trainer",
+        "method": "POST",
+        "action": "/.netlify/functions/submit-survey"
+      }
+    ],
+    "controls": [
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M01_이용_상태",
+        "value": "과거 PT 이용"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M01_이용_상태",
+        "value": "기타"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M01_이용_상태",
+        "value": "운동 시작 준비 중"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M01_이용_상태",
+        "value": "헬스장만 이용"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M01_이용_상태",
+        "value": "현재 PT 이용 중"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M02_이용_기간",
+        "value": "1~3개월"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M02_이용_기간",
+        "value": "1개월 미만"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M02_이용_기간",
+        "value": "1년 이상"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M02_이용_기간",
+        "value": "3~6개월"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M02_이용_기간",
+        "value": "6개월~1년"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M03_운동_빈도",
+        "value": "주 1회 이하"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M03_운동_빈도",
+        "value": "주 2회"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M03_운동_빈도",
+        "value": "주 3회"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M03_운동_빈도",
+        "value": "주 4회"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M03_운동_빈도",
+        "value": "주 5회 이상"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M04_운동_목적",
+        "value": "근력·체형 개선"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M04_운동_목적",
+        "value": "자세·컨디션 관리"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M04_운동_목적",
+        "value": "체력·건강 유지"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M04_운동_목적",
+        "value": "체중 감량"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M04_운동_목적",
+        "value": "취미·스트레스 해소"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M05_피드백_만족",
+        "value": "만족"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M05_피드백_만족",
+        "value": "매우 만족"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M05_피드백_만족",
+        "value": "매우 아쉬움"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M05_피드백_만족",
+        "value": "보통"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M05_피드백_만족",
+        "value": "아쉬움"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M06_수업외_관리",
+        "value": "거의 없음"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M06_수업외_관리",
+        "value": "많이"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M06_수업외_관리",
+        "value": "매우 많이"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M06_수업외_관리",
+        "value": "보통"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M06_수업외_관리",
+        "value": "조금"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M07_기록_확인",
+        "value": "가끔"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M07_기록_확인",
+        "value": "보통"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M07_기록_확인",
+        "value": "자주"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M07_기록_확인",
+        "value": "전혀 못 함"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M07_기록_확인",
+        "value": "항상"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M08_아쉬운_점",
+        "value": "기록·변화 확인이 어려움"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M08_아쉬운_점",
+        "value": "동기부여가 부족함"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M08_아쉬운_점",
+        "value": "소통이 불편함"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M08_아쉬운_점",
+        "value": "수업 외 피드백이 적음"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M08_아쉬운_점",
+        "value": "특별히 없음"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "M09_원하는_리포트",
+        "value": "다음 목표 제안"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "M09_원하는_리포트",
+        "value": "식단 제안"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "M09_원하는_리포트",
+        "value": "운동 수행 요약"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "M09_원하는_리포트",
+        "value": "컨디션 변화 그래프"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "M09_원하는_리포트",
+        "value": "트레이너 코멘트"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "M10_원하는_알림",
+        "value": "목표 달성"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "M10_원하는_알림",
+        "value": "수업 리마인드"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "M10_원하는_알림",
+        "value": "식단·홈트 안내"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "M10_원하는_알림",
+        "value": "알림 필요 없음"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "M10_원하는_알림",
+        "value": "컨디션 변화"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M11_리포트_주기",
+        "value": "격주"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M11_리포트_주기",
+        "value": "수업마다"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M11_리포트_주기",
+        "value": "월간"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M11_리포트_주기",
+        "value": "주간"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M11_리포트_주기",
+        "value": "필요할 때만"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M12_관리_관심",
+        "value": "관심 있음"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M12_관리_관심",
+        "value": "낮음"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M12_관리_관심",
+        "value": "매우 관심 있음"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M12_관리_관심",
+        "value": "보통"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M12_관리_관심",
+        "value": "없음"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M13_재등록_의향",
+        "value": "낮음"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M13_재등록_의향",
+        "value": "높음"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M13_재등록_의향",
+        "value": "매우 높음"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M13_재등록_의향",
+        "value": "미정 / 해당 없음"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M13_재등록_의향",
+        "value": "보통"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M14_서비스_의향",
+        "value": "매우 긍정적인 영향을 줄 것 같다"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M14_서비스_의향",
+        "value": "별다른 영향을 주지 않을 것 같다"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M14_서비스_의향",
+        "value": "어느 정도 긍정적인 영향을 줄 것 같다"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M14_서비스_의향",
+        "value": "오히려 부정적인 영향을 줄 수 있다"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M14_서비스_의향",
+        "value": "잘 모르겠다"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "hidden",
+        "name": "M14_해석기준",
+        "value": "응답자의 계속 이용 판단에 대한 인식 조사이며 재등록 효과 검증으로 해석하지 않음"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M15_추천_의향",
+        "value": "그렇다"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M15_추천_의향",
+        "value": "매우 그렇다"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M15_추천_의향",
+        "value": "보통"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M15_추천_의향",
+        "value": "아니다"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "M15_추천_의향",
+        "value": "전혀 아니다"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "text",
+        "name": "_honey",
+        "value": ""
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "hidden",
+        "name": "form-name",
+        "value": "lightone-member"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "member_설문응답_동의",
+        "value": "동의하지 않음"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "member_설문응답_동의",
+        "value": "동의함"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "member_연락처_동의",
+        "value": "동의하지 않음"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "member_연락처_동의",
+        "value": "동의함"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "member_연령확인",
+        "value": "만 14세 미만"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "radio",
+        "name": "member_연령확인",
+        "value": "만 14세 이상"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "text",
+        "name": "담당자명",
+        "value": ""
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "hidden",
+        "name": "분석_포함",
+        "value": "true"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "hidden",
+        "name": "서버_수신_시각",
+        "value": ""
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "hidden",
+        "name": "선택_요약",
+        "value": ""
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "hidden",
+        "name": "설문_버전",
+        "value": ""
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "hidden",
+        "name": "설문_유형",
+        "value": ""
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "hidden",
+        "name": "설문응답_JSON",
+        "value": ""
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "hidden",
+        "name": "설문응답_수집동의",
+        "value": "false"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "text",
+        "name": "센터명_소속",
+        "value": ""
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "hidden",
+        "name": "수치_문항수",
+        "value": "0"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "hidden",
+        "name": "수치_평균",
+        "value": ""
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "hidden",
+        "name": "수치화_JSON",
+        "value": ""
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "hidden",
+        "name": "시작_시각",
+        "value": ""
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "hidden",
+        "name": "연락정보_JSON",
+        "value": ""
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "tel",
+        "name": "연락처",
+        "value": ""
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "hidden",
+        "name": "연락처_제공동의",
+        "value": "false"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "hidden",
+        "name": "완료_초",
+        "value": ""
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "hidden",
+        "name": "유입_경로",
+        "value": ""
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "hidden",
+        "name": "응답ID",
+        "value": ""
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "hidden",
+        "name": "제출_시각",
+        "value": ""
+      },
+      {
+        "form": "lightone-member",
+        "tag": "textarea",
+        "type": "",
+        "name": "추가_요청사항",
+        "value": ""
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "hidden",
+        "name": "테스트_응답",
+        "value": "false"
+      },
+      {
+        "form": "lightone-member",
+        "tag": "input",
+        "type": "email",
+        "name": "회신_이메일",
+        "value": ""
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O01_직책",
+        "value": "공동 대표"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O01_직책",
+        "value": "단독 원장 / 대표"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O01_직책",
+        "value": "센터장 / 총괄"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O01_직책",
+        "value": "예비 창업 / 준비 중"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O01_직책",
+        "value": "프랜차이즈 본부"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O02_센터_규모",
+        "value": "1인 운영"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O02_센터_규모",
+        "value": "오픈 예정 / 미정"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O02_센터_규모",
+        "value": "트레이너 2~3명"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O02_센터_규모",
+        "value": "트레이너 4~7명"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O02_센터_규모",
+        "value": "트레이너 8명 이상"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "O03_관리방식",
+        "value": "기존 CRM / 앱"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "O03_관리방식",
+        "value": "수기 / 종이 기록"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "O03_관리방식",
+        "value": "엑셀 / 구글시트"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "O03_관리방식",
+        "value": "체계가 거의 없음"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "O03_관리방식",
+        "value": "카카오톡 / 문자"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O04_월간_회원수",
+        "value": "10명 이하"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O04_월간_회원수",
+        "value": "11~30명"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O04_월간_회원수",
+        "value": "150명 이상"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O04_월간_회원수",
+        "value": "31~70명"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O04_월간_회원수",
+        "value": "71~150명"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O05_기록업무_부담",
+        "value": "거의 없음"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O05_기록업무_부담",
+        "value": "매우 큼"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O05_기록업무_부담",
+        "value": "보통"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O05_기록업무_부담",
+        "value": "조금 있음"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O05_기록업무_부담",
+        "value": "큰 편"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O06_재등록_관리",
+        "value": "거의 없음"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O06_재등록_관리",
+        "value": "매우 큼"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O06_재등록_관리",
+        "value": "보통"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O06_재등록_관리",
+        "value": "조금 있음"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O06_재등록_관리",
+        "value": "큰 편"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O07_품질_편차",
+        "value": "거의 없음"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O07_품질_편차",
+        "value": "매우 큼"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O07_품질_편차",
+        "value": "보통"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O07_품질_편차",
+        "value": "조금 있음"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O07_품질_편차",
+        "value": "큰 편"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O08_신규_유치",
+        "value": "거의 없음"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O08_신규_유치",
+        "value": "매우 큼"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O08_신규_유치",
+        "value": "보통"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O08_신규_유치",
+        "value": "조금 있음"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O08_신규_유치",
+        "value": "큰 편"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "O09_우선기능",
+        "value": "AI 리포트 자동화"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "O09_우선기능",
+        "value": "운영 대시보드 통계"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "O09_우선기능",
+        "value": "재등록 가능성 신호"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "O09_우선기능",
+        "value": "트레이너 업무 관리"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "O09_우선기능",
+        "value": "회원 컨디션 요약"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "O10_대시보드_지표",
+        "value": "매출 흐름"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "O10_대시보드_지표",
+        "value": "재등록 예상"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "O10_대시보드_지표",
+        "value": "트레이너별 성과"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "O10_대시보드_지표",
+        "value": "회원 만족도"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "O10_대시보드_지표",
+        "value": "회원 출석·이탈"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "O11_알림",
+        "value": "신규 상담 유입"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "O11_알림",
+        "value": "이탈 위험 회원"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "O11_알림",
+        "value": "재등록 시점 도래"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "O11_알림",
+        "value": "정기 요약 리포트"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "O11_알림",
+        "value": "트레이너 업무 지연"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "O12_데이터_활용",
+        "value": "상담·피드백 이력"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "O12_데이터_활용",
+        "value": "재등록 이력"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "O12_데이터_활용",
+        "value": "출석 / 예약"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "O12_데이터_활용",
+        "value": "트레이너 수업 기록"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "O12_데이터_활용",
+        "value": "회원 컨디션 변화"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O13_검토시점",
+        "value": "1개월 이내"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O13_검토시점",
+        "value": "3개월 이내"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O13_검토시점",
+        "value": "6개월 이내"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O13_검토시점",
+        "value": "장기 검토"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O13_검토시점",
+        "value": "즉시 검토"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O14_도입방식",
+        "value": "1개 센터 테스트"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O14_도입방식",
+        "value": "무료 데모 먼저"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O14_도입방식",
+        "value": "상담 후 결정"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O14_도입방식",
+        "value": "일부 트레이너 테스트"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O14_도입방식",
+        "value": "전체 센터 도입"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "O15_필요자료",
+        "value": "가격 안내"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "O15_필요자료",
+        "value": "기능 소개서"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "O15_필요자료",
+        "value": "데모 영상"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "O15_필요자료",
+        "value": "도입 프로세스"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "O15_필요자료",
+        "value": "활용 사례"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O16_중요조건",
+        "value": "리포트 품질"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O16_중요조건",
+        "value": "비용 대비 효과"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O16_중요조건",
+        "value": "사용 편의성"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O16_중요조건",
+        "value": "트레이너 업무 감소"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O16_중요조건",
+        "value": "회원 만족·재등록"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O17A_추가입력_허용",
+        "value": "거의 추가 입력 없음만 가능"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O17A_추가입력_허용",
+        "value": "수업당 1분 이내"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O17A_추가입력_허용",
+        "value": "수업당 3분 이내"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O17A_추가입력_허용",
+        "value": "수업당 5분 이내"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O17A_추가입력_허용",
+        "value": "추가 입력이 필요하면 도입하기 어려움"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O17B_가격_도입검토",
+        "value": "무료 Pilot 이후 검토"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O17B_가격_도입검토",
+        "value": "비용을 지불할 의향 없음"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O17B_가격_도입검토",
+        "value": "아직 모르겠음"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O17B_가격_도입검토",
+        "value": "적극적으로 검토"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O17B_가격_도입검토",
+        "value": "효과 확인 후 검토"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O17_예산_범위",
+        "value": "__BAND1__"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O17_예산_범위",
+        "value": "__BAND2__"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O17_예산_범위",
+        "value": "__BAND3__"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O17_예산_범위",
+        "value": "__BAND4__"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O17_예산_범위",
+        "value": "예산 미정 / 검토 전"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "O18_상담목적",
+        "value": "가격/계약 조건"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "O18_상담목적",
+        "value": "기능 데모"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "O18_상담목적",
+        "value": "데이터 관리 방식"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "O18_상담목적",
+        "value": "도입 일정"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "O18_상담목적",
+        "value": "센터 적용 방식"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O19_연락방식",
+        "value": "문자"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O19_연락방식",
+        "value": "온라인 미팅"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O19_연락방식",
+        "value": "이메일"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O19_연락방식",
+        "value": "전화"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O19_연락방식",
+        "value": "카카오톡"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "O20_연락시간",
+        "value": "오전 11시~오후 1시"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "O20_연락시간",
+        "value": "오전 9~11시"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "O20_연락시간",
+        "value": "오후 1~3시"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "O20_연락시간",
+        "value": "오후 3~6시"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "O20_연락시간",
+        "value": "저녁 시간"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O21_Pilot_의향",
+        "value": "Pilot 참여 의향 있음"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O21_Pilot_의향",
+        "value": "아직 모르겠음"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O21_Pilot_의향",
+        "value": "인터뷰만 가능"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O21_Pilot_의향",
+        "value": "자료를 먼저 보고 싶음"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "O21_Pilot_의향",
+        "value": "현재 참여 의향 없음"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "text",
+        "name": "_honey",
+        "value": ""
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "hidden",
+        "name": "form-name",
+        "value": "lightone-owner"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "owner_설문응답_동의",
+        "value": "동의하지 않음"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "owner_설문응답_동의",
+        "value": "동의함"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "owner_연락처_동의",
+        "value": "동의하지 않음"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "radio",
+        "name": "owner_연락처_동의",
+        "value": "동의함"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "text",
+        "name": "담당자명",
+        "value": ""
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "hidden",
+        "name": "분석_포함",
+        "value": "true"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "hidden",
+        "name": "서버_수신_시각",
+        "value": ""
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "hidden",
+        "name": "선택_요약",
+        "value": ""
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "hidden",
+        "name": "설문_버전",
+        "value": ""
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "hidden",
+        "name": "설문_유형",
+        "value": ""
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "hidden",
+        "name": "설문응답_JSON",
+        "value": ""
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "hidden",
+        "name": "설문응답_수집동의",
+        "value": "false"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "text",
+        "name": "센터명_소속",
+        "value": ""
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "hidden",
+        "name": "수치_문항수",
+        "value": "0"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "hidden",
+        "name": "수치_평균",
+        "value": ""
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "hidden",
+        "name": "수치화_JSON",
+        "value": ""
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "hidden",
+        "name": "시작_시각",
+        "value": ""
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "hidden",
+        "name": "연락정보_JSON",
+        "value": ""
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "tel",
+        "name": "연락처",
+        "value": ""
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "hidden",
+        "name": "연락처_제공동의",
+        "value": "false"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "hidden",
+        "name": "완료_초",
+        "value": ""
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "hidden",
+        "name": "유입_경로",
+        "value": ""
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "hidden",
+        "name": "응답ID",
+        "value": ""
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "hidden",
+        "name": "제출_시각",
+        "value": ""
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "textarea",
+        "type": "",
+        "name": "추가_요청사항",
+        "value": ""
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "hidden",
+        "name": "테스트_응답",
+        "value": "false"
+      },
+      {
+        "form": "lightone-owner",
+        "tag": "input",
+        "type": "email",
+        "name": "회신_이메일",
+        "value": ""
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T01_경력",
+        "value": "10년 이상"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T01_경력",
+        "value": "1~3년"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T01_경력",
+        "value": "1년 미만"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T01_경력",
+        "value": "3~5년"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T01_경력",
+        "value": "5~10년"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T02_담당_회원수",
+        "value": "10명 이하"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T02_담당_회원수",
+        "value": "11~20명"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T02_담당_회원수",
+        "value": "21~30명"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T02_담당_회원수",
+        "value": "31~50명"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T02_담당_회원수",
+        "value": "50명 이상"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "T03_기록방식",
+        "value": "거의 안 함"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "T03_기록방식",
+        "value": "수기 / 종이"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "T03_기록방식",
+        "value": "엑셀 / 시트"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "T03_기록방식",
+        "value": "카카오톡 / 문자"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "T03_기록방식",
+        "value": "휴대폰 메모"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T04_기록_시간",
+        "value": "1~2시간"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T04_기록_시간",
+        "value": "2시간 이상"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T04_기록_시간",
+        "value": "30분 미만"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T04_기록_시간",
+        "value": "30분~1시간"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T04_기록_시간",
+        "value": "거의 없음"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T05_기록_부담",
+        "value": "거의 없음"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T05_기록_부담",
+        "value": "매우 큼"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T05_기록_부담",
+        "value": "보통"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T05_기록_부담",
+        "value": "조금 있음"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T05_기록_부담",
+        "value": "큰 편"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T06_소통_부담",
+        "value": "거의 없음"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T06_소통_부담",
+        "value": "매우 큼"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T06_소통_부담",
+        "value": "보통"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T06_소통_부담",
+        "value": "조금 있음"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T06_소통_부담",
+        "value": "큰 편"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T07_피드백_준비",
+        "value": "거의 없음"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T07_피드백_준비",
+        "value": "매우 큼"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T07_피드백_준비",
+        "value": "보통"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T07_피드백_준비",
+        "value": "조금 있음"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T07_피드백_준비",
+        "value": "큰 편"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T08_변화_추적",
+        "value": "거의 어렵지 않음"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T08_변화_추적",
+        "value": "매우 어려움"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T08_변화_추적",
+        "value": "보통"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T08_변화_추적",
+        "value": "어려움"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T08_변화_추적",
+        "value": "조금 어려움"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "T09_우선기능",
+        "value": "AI 리포트 자동 작성"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "T09_우선기능",
+        "value": "수업 기록 자동 정리"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "T09_우선기능",
+        "value": "운동/식단 제안 도우미"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "T09_우선기능",
+        "value": "회원 메시지 자동화"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "T09_우선기능",
+        "value": "회원 컨디션 요약"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "T10_리포트_형태",
+        "value": "상세 분석형"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "T10_리포트_형태",
+        "value": "수업 코멘트형"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "T10_리포트_형태",
+        "value": "월간 리포트"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "T10_리포트_형태",
+        "value": "주간 리포트"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "T10_리포트_형태",
+        "value": "짧은 요약형"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "T11_알림",
+        "value": "기록 누락 알림"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "T11_알림",
+        "value": "목표 달성 시점"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "T11_알림",
+        "value": "수업 리마인드"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "T11_알림",
+        "value": "회원 이탈 신호"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "T11_알림",
+        "value": "회원 컨디션 변화"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "T12_데이터_활용",
+        "value": "목표 대비 진행"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "T12_데이터_활용",
+        "value": "상담·피드백 이력"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "T12_데이터_활용",
+        "value": "운동 수행 기록"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "T12_데이터_활용",
+        "value": "출석 / 예약"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "T12_데이터_활용",
+        "value": "컨디션 변화"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T13_학습_부담",
+        "value": "매우 큼"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T13_학습_부담",
+        "value": "보통"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T13_학습_부담",
+        "value": "전혀 없음"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T13_학습_부담",
+        "value": "조금 있음"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T13_학습_부담",
+        "value": "큰 편"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T14_사용_의향",
+        "value": "낮음"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T14_사용_의향",
+        "value": "높음"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T14_사용_의향",
+        "value": "매우 높음"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T14_사용_의향",
+        "value": "모름"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T14_사용_의향",
+        "value": "보통"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T15_중요조건",
+        "value": "기록이 자동"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T15_중요조건",
+        "value": "모바일에서 편함"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T15_중요조건",
+        "value": "입력이 빠름"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T15_중요조건",
+        "value": "화면이 직관적"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T15_중요조건",
+        "value": "회원이 만족"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "T16_상담목적",
+        "value": "기록 입력 방식"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "T16_상담목적",
+        "value": "도입 후 변화"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "T16_상담목적",
+        "value": "리포트 예시"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "T16_상담목적",
+        "value": "실제 사용 화면"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "checkbox",
+        "name": "T16_상담목적",
+        "value": "특별히 없음"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T17_추가입력_허용",
+        "value": "수업당 1분 이내"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T17_추가입력_허용",
+        "value": "수업당 3분 이내"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T17_추가입력_허용",
+        "value": "수업당 5분 이내"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T17_추가입력_허용",
+        "value": "추가 입력 없이 자동 기록만 가능"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T17_추가입력_허용",
+        "value": "추가 입력이 있다면 사용하기 어려움"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T18_기록방식_선호",
+        "value": "시스템 초안에 트레이너가 보완"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T18_기록방식_선호",
+        "value": "자동 기록 후 트레이너 검토"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T18_기록방식_선호",
+        "value": "잘 모르겠음"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T18_기록방식_선호",
+        "value": "트레이너가 직접 입력"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T18_기록방식_선호",
+        "value": "현재 방식 유지"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T19_리포트_검토_의향",
+        "value": "검토 절차가 있으면 사용하기 어려움"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T19_리포트_검토_의향",
+        "value": "매번 확인하고 수정 가능"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T19_리포트_검토_의향",
+        "value": "잘 모르겠음"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T19_리포트_검토_의향",
+        "value": "짧은 확인만 가능"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T19_리포트_검토_의향",
+        "value": "필요한 경우에만 확인 가능"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T20_미사용_이유",
+        "value": "기존 도구로 충분함"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T20_미사용_이유",
+        "value": "비용이 부담됨"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T20_미사용_이유",
+        "value": "사용법이 복잡함"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T20_미사용_이유",
+        "value": "입력할 내용이 늘어남"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T20_미사용_이유",
+        "value": "회원에게 필요하지 않음"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T21_Pilot_의향",
+        "value": "Pilot 참여 의향 있음"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T21_Pilot_의향",
+        "value": "아직 모르겠음"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T21_Pilot_의향",
+        "value": "인터뷰만 가능"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T21_Pilot_의향",
+        "value": "자료를 먼저 보고 싶음"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "T21_Pilot_의향",
+        "value": "현재 참여 의향 없음"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "text",
+        "name": "_honey",
+        "value": ""
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "hidden",
+        "name": "form-name",
+        "value": "lightone-trainer"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "trainer_설문응답_동의",
+        "value": "동의하지 않음"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "trainer_설문응답_동의",
+        "value": "동의함"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "trainer_연락처_동의",
+        "value": "동의하지 않음"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "radio",
+        "name": "trainer_연락처_동의",
+        "value": "동의함"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "text",
+        "name": "담당자명",
+        "value": ""
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "hidden",
+        "name": "분석_포함",
+        "value": "true"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "hidden",
+        "name": "서버_수신_시각",
+        "value": ""
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "hidden",
+        "name": "선택_요약",
+        "value": ""
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "hidden",
+        "name": "설문_버전",
+        "value": ""
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "hidden",
+        "name": "설문_유형",
+        "value": ""
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "hidden",
+        "name": "설문응답_JSON",
+        "value": ""
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "hidden",
+        "name": "설문응답_수집동의",
+        "value": "false"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "text",
+        "name": "센터명_소속",
+        "value": ""
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "hidden",
+        "name": "수치_문항수",
+        "value": "0"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "hidden",
+        "name": "수치_평균",
+        "value": ""
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "hidden",
+        "name": "수치화_JSON",
+        "value": ""
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "hidden",
+        "name": "시작_시각",
+        "value": ""
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "hidden",
+        "name": "연락정보_JSON",
+        "value": ""
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "tel",
+        "name": "연락처",
+        "value": ""
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "hidden",
+        "name": "연락처_제공동의",
+        "value": "false"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "hidden",
+        "name": "완료_초",
+        "value": ""
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "hidden",
+        "name": "유입_경로",
+        "value": ""
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "hidden",
+        "name": "응답ID",
+        "value": ""
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "hidden",
+        "name": "제출_시각",
+        "value": ""
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "textarea",
+        "type": "",
+        "name": "추가_요청사항",
+        "value": ""
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "hidden",
+        "name": "테스트_응답",
+        "value": "false"
+      },
+      {
+        "form": "lightone-trainer",
+        "tag": "input",
+        "type": "email",
+        "name": "회신_이메일",
+        "value": ""
+      }
+    ],
+    "questions": [
+      {
+        "id": "q_M05_피드백_만족",
+        "data_cond": "has_service",
+        "data_max": ""
+      },
+      {
+        "id": "q_M09_원하는_리포트",
+        "data_cond": "",
+        "data_max": "3"
+      },
+      {
+        "id": "q_M10_원하는_알림",
+        "data_cond": "",
+        "data_max": "3"
+      },
+      {
+        "id": "q_O07_품질_편차",
+        "data_cond": "multi_trainer",
+        "data_max": ""
+      },
+      {
+        "id": "q_O09_우선기능",
+        "data_cond": "",
+        "data_max": "3"
+      },
+      {
+        "id": "q_O10_대시보드_지표",
+        "data_cond": "",
+        "data_max": "3"
+      },
+      {
+        "id": "q_O11_알림",
+        "data_cond": "",
+        "data_max": "3"
+      },
+      {
+        "id": "q_O12_데이터_활용",
+        "data_cond": "",
+        "data_max": "3"
+      },
+      {
+        "id": "q_O15_필요자료",
+        "data_cond": "",
+        "data_max": "3"
+      },
+      {
+        "id": "q_O18_상담목적",
+        "data_cond": "",
+        "data_max": "3"
+      },
+      {
+        "id": "q_T09_우선기능",
+        "data_cond": "",
+        "data_max": "3"
+      },
+      {
+        "id": "q_T11_알림",
+        "data_cond": "",
+        "data_max": "3"
+      },
+      {
+        "id": "q_T12_데이터_활용",
+        "data_cond": "",
+        "data_max": "3"
+      },
+      {
+        "id": "q_T16_상담목적",
+        "data_cond": "",
+        "data_max": "3"
+      }
+    ]
+  }
+}

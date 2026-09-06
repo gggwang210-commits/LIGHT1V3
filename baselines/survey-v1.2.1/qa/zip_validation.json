@@ -1,0 +1,8 @@
+{
+  "tested_at": "2026-09-04T23:30:00+09:00",
+  "status": "PASS",
+  "testzip": "PASS",
+  "single_project_root": "LIGHTONE_VSCODE_STABLE_v1.2.1",
+  "unsafe_paths": [],
+  "note": "최종 패키징 뒤 동일 검사 명령을 다시 실행합니다."
+}

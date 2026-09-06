@@ -1,0 +1,21 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "LIGHT ONE: 정적 검증",
+      "type": "process",
+      "command": "python",
+      "args": ["${workspaceFolder}/scripts/verify_project.py"],
+      "problemMatcher": [],
+      "group": {"kind": "test", "isDefault": true}
+    },
+    {
+      "label": "LIGHT ONE: 로컬 미리보기",
+      "type": "process",
+      "command": "python",
+      "args": ["-m", "http.server", "5500", "--directory", "${workspaceFolder}"],
+      "isBackground": true,
+      "problemMatcher": []
+    }
+  ]
+}

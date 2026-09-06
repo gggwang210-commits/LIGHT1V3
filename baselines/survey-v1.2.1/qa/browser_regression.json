@@ -1,0 +1,78 @@
+{
+  "generated_at": "2026-09-04T23:26:36+09:00",
+  "environment": "Codex in-app Chromium browser, local HTTP server",
+  "overall": "PASS",
+  "tests": [
+    {
+      "name": "첫 화면과 역할 선택",
+      "status": "PASS",
+      "evidence": "현장 수요 조사 제목, 서비스 용도, owner/trainer/member 역할 버튼 3개, 대시보드 예시 표기 확인"
+    },
+    {
+      "name": "반응형 가로 넘침",
+      "status": "PASS",
+      "viewports": [
+        {"width": 320, "overflow_px": 0},
+        {"width": 375, "overflow_px": 0},
+        {"width": 390, "overflow_px": 0},
+        {"width": 768, "overflow_px": 0},
+        {"width": 1024, "overflow_px": 0},
+        {"width": 1440, "overflow_px": 0}
+      ]
+    },
+    {
+      "name": "설문 검증과 첫 오류 포커스",
+      "status": "PASS",
+      "evidence": "미응답 상태에서 다음 단계 클릭 시 오류 4건 표시, O01 첫 라디오로 포커스 이동"
+    },
+    {
+      "name": "연락 미동의 제출",
+      "status": "PASS",
+      "evidence": {
+        "preview_success": true,
+        "role": "owner",
+        "survey_version": "1.2.1",
+        "contact_consent": "false",
+        "forbidden_contact_keys": [],
+        "preview_contact_storage": "false"
+      }
+    },
+    {
+      "name": "관리자 누락값과 선택률",
+      "status": "PASS",
+      "evidence": "누락된 평균 완료시간·중복 제외는 확인 불가로 표시, 합성 선택률 125는 100%로 제한"
+    },
+    {
+      "name": "기간 요청 경쟁상태",
+      "status": "PASS",
+      "evidence": {"latest_range": "90d", "latest_total": "90", "late_7d_response": "aborted-before-fulfill"}
+    },
+    {
+      "name": "이메일 중복 실행",
+      "status": "PASS",
+      "evidence": {"disabled_during_request": true, "second_request_count": 0}
+    },
+    {
+      "name": "로그아웃 뒤 지연 응답",
+      "status": "PASS",
+      "evidence": {"login_visible": true, "dashboard_visible": false, "late_response": "aborted-before-fulfill"}
+    },
+    {
+      "name": "관리자 오류 구분",
+      "status": "PASS",
+      "evidence": {
+        "auth": "인증에 실패했습니다. 관리자 비밀번호를 확인해주세요.",
+        "http": "서버 요청이 실패했습니다. (HTTP 500)",
+        "json": "서버 응답 형식을 확인할 수 없습니다. 관리자 API 로그를 확인해주세요.",
+        "network": "네트워크에 연결할 수 없습니다. 연결 상태를 확인한 뒤 다시 시도해주세요."
+      }
+    }
+  ],
+  "not_tested": [
+    "실제 Netlify 저장",
+    "실제 운영 집계",
+    "실제 이메일 발송",
+    "실제 Airtable 변경",
+    "운영 배포"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "project": "LIGHTONE_VSCODE_STABLE_v1.2.1",
+  "survey_version": "1.2.1",
+  "built_at": "2026-09-04T23:26:36+09:00",
+  "source": {
+    "archive": "LIGHTONE_v1.2.1_NETLIFY_DEPLOY.zip",
+    "archive_sha256": "b46ce40c3ab831034773b980dcdc9b5e99c9bb672bc80f9811c39951386098df",
+    "index_sha256": "b71703d988ef91b2fc5c3ac033f749bfc64745a1529e3f6f1467d1d037e25e2b",
+    "admin_sha256": "3dd77b9e18cd6559310f727b3c5844c8def2c7bc34130af3e8ee1f7cf7b5d996"
+  },
+  "output": {
+    "index_sha256": "c8644b244f8f34c30d3056c7ab34e45581b9c2120490878ebab74896ddd84cbe",
+    "admin_sha256": "be499a987052d526295b67fb2405306a7432cad3e9c80e612f83539ac1bef716"
+  },
+  "server_functions_included": false,
+  "actual_external_operations_performed": false,
+  "notes": [
+    "서버 함수는 추정 작성하지 않았습니다.",
+    "공개 여부를 확인하지 못한 담당자 이메일은 [비밀값 제거]로 치환했습니다.",
+    "실제 저장·집계·이메일·Airtable·배포는 수행하지 않았습니다."
+  ]
+}
